@@ -16,7 +16,7 @@ from jalani_common.telemetry import configure_logging
 def create(settings: CoreApiSettings | None = None) -> FastAPI:
     settings = settings or load_settings(CoreApiSettings)
     configure_logging("core-api", settings.log_level)
-    world = Slice(settings.simulator_url)
+    world = Slice(settings.simulator_url, settings.intelligence_url)
     app = create_app(
         service="core-api",
         settings=settings,

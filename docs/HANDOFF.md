@@ -1,5 +1,8 @@
 # Progress
 
+**2026-09-29 · Items 5-6 merged (load test, observability).** k6 on the end-to-end decision API: ~140 decisions/s at the core-api 1-CPU limit, p95 78/275/804 ms at 5/20/50 VUs, 0 errors (docs/LOADTEST.md).
+Grafana: intelligence row (MAPE, confidence, policy, fallbacks, shortage rate, decisions), firing-alerts table, Loki operational log; 9 alert rules, PredictionFallbackActive verified firing → Alertmanager.
+
 **2026-09-29 · Items 2-4 + 7 merged (resilience, status, operator UI, security).** All four brief §11 rows implemented, visible (Resilience panel, alerts, banners) and triggerable (admin buttons); System Status panel (§15); console adds network map, supply, disruptions, alerts, decision history; Magic UI + GSAP polish.
 Security: operator/admin login (env passwords, httpOnly cookie), approvals need operator, failure injection needs admin, validated inputs; 95 tests, `make up` healthy.
 

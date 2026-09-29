@@ -13,7 +13,13 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SECRETS = ("POSTGRES_PASSWORD", "JWT_SECRET", "GRAFANA_ADMIN_PASSWORD")
+SECRETS = (
+    "POSTGRES_PASSWORD",
+    "JWT_SECRET",
+    "GRAFANA_ADMIN_PASSWORD",
+    "OPERATOR_PASSWORD",
+    "ADMIN_PASSWORD",
+)
 
 
 def main() -> int:

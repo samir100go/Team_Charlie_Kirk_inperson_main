@@ -140,6 +140,8 @@ services:
       <<: *app-env
       INTELLIGENCE_URL: http://intelligence:8090
       JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env (make .env)}
+      OPERATOR_PASSWORD: ${OPERATOR_PASSWORD:?set OPERATOR_PASSWORD in .env (make .env)}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD in .env (make .env)}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
       AUTOPILOT_ENABLED: ${AUTOPILOT_ENABLED:-true}
     ports: ["${CORE_API_PORT:-8080}:8080"] # host port overridable if 8080 is taken

@@ -28,6 +28,7 @@ from prometheus_client import Counter, Gauge
 from pydantic import BaseModel
 
 from core_api import chaos
+from core_api.auth.tokens import Auth, User
 from core_api.decision import FUELS, incoming_schedule, plan
 from core_api.sim_models import InvalidSimulatorPayload, validate
 from core_api.store import Store
@@ -642,8 +643,10 @@ class RequestWindow:
 REQUEST_WINDOW = RequestWindow()
 
 
-def router(state: Slice, *, chaos_enabled: bool = False) -> APIRouter:
+def router(state: Slice, auth: Auth, *, chaos_enabled: bool = False) -> APIRouter:
     r = APIRouter(prefix="/api/v1")
+    operator = auth.require("operator")
+    admin = auth.require("admin")
 
     @r.get("/state")
     async def get_state() -> dict[str, Any]:
@@ -677,33 +680,36 @@ def router(state: Slice, *, chaos_enabled: bool = False) -> APIRouter:
     async def approve(
         rec_id: str = Path(pattern=r"^[A-Za-z0-9_.\-]{1,120}$"),
         body: ApproveBody | None = None,
+        user: User = operator,
     ) -> dict[str, Any]:
-        return await state.approve(rec_id, reviewed=bool(body and body.reviewed))
+        reviewed = bool(body and body.reviewed)
+        return await state.approve(rec_id, reviewed=reviewed, user=user.username, role=user.role)
 
     if chaos_enabled:
+        chaos_deps = [admin]
 
-        @r.post("/chaos/simulator-fault")
+        @r.post("/chaos/simulator-fault", dependencies=chaos_deps)
         async def sim_fault(body: chaos.FaultBody) -> dict[str, Any]:
             return await chaos.simulator_fault(state.client, body)
 
-        @r.post("/chaos/demand-spike")
+        @r.post("/chaos/demand-spike", dependencies=chaos_deps)
         async def spike(body: chaos.SpikeBody) -> dict[str, Any]:
             return await chaos.demand_spike(state.client, body)
 
-        @r.post("/chaos/corrupt-simulator")
+        @r.post("/chaos/corrupt-simulator", dependencies=chaos_deps)
         async def corrupt(body: chaos.OutageBody) -> dict[str, Any]:
             state.corruption.until = time.time() + body.seconds
             log.warning("chaos.corrupt_simulator", seconds=body.seconds)
             return {"corrupting_for_s": body.seconds}
 
-        @r.post("/chaos/prediction-outage")
+        @r.post("/chaos/prediction-outage", dependencies=chaos_deps)
         async def prediction_outage(body: chaos.OutageBody) -> dict[str, Any]:
             if state.intel is None:
                 raise HTTPException(409, "no prediction service configured")
             resp = await state.intel.post("/chaos/outage", json={"seconds": body.seconds})
             return {"status": resp.status_code, "intelligence": resp.json()}
 
-        @r.post("/chaos/clear")
+        @r.post("/chaos/clear", dependencies=chaos_deps)
         async def clear() -> dict[str, Any]:
             state.corruption.until = 0.0
             out: dict[str, Any] = {"simulator": await chaos.clear_simulator_faults(state.client)}

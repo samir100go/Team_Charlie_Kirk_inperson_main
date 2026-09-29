@@ -8,6 +8,7 @@ from collections.abc import Awaitable, Callable
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
+from core_api.auth.tokens import Auth, auth_router
 from core_api.config import CoreApiSettings
 from core_api.slice import REQUEST_WINDOW, Slice, lifespan_for
 from core_api.slice import router as slice_router
@@ -65,5 +66,13 @@ def create(settings: CoreApiSettings | None = None) -> FastAPI:
         finally:
             REQUEST_WINDOW.add(time.perf_counter() - started, error)
 
-    app.include_router(slice_router(world, chaos_enabled=settings.chaos_enabled))
+    auth = Auth(
+        settings.jwt_secret.get_secret_value(),
+        {
+            "operator": (settings.operator_password.get_secret_value(), "operator"),
+            "admin": (settings.admin_password.get_secret_value(), "admin"),
+        },
+    )
+    app.include_router(auth_router(auth))
+    app.include_router(slice_router(world, auth, chaos_enabled=settings.chaos_enabled))
     return app

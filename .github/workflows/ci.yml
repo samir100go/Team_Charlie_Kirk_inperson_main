@@ -80,7 +80,7 @@ jobs:
           curl -fsSLO "$base/$tarball"
           curl -fsSL "$base/gitleaks_${GITLEAKS_VERSION}_checksums.txt" | grep " $tarball\$" | sha256sum -c -
           sudo tar -xzf "$tarball" -C /usr/local/bin gitleaks
-      - run: gitleaks git --redact --verbose .
+      - run: gitleaks git --config .gitleaks.toml --redact --verbose .
 
   docker:
     name: docker build · ${{ matrix.name }}

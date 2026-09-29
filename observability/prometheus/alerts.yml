@@ -1,5 +1,5 @@
-# Baseline availability alerts. The full rule set (error rate, p95 SLO, simulator
-# circuit, staleness, fallback, forecast drift, service level) lands in Phase 8.
+# JALANI alert rules (brief §14). Each maps to a failure mode the platform handles (§11),
+# so an operator sees both the automatic response in the console and the alert here.
 groups:
   - name: jalani-availability
     rules:
@@ -19,3 +19,63 @@ groups:
         annotations:
           summary: "{{ $labels.service }} is returning 5xx responses"
           description: "More than 0.5 req/s of 5xx from {{ $labels.service }} for 1 minute."
+
+  - name: jalani-integration
+    rules:
+      - alert: SimulatorUnavailable
+        expr: jalani_sim_available == 0
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Simulator unreachable or returning invalid data"
+          description: "core-api serves cached state; decisions run in degraded mode."
+      - alert: SimulatorInvalidPayload
+        expr: increase(jalani_sim_invalid_payloads_total[5m]) > 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "Invalid simulator response rejected ({{ $labels.endpoint }})"
+          description: "The payload failed the contract; the last valid snapshot is in use."
+      - alert: DatabaseUnavailable
+        expr: jalani_database_available == 0
+        for: 10s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Decision-history database unavailable"
+          description: "Audit writes are buffered in core-api ({{ $value }})."
+
+  - name: jalani-intelligence
+    rules:
+      - alert: PredictionFallbackActive
+        expr: jalani_decision_policy_forecast == 0
+        for: 10s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Prediction service unavailable: fallback allocation policy active"
+          description: "Recommendations use the recent-demand-rate rule until forecasts return."
+      - alert: LowPredictionConfidence
+        expr: jalani_recommendations_review_required > 0
+        for: 5s
+        labels:
+          severity: info
+        annotations:
+          summary: "{{ $value }} recommendation(s) need human review"
+          description: "Prediction confidence below 60 %, usually right after a demand regime change."
+      - alert: ForecastErrorHigh
+        expr: jalani_forecast_mape > 0.15
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Forecast MAPE {{ $value | humanizePercentage }} (normal is ~5 %)"
+          description: "1-tick-ahead error is well above the simulator noise floor: model drift."
+      - alert: StationShortageRisk
+        expr: increase(jalani_shortage_alerts_total[2m]) > 0
+        labels:
+          severity: warning
+        annotations:
+          summary: "Station x fuel entered CRITICAL stockout risk ({{ $labels.fuel }})"
+          description: "Less than 8 h of cover predicted; see the recommendations in the console."

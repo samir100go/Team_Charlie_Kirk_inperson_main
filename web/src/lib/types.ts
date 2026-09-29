@@ -106,12 +106,87 @@ export type Allocation = {
   failure_reason: string | null;
 };
 
+export type Route = {
+  id: string;
+  source_depot_id: string;
+  destination_station_id: string;
+  status: string;
+  transit_ticks: number;
+  max_shipment: number;
+};
+
+export type SupplyArrival = {
+  id: string;
+  depot_id: string;
+  fuel_type: string;
+  quantity: number;
+  planned_tick: number;
+  status: string;
+  eta_hours: number;
+};
+
+export type Component = { name: string; state: "Healthy" | "Degraded" | "Down"; detail: string };
+
+export type Alert = {
+  id: number;
+  raised_at: string;
+  severity: "critical" | "warning" | "info";
+  source: string;
+  kind: string;
+  message: string;
+  resolved_at: string | null;
+};
+
+export type SystemStatus = {
+  components: Component[];
+  p95_latency_ms: number | null;
+  error_rate: number;
+  window_s: number;
+  open_alerts: Alert[];
+};
+
+export type ResilienceRow = {
+  condition: string;
+  response: string;
+  active: boolean;
+  detail: string | null;
+};
+
+export type Decision = {
+  id: number;
+  decided_at: string;
+  sim_tick: number;
+  station_id: string;
+  fuel: string;
+  depot_id: string;
+  route_id: string;
+  quantity: number;
+  policy: string;
+  confidence: number | null;
+  review_required: boolean;
+  reviewed: boolean;
+  decided_by: string;
+  role: string;
+  risk_before: RiskSnapshot | null;
+  risk_after: RiskSnapshot | null;
+  result: string;
+  simulator_detail: unknown;
+  allocation_id: number | null;
+  outcome: string | null;
+  outcome_tick: number | null;
+};
+
+export type Me = { username: string; role: "operator" | "admin" } | null;
+
 export type World = {
   meta: {
     age_s: number | null;
     simulator_available: boolean;
     error: string | null;
     sim_stale: boolean;
+    source: "simulator" | "cache";
+    invalid_payload: { endpoint: string; errors: string[] } | null;
+    database: { available: boolean; error: string | null; buffered_writes: number } | null;
     prediction_service: {
       available: boolean;
       error: string | null;
@@ -131,6 +206,8 @@ export type World = {
   recommendations?: Recommendation[];
   waiting?: Waiting[];
   allocations?: Allocation[];
+  routes?: Route[];
+  supply?: SupplyArrival[];
 };
 
 export const fmt = (n: number) => n.toLocaleString("en-US", { maximumFractionDigits: 0 });

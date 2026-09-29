@@ -8,7 +8,7 @@ from typing import Any
 import pytest
 
 import simfixtures as fx
-from core_api.slice import RATE_WINDOW_TICKS, demand_rate_per_tick, plan
+from core_api.decision import RATE_WINDOW_TICKS, demand_rate_per_tick, plan
 
 TICK_H = 0.25
 
@@ -58,17 +58,61 @@ def test_recorded_demand_rate_matches_documented_profile() -> None:
         assert demand_rate_per_tick(rows, fuel) == pytest.approx(expected, rel=0.10)
 
 
-def test_cover_after_refill_is_current_plus_incoming_plus_shipment_over_rate() -> None:
+def test_recommendation_is_inspectable_as_brief_section_9_asks() -> None:
     w = _world({"station-mirpur": {"PETROL": 300.0}})
     w["allocations"] = [{"status": "IN_TRANSIT", "destination_station_id": "station-mirpur",
                          "fuel_type": "PETROL", "source_depot_id": "depot-gazipur",
+                         "route_id": "route-gazipur-mirpur", "expected_arrival_tick": 1,
                          "quantity": 1000.0}]  # fmt: skip
-    recs = plan(w)["recommendations"]
-    rec = next(r for r in recs if r["id"].startswith("t0-station-mirpur-PETROL"))
-    rate_h = 100.0 / TICK_H
-    expected = (300 + 1000 + rec["quantity"]) / rate_h
-    assert rec["hours_cover_after"] == pytest.approx(expected, abs=0.051)  # shown to 0.1 h
+    out = plan(w)  # no predictions -> fallback policy
+    assert out["policy"] == "fallback"
+    rec = next(r for r in out["recommendations"] if r["id"].startswith("t0-station-mirpur-PETROL"))
+    assert "runs out" in rec["why"]  # why the station is at risk
+    assert {s["name"] for s in rec["signals"]} >= {"inventory", "incoming", "recent demand"}
+    assert sum(c["binding"] for c in rec["constraints"]) == 1  # which constraint set the quantity
+    before, after = rec["impact"]["before"], rec["impact"]["after"]
+    assert after["hours_p50"] is None or after["hours_p50"] > before["hours_p50"]
+    assert any(a["action"].startswith("hold") for a in rec["alternatives"])
     assert rec["incoming_l"] == 1000.0
+    # in-flight fuel counts as room already taken (the simulator destroys overflow)
+    room = next(c for c in rec["constraints"] if c["name"] == "station free capacity")
+    assert room["value"] == f"{14000 - 300 - 1000:.0f} L"
+
+
+def test_forecast_policy_flags_low_confidence_for_human_review() -> None:
+    import json
+    from pathlib import Path
+
+    from intelligence.forecast.predict import PredictRequest, predict
+
+    raw = Path(__file__).resolve().parents[3] / "docs/experiments/raw/e1_demand_rows.json"
+    rows = [r for r in json.loads(raw.read_text()) if r["tick"] < 33]
+    for r in rows:
+        if r["station_id"] == "station-mirpur" and r["tick"] >= 30:
+            r["demand_liters"] *= 3  # demand spike x3 started 3 ticks ago (real rows otherwise)
+    w = _world({"station-mirpur": {"PETROL": 900.0}})
+    w["instance"] = {**w["instance"], "tick": 33, "sim_time": "2026-01-01T08:15:00"}
+    w["demand"] = {s["id"]: [r for r in rows if r["station_id"] == s["id"]][::-1]
+                   for s in w["stations"]}  # fmt: skip
+    preds = predict(PredictRequest.model_validate({
+        "tick": 33, "tick_minutes": 15, "sim_time": "2026-01-01T08:15:00",
+        "regions": {r["id"]: r["demand_factor"] for r in fx.body("regions__ok")},
+        "stations": w["stations"], "demand": rows,
+    }))  # fmt: skip
+    out = plan(w, preds)
+    assert out["policy"] == "forecast"
+    rec = next(r for r in out["recommendations"] if r["station_id"] == "station-mirpur"
+               and r["fuel"] == "PETROL")  # fmt: skip
+    assert rec["review_required"]
+    assert rec["confidence"] < 0.6
+    assert any("regime changed" in reason for reason in rec["review_reasons"])
+    assert any(s["name"] == "abnormal demand" for s in rec["signals"])
+    before, after = rec["impact"]["before"], rec["impact"]["after"]
+    # x3 demand: one shipment cannot prevent a stockout within 24 h (prob stays ~1), but it
+    # pushes the stockout out and cuts the liters customers will be refused
+    assert after["hours_p50"] is None or after["hours_p50"] >= before["hours_p50"]
+    assert after["unmet_p50"] < before["unmet_p50"] - 0.5 * rec["quantity"]
+    assert rec["warning"]  # 900 L at x3 demand empties before a 2-tick shipment lands
 
 
 def test_dispatch_capacity_goes_to_the_most_urgent_first() -> None:

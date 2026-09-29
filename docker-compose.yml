@@ -118,7 +118,6 @@ services:
     image: jalani/intelligence:${IMAGE_TAG:-dev}
     environment:
       <<: *app-env
-      MODEL_VERSION: ${MODEL_VERSION:-structural-prior-v0}
     ports: ["8090:8090"]
     healthcheck:
       <<: *python-healthcheck

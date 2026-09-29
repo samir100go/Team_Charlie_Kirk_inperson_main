@@ -1,6 +1,8 @@
 # JALANI — Fuel Supply Intelligence & Resilience Platform
 ### BUP CSE FEST 2026 Hackathon Finals · Build. Deploy. Observe. Respond. · **Two-person edition**
 
+> **Solo mode from v0.5.0: Person 1 owns all tasks. Folder ownership, HANDOFF requests and sync checkpoints no longer apply; gates still do.**
+
 > **জ্বালানি (Jalani)** = "fuel" in Bangla. An operations-center platform that observes the BUP Fuel Supply Simulator, predicts shortages, recommends and executes explainable allocations, survives crises and software failures, and proves all of it with metrics.
 
 ---
@@ -313,7 +315,7 @@ flowchart LR
 └── .github/workflows/          [P2]
 ```
 
-**Tooling:** Python 3.12 in containers (3.13 fine locally) + `uv`; `ruff` + `mypy`; `pytest` + `hypothesis`; Node LTS + `pnpm`; `eslint` + `tsc`; `vitest`; Playwright; k6.
+**Tooling:** Python 3.12 in containers (3.13 fine locally) + `uv`; `ruff` + `mypy`; `pytest` + `hypothesis`; Node 24 LTS (22 works locally) + `pnpm` 10.34.6 (`packageManager` in `web/package.json`); run what CI runs with `uv run pre-commit run --all-files && uv run pytest` (`make lint test`); `eslint` + `tsc`; `vitest`; Playwright; k6.
 
 ---
 
@@ -350,8 +352,8 @@ flowchart LR
 - [x] 1.4 `docker-compose.yml`: all Part A services, health checks, `depends_on: service_healthy`, named volumes, resource limits, `restart: unless-stopped`, simulator image and env vars passed through. *(Verified with `make up` on Docker Desktop/Windows 2026-09-29: all 15 long-running containers up, every healthcheck healthy, 9/9 Prometheus targets up, Grafana provisions Prometheus/Loki/Tempo/Alertmanager, Alloy ships all container logs to Loki. Promtail replaced by Grafana Alloy (Promtail EOL 2026-03-02). Fixes: `tempo-init` uses busybox (Tempo image is distroless), Tempo not published on the host (Windows reserves 3188-3287), core-api host port is `CORE_API_PORT` (default 8080). Simulator image has Python 3.12 + curl.)*
 - [x] 1.5 `.env.example` documenting every variable; services fail fast on missing required vars. *(`make .env` copies it and fills `POSTGRES_PASSWORD`, `JWT_SECRET`, `GRAFANA_ADMIN_PASSWORD` with random values (`scripts/make_env.py`, never overwrites). Compose refuses to start without them; services fail fast via `load_settings`.)*
 - [x] 1.6 `Makefile`: `up`, `up-lite`, `down`, `logs`, `ps`, `test`, `lint`, `fmt`, `e2e`, `loadtest`, `sim-reset`, `sim-run`, `sim-pause`, `sim-step N=`, `demo`, `rollback VERSION=`. *(All targets exist; `e2e` and `loadtest` exit with "Phase 10/9" until their suites exist. `make up` = `docker compose up -d --build --wait`; `make lint` = pre-commit on all files; `make .env` generates secrets.)*
-- [ ] 1.7 [P2] `.github/workflows/ci.yml` stub: lint + unit tests + docker build per service. *(Written: python (ruff, mypy, pytest), web (eslint, tsc, prettier), gitleaks on full history, docker build of all 4 images with buildx GHA cache. Merged into `jalani-dev`; actionlint clean; every non-Docker step passes locally. **Left:** the first GitHub Actions run must go green. The docker jobs have never run anywhere. See HANDOFF "Person 2 handover".)*
-- [x] 1.8 [P2] Pre-commit: ruff, mypy, eslint, prettier, gitleaks. *(`.pre-commit-config.yaml`; tool versions come from `uv.lock` and `web/node_modules`. `.gitattributes` forces LF so Windows and Linux agree. All hooks pass on all files; gitleaks catches a planted token. mypy now covers the tests too (P1 typed them and dropped `--exclude /tests/`, 2026-09-29).)*
+- [ ] 1.7 [P2] `.github/workflows/ci.yml` stub: lint + unit tests + docker build per service. *(Written: python (ruff, mypy incl. tests, pytest), web (eslint, next typegen + tsc, prettier), `secrets` (checksum-verified gitleaks over full history), `docker` (buildx build of core-api, ingestor, intelligence, web; per-image GHA cache; no push). Runs on push/PR to `main` and `jalani-dev` + manual dispatch; needs no secrets (built-in `GITHUB_TOKEN` only). All four images build locally and every non-Docker step passes locally. **Left:** confirm a green GitHub Actions run (repo is private; `gh` not logged in on the dev machine), then tick. The docker matrix copies `SERVICE`/`PACKAGE`/`PORT` build args from `docker-compose.yml`: change both together. If `web` fails, suspect `next/font/google` (see 11.3).)*
+- [x] 1.8 [P2] Pre-commit: ruff, mypy, eslint, prettier, gitleaks. *(Once per clone: `uv sync && pnpm --dir web install && uv run pre-commit install`; the first run builds gitleaks with Go (~1 min). To skip one hook in an emergency use `SKIP=mypy git commit …`, never `--no-verify` (skips gitleaks too). Windows clones made before `.gitattributes` need `git rm --cached -r -q . && git reset --hard` once. `.pre-commit-config.yaml`; tool versions come from `uv.lock` and `web/node_modules`. `.gitattributes` forces LF so Windows and Linux agree. All hooks pass on all files; gitleaks catches a planted token. mypy now covers the tests too (P1 typed them and dropped `--exclude /tests/`, 2026-09-29).)*
 
 **Verify:** `make up` → all containers healthy; `curl localhost:8080/healthz` ok; CI green. **→ Handoff to P2.**
 
@@ -366,7 +368,7 @@ Write `docs/CONTRACTS.md` with a **realistic JSON example for every item**. This
 - [ ] C0.3 [P1] **Domain objects:** `Forecast` (P10/P50/P90 per tick), `RiskAssessment` (probability, time-to-stockout range, tier, signals), `Recommendation` (legs, expected impact before/after, explanation object, confidence, policy, model_version, valid_until_tick, status), `Decision` (audit record), `Incident`, `SystemAlert`.
 - [ ] C0.4 [P1] **Decision endpoints** (served by core-api, P1-owned): `GET /api/v1/recommendations`, `POST /api/v1/recommendations/compute`, `POST /api/v1/recommendations/{id}/approve|reject|modify`, `GET /api/v1/decisions`, `POST /api/v1/whatif` (Part B), `PUT /api/v1/autopilot`.
 - [ ] C0.5 [P2] **Read endpoints** (P2-owned): `/api/v1/overview`, `/network`, `/stations/{id}`, `/depots/{id}`, `/events`, `/allocations`, `/supply`, `/risks`, `/forecasts`, `/system/status`, `/version`, `/auth/login`, `/ws`; every response carries `meta`.
-- [ ] C0.6 [P2] **Mock server:** web uses MSW (or a `MOCK_MODE=true` flag in core-api) serving the contract examples, so the console works with zero backend.
+- [ ] C0.6 [P2] **Mock server:** web uses MSW (or a `MOCK_MODE=true` flag in core-api) serving the contract examples, so the console works with zero backend. *(Not started; no mocks exist and the web app is still the static placeholder `web/src/app/page.tsx`. The recorded simulator fixtures (`services/common/tests/fixtures/`, `simfixtures.py`) are the realistic source for any mock.)*
 - [ ] C0.7 [P2] Generate TypeScript types from core-api OpenAPI (`openapi-typescript`) in CI so contract drift breaks the build.
 - [x] C0.8 [BOTH] Create `docs/HANDOFF.md` from the template in §1.5.
 
@@ -562,7 +564,7 @@ Start on day one against mocks. Use **context**, **magicui**, **gsap**, **playwr
 - [ ] [P2] `ci.yml`: lint + typecheck → unit → build images (buildx cache) → compose up with simulator → integration → Playwright → k6 smoke → Trivy → gitleaks; upload reports.
 - [ ] [P2] `release.yml`: images to GHCR tagged `sha` + semver; changelog.
 - [ ] [P2] `make deploy VERSION=x`: pull tagged images → up → wait for health checks → smoke → **auto-rollback** on failure. README shows Source → Build → Test → Package → Deploy → Health Check → Running.
-- [ ] [P2] Version in UI footer and `/version`.
+- [ ] [P2] Version in UI footer and `/version`. *(`web/src/app/api/version/route.ts` exists; it reports `unknown`/`dev` unless the `GIT_SHA`, `BUILD_TIME`, `IMAGE_TAG` build args are set, which `make` does.)*
 
 **Verify:** a PR shows the full pipeline green; a deliberately broken health check triggers rollback.
 
@@ -570,7 +572,7 @@ Start on day one against mocks. Use **context**, **magicui**, **gsap**, **playwr
 
 ## Phase 11 — Documentation & architecture [P2 leads] (≈3%)
 
-- [ ] [P2] `README.md`: pitch, screenshots/GIF, quick start (`cp .env.example .env && make up`), URLs, demo users, architecture image, feature list mapped to the brief.
+- [ ] [P2] `README.md`: pitch, screenshots/GIF, quick start (`cp .env.example .env && make up`), URLs, demo users, architecture image, feature list mapped to the brief. *(Also replace the create-next-app boilerplate in `web/README.md`.)*
 - [ ] [P2] `docs/ARCHITECTURE.md` + `docs/architecture.svg` (mermaid-cli from §5.2): simulator → data/backend → intelligence → decision → application → monitoring.
 - [ ] [P1] `docs/DATA.md` (what's from the simulator, derived, synthetic), `docs/MODELS.md`, final `docs/SIMULATOR_NOTES.md`.
 - [ ] [P2] `docs/RESILIENCE.md`, `OBSERVABILITY.md`, `LOADTEST.md`, `SECURITY.md`, `RUNBOOK.md`.
@@ -691,7 +693,7 @@ Start on day one against mocks. Use **context**, **magicui**, **gsap**, **playwr
 ### 11.3 Backup plan [P2]
 - [ ] Recorded demo video + GIFs in `docs/demo/` (Playwright).
 - [ ] `make demo` = clean reset + seed + preset timeline.
-- [ ] Pre-pulled images; works **offline** (no map tiles, no CDN, LLM optional).
+- [ ] Pre-pulled images; works **offline** (no map tiles, no CDN, LLM optional). *(Known blocker: `web/src/app/layout.tsx` loads Geist via `next/font/google`, which downloads at build time. Self-host it (`next/font/local` or the `geist` package).)*
 
 ### 11.4 Demo speed
 `docker-compose.override.demo.yml` sets `SIMULATION_SPEED=1` or `2`; show once that it also works at 8. Pause/step controls in the top bar.

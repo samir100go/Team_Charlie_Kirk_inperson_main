@@ -16,13 +16,14 @@ UNREACHABLE: dict[str, Any] = dict(
 )  # fmt: skip
 
 
-def test_intelligence_and_simulator_are_soft_dependencies() -> None:
+def test_every_dependency_is_soft_so_core_api_degrades_instead_of_failing() -> None:
     with TestClient(create(CoreApiSettings(**UNREACHABLE))) as client:
-        checks = client.get("/readyz").json()["checks"]
-    assert checks["postgres"]["critical"] is True
-    assert checks["redis"]["critical"] is True
-    assert checks["intelligence"]["critical"] is False
-    assert checks["simulator"]["critical"] is False
+        ready = client.get("/readyz")
+    checks = ready.json()["checks"]
+    assert all(c["critical"] is False for c in checks.values())
+    assert set(checks) == {"postgres", "redis", "intelligence", "simulator"}
+    assert ready.status_code == 200
+    assert ready.json()["status"] == "degraded"
 
 
 def test_cors_allows_only_configured_origin() -> None:

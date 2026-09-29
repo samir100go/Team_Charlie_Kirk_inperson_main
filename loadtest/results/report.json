@@ -1,0 +1,113 @@
+{
+  "5": {
+    "vus": 5,
+    "decision_ms": {
+      "p(95)": 78.3,
+      "p(99)": 103.3,
+      "max": 201.0,
+      "avg": 52.4,
+      "med": 50.2
+    },
+    "dashboard_p95_ms": 33.3,
+    "error_rate": 0,
+    "decision_rps": 95.4,
+    "total_rps": 312.7,
+    "iterations": 12443,
+    "resources": {
+      "core-api": {
+        "cpu_avg_pct": 97.3,
+        "cpu_max_pct": 101.1,
+        "mem_max_mib": 60.4
+      },
+      "intelligence": {
+        "cpu_avg_pct": 58.9,
+        "cpu_max_pct": 78.7,
+        "mem_max_mib": 47.5
+      },
+      "postgres": {
+        "cpu_avg_pct": 0.3,
+        "cpu_max_pct": 1.8,
+        "mem_max_mib": 23.3
+      },
+      "simulator": {
+        "cpu_avg_pct": 6.2,
+        "cpu_max_pct": 25.4,
+        "mem_max_mib": 82.2
+      }
+    }
+  },
+  "20": {
+    "vus": 20,
+    "decision_ms": {
+      "med": 137.6,
+      "p(95)": 275.2,
+      "p(99)": 387.0,
+      "max": 737.6,
+      "avg": 153.3
+    },
+    "dashboard_p95_ms": 63.3,
+    "error_rate": 0,
+    "decision_rps": 130.2,
+    "total_rps": 244.0,
+    "iterations": 9754,
+    "resources": {
+      "core-api": {
+        "cpu_avg_pct": 97.0,
+        "cpu_max_pct": 100.7,
+        "mem_max_mib": 67.8
+      },
+      "intelligence": {
+        "cpu_avg_pct": 76.7,
+        "cpu_max_pct": 96.5,
+        "mem_max_mib": 54.5
+      },
+      "postgres": {
+        "cpu_avg_pct": 0.4,
+        "cpu_max_pct": 2.2,
+        "mem_max_mib": 23.3
+      },
+      "simulator": {
+        "cpu_avg_pct": 6.4,
+        "cpu_max_pct": 22.3,
+        "mem_max_mib": 85.8
+      }
+    }
+  },
+  "50": {
+    "vus": 50,
+    "decision_ms": {
+      "p(95)": 803.7,
+      "p(99)": 1162.1,
+      "max": 1806.4,
+      "avg": 354.0,
+      "med": 286.5
+    },
+    "dashboard_p95_ms": 85.1,
+    "error_rate": 0,
+    "decision_rps": 140.8,
+    "total_rps": 229.1,
+    "iterations": 9167,
+    "resources": {
+      "core-api": {
+        "cpu_avg_pct": 95.2,
+        "cpu_max_pct": 101.0,
+        "mem_max_mib": 73.4
+      },
+      "intelligence": {
+        "cpu_avg_pct": 79.3,
+        "cpu_max_pct": 94.8,
+        "mem_max_mib": 75.8
+      },
+      "postgres": {
+        "cpu_avg_pct": 0.5,
+        "cpu_max_pct": 2.2,
+        "mem_max_mib": 24.9
+      },
+      "simulator": {
+        "cpu_avg_pct": 6.8,
+        "cpu_max_pct": 22.3,
+        "mem_max_mib": 73.0
+      }
+    }
+  }
+}

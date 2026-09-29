@@ -340,8 +340,9 @@ services:
     command: ["version"] # `make loadtest` runs the scripts (Phase 9)
     environment:
       K6_PROMETHEUS_RW_SERVER_URL: http://prometheus:9090/api/v1/write
+      K6_PROMETHEUS_RW_TREND_STATS: "p(50),p(95),p(99),avg"
       CORE_API_URL: http://core-api:8080
-    volumes: ["./loadtest/k6:/scripts:ro"]
+    volumes: ["./loadtest/k6:/scripts:ro", "./loadtest/results:/results"]
 
 networks:
   jalani:

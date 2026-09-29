@@ -22,6 +22,7 @@ import httpx
 from fastapi import APIRouter, FastAPI, HTTPException
 
 POLL_S = 0.5
+FULL_REFRESH_S = 2.0  # also catches /admin/reset (tick back to 0) and new allocations while paused
 TIMEOUT = httpx.Timeout(2.0, connect=1.0)
 RATE_WINDOW_TICKS = 8
 RECOMMEND_BELOW_H = 24.0
@@ -44,6 +45,7 @@ class Slice:
         self.last_error_at: float | None = None
         self.sim_stale = False
         self._tick: int | None = None
+        self._full_at = 0.0
 
     # -- simulator calls: timeout + exactly one retry -------------------------------------
     async def _call(self, method: str, path: str, **kw: Any) -> httpx.Response:
@@ -78,8 +80,10 @@ class Slice:
 
     async def poll_once(self) -> None:
         instance = await self._get("/v1/instance")
-        if self.world is not None and instance["tick"] == self._tick and not self.last_error:
+        fresh = time.time() - self._full_at < FULL_REFRESH_S
+        if self.world is not None and instance["tick"] == self._tick and fresh:
             self.world["instance"] = instance
+            self.fetched_at, self.last_error = time.time(), None
             return
         stations, depots, routes, metrics, allocations = await asyncio.gather(
             self._get("/v1/stations"),
@@ -104,7 +108,7 @@ class Slice:
             "demand": {s["id"]: rows for s, rows in zip(stations, demand, strict=True)},
         }
         self._tick = instance["tick"]
-        self.fetched_at = time.time()
+        self.fetched_at = self._full_at = time.time()
         self.last_error = None
 
     # -- decision rule --------------------------------------------------------------------
@@ -198,7 +202,7 @@ class Slice:
         if resp.status_code not in (200, 201):
             detail = resp.json().get("detail", resp.text)
             raise HTTPException(resp.status_code, detail)
-        self._tick = None  # force a refresh so the allocation shows up at once
+        self._full_at = 0.0  # force a refresh so the allocation shows up at once
         return {"allocation": resp.json(), "request": body}
 
 

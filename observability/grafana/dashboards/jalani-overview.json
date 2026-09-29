@@ -195,7 +195,7 @@
         },
         {
           "refId": "B",
-          "expr": "sum(rate(jalani_sim_requests_total{outcome=\"failed\"}[1m])) / clamp_min(sum(rate(jalani_sim_requests_total[1m])), 1e-9)",
+          "expr": "(sum(rate(jalani_sim_requests_total{outcome=\"failed\"}[1m])) or vector(0)) / clamp_min(sum(rate(jalani_sim_requests_total[1m])), 1e-9)",
           "legendFormat": "failed ratio"
         }
       ],
@@ -269,12 +269,12 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum(rate(jalani_http_requests_total{service=\"core-api\",status=~\"5..\"}[1m])) / clamp_min(sum(rate(jalani_http_requests_total{service=\"core-api\"}[1m])), 1e-9)",
+          "expr": "(sum(rate(jalani_http_requests_total{service=\"core-api\",status=~\"5..\"}[1m])) or vector(0)) / clamp_min(sum(rate(jalani_http_requests_total{service=\"core-api\"}[1m])), 1e-9)",
           "legendFormat": "5xx share"
         },
         {
           "refId": "B",
-          "expr": "sum(rate(jalani_http_requests_total{service=\"core-api\",status=~\"4..\"}[1m])) / clamp_min(sum(rate(jalani_http_requests_total{service=\"core-api\"}[1m])), 1e-9)",
+          "expr": "(sum(rate(jalani_http_requests_total{service=\"core-api\",status=~\"4..\"}[1m])) or vector(0)) / clamp_min(sum(rate(jalani_http_requests_total{service=\"core-api\"}[1m])), 1e-9)",
           "legendFormat": "4xx share (e.g. 409 from simulator)"
         }
       ],

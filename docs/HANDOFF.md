@@ -1,5 +1,8 @@
 # Progress
 
+**2026-09-29 · Items 2-4 + 7 merged (resilience, status, operator UI, security).** All four brief §11 rows implemented, visible (Resilience panel, alerts, banners) and triggerable (admin buttons); System Status panel (§15); console adds network map, supply, disruptions, alerts, decision history; Magic UI + GSAP polish.
+Security: operator/admin login (env passwords, httpOnly cookie), approvals need operator, failure injection needs admin, validated inputs; 95 tests, `make up` healthy.
+
 **2026-09-29 · Item 1 Intelligence merged.** Prediction service (structural prior + online level + regime/spike detection, event-aware, P10/P50/P90, stockout probability/time, confidence); backtest on recorded simulator data: MAPE 4.5–5.7 % in every period (vs 67 % profile-only during a ×3 spike), spike detected on its first tick.
 Decision engine: every recommendation shows why, signals, constraints (binding marked), impact before→after (incl. unmet liters), confidence, alternatives; confidence < 60 % requires human review (UI + API enforced).
 

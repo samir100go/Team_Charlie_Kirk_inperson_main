@@ -1,5 +1,9 @@
 # Progress
 
+**2026-09-29 · Demo fixes merged to main.** "3× rates" was a leftover ×3 test spike (rates match the documented profile within noise on a clean world); recommendations now fit each depot's per-tick dispatch capacity (most urgent first, rest "next tick"); cover math shown in each reason.
+Grafana "JALANI Overview" provisioned as home, anonymous viewer; new core-api metrics (sim calls/failures, availability, data age, tick, service level, unmet liters). Makefile: sim-status, demo-spike, demo-fault, demo-clear.
+Verified: 70 tests, web lint/typecheck/build, `make up` all healthy, Playwright: every approve accepted, fault banner + recovery, Grafana 11 panels with data.
+
 **2026-09-29 · Thin demo slice on real data (30-min deadline), merged to main.** core-api polls the simulator (timeout + 1 retry, last-good cache), recommends refills by hours-to-stockout; web page shows KPIs, risk table, Approve → `/v1/allocations`, cached-data banner.
 Verified: `make up` healthy, 65 tests, Playwright: approve → PENDING → IN_TRANSIT, error_rate fault → banner, clear → LIVE.
 Next: `docs/DEMO_SCRIPT.md`; rule doesn't yet account for per-tick depot dispatch cap (second approve on the same depot can get 409 DISPATCH_CAPACITY_EXCEEDED, shown in the UI).

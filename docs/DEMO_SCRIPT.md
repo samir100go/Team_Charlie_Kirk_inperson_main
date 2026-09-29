@@ -11,7 +11,11 @@ failure-injection buttons are enabled. ~8 minutes.
    anything left from rehearsals.
 3. `make sim-status` — must show `"tick":0`, `"status":"PAUSED"`, `events: []`, `active faults: none`.
 4. Console: tick 0 · PAUSED, **● LIVE**, FORECAST policy badge, service level 100 %, System
-   Status all green, Resilience panel all OK, no open alerts.
+   Status all green, no allocations, no crisis events. Expected at tick 0: some stations are
+   already flagged (the scenario's day-1 supply does not cover day-1 demand; first unmet demand
+   comes at tick ~65 with no action) and those cards ask for **human review** because the model
+   has no demand history yet: "Prediction confidence too low" is the only ACTIVE resilience row.
+   Confidence rises once a few ticks of history exist.
 5. Grafana: "JALANI Overview" opens as the home page.
 6. Pace: `make demo` restarts the simulator at 2 ticks/s (calmer on stage), resets and starts it.
    At the default speed (`make sim-run`, ~7 ticks/s) the world runs dry after ~75 s.

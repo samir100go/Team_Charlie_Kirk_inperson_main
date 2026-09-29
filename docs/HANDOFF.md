@@ -1,5 +1,8 @@
 # Progress
 
+**2026-09-29 · Item 1 Intelligence merged.** Prediction service (structural prior + online level + regime/spike detection, event-aware, P10/P50/P90, stockout probability/time, confidence); backtest on recorded simulator data: MAPE 4.5–5.7 % in every period (vs 67 % profile-only during a ×3 spike), spike detected on its first tick.
+Decision engine: every recommendation shows why, signals, constraints (binding marked), impact before→after (incl. unmet liters), confidence, alternatives; confidence < 60 % requires human review (UI + API enforced).
+
 **2026-09-29 · Demo fixes merged to main.** "3× rates" was a leftover ×3 test spike (rates match the documented profile within noise on a clean world); recommendations now fit each depot's per-tick dispatch capacity (most urgent first, rest "next tick"); cover math shown in each reason.
 Grafana "JALANI Overview" provisioned as home, anonymous viewer; new core-api metrics (sim calls/failures, availability, data age, tick, service level, unmet liters). Makefile: sim-status, demo-spike, demo-fault, demo-clear.
 Verified: 70 tests, web lint/typecheck/build, `make up` all healthy, Playwright: every approve accepted, fault banner + recovery, Grafana 11 panels with data.

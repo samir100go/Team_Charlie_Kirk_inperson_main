@@ -1,0 +1,46 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "create_allocation",
+    "recorded_at": "2026-09-29T04:53:49+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 49.7,
+    "note": "depot-patiya is CONSTRAINED: docs say still shippable",
+    "sim_tick": 1
+  },
+  "request": {
+    "method": "POST",
+    "path": "/v1/allocations",
+    "params": null,
+    "json": {
+      "idempotency_key": "probe-constrained",
+      "source_depot_id": "depot-patiya",
+      "destination_station_id": "station-mirpur",
+      "route_id": "route-patiya-mirpur",
+      "fuel_type": "DIESEL",
+      "quantity": 1000
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "id": 1,
+      "idempotency_key": "probe-constrained",
+      "source_depot_id": "depot-patiya",
+      "destination_station_id": "station-mirpur",
+      "route_id": "route-patiya-mirpur",
+      "fuel_type": "DIESEL",
+      "quantity": 1000.0,
+      "created_tick": 1,
+      "departure_tick": null,
+      "expected_arrival_tick": null,
+      "actual_arrival_tick": null,
+      "status": "PENDING",
+      "failure_reason": null
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "stream_event",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a76.3"
+  },
+  "event": "simulator.notice",
+  "data": {
+    "level": "error",
+    "message": "..."
+  }
+}

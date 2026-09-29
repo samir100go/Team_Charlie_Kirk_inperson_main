@@ -17,12 +17,12 @@ Simulator behaviour we verified by experiment is in [`docs/SIMULATOR_NOTES.md`](
 
 ## Quick start (simulator only, Phase 0)
 
+Needs Docker with the compose plugin and [uv](https://docs.astral.sh/uv/).
+
 ```bash
-docker compose -f docker-compose.sim.yml up -d
-curl -s http://localhost:8000/v1/health
-python3 -m venv .venv && .venv/bin/pip install httpx
-.venv/bin/python scripts/probe_simulator.py      # refresh contract-test fixtures
-.venv/bin/python scripts/sim_experiments.py      # re-run the Phase 0 experiments
+make sim-up            # organizer simulator snippet, paused, on :8000
+make sim-probe         # record contract-test fixtures (resets the simulator)
+make sim-experiments   # re-run the Phase 0 experiments (resets the simulator)
 ```
 
 The full-stack `make up` arrives in Phase 1.

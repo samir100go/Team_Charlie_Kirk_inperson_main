@@ -1,0 +1,19 @@
+# The Python services build from the repo root (services/python.Dockerfile): keep the context small.
+.git
+.venv
+**/__pycache__
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+.playwright-mcp
+web
+docs
+scripts
+bench
+loadtest
+observability
+deploy
+services/*/tests
+services/intelligence/models
+.env
+.env.*

@@ -1,0 +1,36 @@
+# Prometheus scrape config. Dashboards and the full alert set arrive in Phase 8.
+global:
+  scrape_interval: 5s # the simulator ticks 8x/s by default: scrape often
+  evaluation_interval: 5s
+  external_labels:
+    project: jalani
+
+rule_files:
+  - alerts.yml # resolved relative to this file
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["alertmanager:9093"]
+
+scrape_configs:
+  - job_name: jalani
+    static_configs:
+      - targets: ["ingestor:8070"]
+        labels: { service: ingestor }
+      - targets: ["core-api:8080"]
+        labels: { service: core-api }
+      - targets: ["intelligence:8090"]
+        labels: { service: intelligence }
+  - job_name: prometheus
+    static_configs: [{ targets: ["localhost:9090"] }]
+  - job_name: alertmanager
+    static_configs: [{ targets: ["alertmanager:9093"] }]
+  - job_name: cadvisor
+    static_configs: [{ targets: ["cadvisor:8080"] }]
+  - job_name: loki
+    static_configs: [{ targets: ["loki:3100"] }]
+  - job_name: tempo
+    static_configs: [{ targets: ["tempo:3200"] }]
+  - job_name: alloy
+    static_configs: [{ targets: ["alloy:12345"] }]

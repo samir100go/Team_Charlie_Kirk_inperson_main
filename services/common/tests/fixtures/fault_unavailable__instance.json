@@ -1,0 +1,29 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "instance",
+    "recorded_at": "2026-09-29T04:53:52+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 1.3,
+    "sim_tick": null
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/instance",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 503,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "error": {
+        "code": "FAULT_INJECTED",
+        "message": "Simulator API temporarily unavailable."
+      }
+    }
+  }
+}

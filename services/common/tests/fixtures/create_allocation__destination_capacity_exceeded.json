@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "create_allocation",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 44.8,
+    "note": "station-mirpur OCTANE 5000/9000 at tick 0 -> room 4000",
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "POST",
+    "path": "/v1/allocations",
+    "params": null,
+    "json": {
+      "idempotency_key": "probe-dest-cap",
+      "source_depot_id": "depot-gazipur",
+      "destination_station_id": "station-mirpur",
+      "route_id": "route-gazipur-mirpur",
+      "fuel_type": "OCTANE",
+      "quantity": 5000
+    }
+  },
+  "response": {
+    "status": 409,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": {
+        "code": "DESTINATION_CAPACITY_EXCEEDED",
+        "message": "Shipment would exceed destination capacity"
+      }
+    }
+  }
+}

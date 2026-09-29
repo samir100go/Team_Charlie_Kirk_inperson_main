@@ -1,0 +1,59 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "depots",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 2.2,
+    "sim_tick": 20
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/depots",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": "depot-gazipur",
+        "name": "Gazipur Depot",
+        "region_id": "region-dhaka",
+        "status": "OPEN",
+        "dispatch_capacity_per_tick": 12000.0,
+        "capacity": {
+          "DIESEL": 90000,
+          "PETROL": 70000,
+          "OCTANE": 45000
+        },
+        "inventory": {
+          "DIESEL": 78000.0,
+          "PETROL": 59000.0,
+          "OCTANE": 26000
+        }
+      },
+      {
+        "id": "depot-patiya",
+        "name": "Patiya Depot",
+        "region_id": "region-chattogram",
+        "status": "OPEN",
+        "dispatch_capacity_per_tick": 11000.0,
+        "capacity": {
+          "DIESEL": 85000,
+          "PETROL": 65000,
+          "OCTANE": 40000
+        },
+        "inventory": {
+          "DIESEL": 71000.0,
+          "PETROL": 42000,
+          "OCTANE": 24000
+        }
+      }
+    ]
+  }
+}

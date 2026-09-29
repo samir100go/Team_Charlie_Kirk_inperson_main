@@ -1,0 +1,29 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "stream",
+    "recorded_at": "2026-09-29T04:53:53+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "reader_ended": "http 503",
+    "note": "GET /v1/stream while error_rate fault active"
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/stream",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 503,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "error": {
+        "code": "FAULT_INJECTED",
+        "message": "Injected transient API error."
+      }
+    }
+  }
+}

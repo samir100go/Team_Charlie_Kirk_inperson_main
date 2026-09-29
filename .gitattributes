@@ -1,0 +1,10 @@
+# LF everywhere, on every OS. The team works on Linux and Windows; without this,
+# Windows checkouts get CRLF, which breaks Prettier's check and shell scripts
+# copied into Linux images.
+* text=auto eol=lf
+
+*.pdf binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff2 binary

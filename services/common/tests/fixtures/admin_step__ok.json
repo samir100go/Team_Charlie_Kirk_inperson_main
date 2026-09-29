@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_step",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 14.6,
+    "sim_tick": 1
+  },
+  "request": {
+    "method": "POST",
+    "path": "/admin/step",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "tick": 1,
+      "sim_time": "2026-01-01T00:15:00"
+    }
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_audit",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 3.0,
+    "sim_tick": 20
+  },
+  "request": {
+    "method": "GET",
+    "path": "/admin/audit",
+    "params": {
+      "limit": 50
+    },
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": 24,
+        "wall_time": "2026-09-29T04:53:47.374814",
+        "sim_time": "2026-01-01T04:45:00",
+        "tick": 19,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 19
+        }
+      },
+      {
+        "id": 23,
+        "wall_time": "2026-09-29T04:53:47.359273",
+        "sim_time": "2026-01-01T04:30:00",
+        "tick": 18,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 18
+        }
+      },
+      {
+        "id": 22,
+        "wall_time": "2026-09-29T04:53:47.344691",
+        "sim_time": "2026-01-01T04:15:00",
+        "tick": 17,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 17
+        }
+      },
+      {
+        "id": 21,
+        "wall_time": "2026-09-29T04:53:47.329934",
+        "sim_time": "2026-01-01T04:00:00",
+        "tick": 16,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 16
+        }
+      },
+      {
+        "id": 20,
+        "wall_time": "2026-09-29T04:53:47.328956",
+        "sim_time": "2026-01-01T04:00:00",
+        "tick": 16,
+        "action": "supply.arrived",
+        "entity_type": "supply",
+        "entity_id": "supply-002",
+        "result": "OK",
+        "metadata_json": {
+          "added": 14000.0
+        }
+      },
+      {
+        "id": 19,
+        "wall_time": "2026-09-29T04:53:47.315179",
+        "sim_time": "2026-01-01T03:45:00",
+        "tick": 15,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 15
+        }
+      },
+      {
+        "id": 18,
+        "wall_time": "2026-09-29T04:53:47.299799",
+        "sim_time": "2026-01-01T03:30:00",
+        "tick": 14,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 14
+        }
+      },
+      {
+        "id": 17,
+        "wall_time": "2026-09-29T04:53:47.298859",
+        "sim_time": "2026-01-01T03:30:00",
+        "tick": 14,
+        "action": "supply.arrived",
+        "entity_type": "supply",
+        "entity_id": "supply-003",
+        "result": "OK",
+        "metadata_json": {
+          "added": 16000.0
+        }
+      },
+      {
+        "id": 16,
+        "wall_time": "2026-09-29T04:53:47.284537",
+        "sim_time": "2026-01-01T03:15:00",
+        "tick": 13,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 13
+        }
+      },
+      {
+        "id": 15,
+        "wall_time": "2026-09-29T04:53:47.270208",
+        "sim_time": "2026-01-01T03:00:00",
+        "tick": 12,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 12
+        }
+      },
+      {
+        "id": 14,
+        "wall_time": "2026-09-29T04:53:47.269378",
+        "sim_time": "2026-01-01T03:00:00",
+        "tick": 12,
+        "action": "supply.arrived",
+        "entity_type": "supply",
+        "entity_id": "supply-001",
+        "result": "OK",
+        "metadata_json": {
+          "added": 18000.0
+        }
+      },
+      {
+        "id": 13,
+        "wall_time": "2026-09-29T04:53:47.256353",
+        "sim_time": "2026-01-01T02:45:00",
+        "tick": 11,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 11
+        }
+      },
+      {
+        "id": 12,
+        "wall_time": "2026-09-29T04:53:47.241336",
+        "sim_time": "2026-01-01T02:30:00",
+        "tick": 10,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 10
+        }
+      },
+      {
+        "id": 11,
+        "wall_time": "2026-09-29T04:53:47.227223",
+        "sim_time": "2026-01-01T02:15:00",
+        "tick": 9,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 9
+        }
+      },
+      {
+        "id": 10,
+        "wall_time": "2026-09-29T04:53:47.211714",
+        "sim_time": "2026-01-01T02:00:00",
+        "tick": 8,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 8
+        }
+      },
+      {
+        "id": 9,
+        "wall_time": "2026-09-29T04:53:47.197211",
+        "sim_time": "2026-01-01T01:45:00",
+        "tick": 7,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 7
+        }
+      },
+      {
+        "id": 8,
+        "wall_time": "2026-09-29T04:53:47.182800",
+        "sim_time": "2026-01-01T01:30:00",
+        "tick": 6,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 6
+        }
+      },
+      {
+        "id": 7,
+        "wall_time": "2026-09-29T04:53:47.169053",
+        "sim_time": "2026-01-01T01:15:00",
+        "tick": 5,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 5
+        }
+      },
+      {
+        "id": 6,
+        "wall_time": "2026-09-29T04:53:47.155021",
+        "sim_time": "2026-01-01T01:00:00",
+        "tick": 4,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 4
+        }
+      },
+      {
+        "id": 5,
+        "wall_time": "2026-09-29T04:53:47.141214",
+        "sim_time": "2026-01-01T00:45:00",
+        "tick": 3,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 3
+        }
+      },
+      {
+        "id": 4,
+        "wall_time": "2026-09-29T04:53:47.125864",
+        "sim_time": "2026-01-01T00:30:00",
+        "tick": 2,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 2
+        }
+      },
+      {
+        "id": 3,
+        "wall_time": "2026-09-29T04:53:47.111754",
+        "sim_time": "2026-01-01T00:15:00",
+        "tick": 1,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 1
+        }
+      },
+      {
+        "id": 2,
+        "wall_time": "2026-09-29T04:53:47.094648",
+        "sim_time": "2026-01-01T00:00:00",
+        "tick": 0,
+        "action": "simulation.tick",
+        "entity_type": "instance",
+        "entity_id": "1",
+        "result": "OK",
+        "metadata_json": {
+          "tick": 0
+        }
+      },
+      {
+        "id": 1,
+        "wall_time": "2026-09-29T04:53:46.969101",
+        "sim_time": "2026-01-01T00:00:00",
+        "tick": 0,
+        "action": "admin.pause",
+        "entity_type": null,
+        "entity_id": null,
+        "result": "OK",
+        "metadata_json": {}
+      }
+    ]
+  }
+}

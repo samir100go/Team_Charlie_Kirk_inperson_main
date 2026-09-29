@@ -1,0 +1,78 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "demand_history",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 2.4,
+    "note": "station_id omitted: all stations, or 422?",
+    "sim_tick": 20
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/demand-history",
+    "params": {
+      "limit": 5
+    },
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": 240,
+        "station_id": "station-coxsbazar",
+        "fuel_type": "OCTANE",
+        "tick": 19,
+        "sim_time": "2026-01-01T04:45:00",
+        "demand_liters": 24.235,
+        "served_liters": 24.235,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 239,
+        "station_id": "station-coxsbazar",
+        "fuel_type": "PETROL",
+        "tick": 19,
+        "sim_time": "2026-01-01T04:45:00",
+        "demand_liters": 52.124,
+        "served_liters": 52.124,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 238,
+        "station_id": "station-coxsbazar",
+        "fuel_type": "DIESEL",
+        "tick": 19,
+        "sim_time": "2026-01-01T04:45:00",
+        "demand_liters": 52.348,
+        "served_liters": 52.348,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 237,
+        "station_id": "station-karnaphuli",
+        "fuel_type": "OCTANE",
+        "tick": 19,
+        "sim_time": "2026-01-01T04:45:00",
+        "demand_liters": 49.55,
+        "served_liters": 49.55,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 236,
+        "station_id": "station-karnaphuli",
+        "fuel_type": "PETROL",
+        "tick": 19,
+        "sim_time": "2026-01-01T04:45:00",
+        "demand_liters": 95.621,
+        "served_liters": 95.621,
+        "unmet_liters": 0.0
+      }
+    ]
+  }
+}

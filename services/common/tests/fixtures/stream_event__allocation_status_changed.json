@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "stream_event",
+    "recorded_at": "2026-09-29T04:53:55+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0"
+  },
+  "event": "allocation.status_changed",
+  "data": {
+    "id": 1,
+    "idempotency_key": "probe-sse-1",
+    "source_depot_id": "depot-gazipur",
+    "destination_station_id": "station-mirpur",
+    "route_id": "route-gazipur-mirpur",
+    "fuel_type": "DIESEL",
+    "quantity": 2000.0,
+    "created_tick": 0,
+    "departure_tick": null,
+    "expected_arrival_tick": null,
+    "actual_arrival_tick": null,
+    "status": "PENDING",
+    "failure_reason": null
+  }
+}

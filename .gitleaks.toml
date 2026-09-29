@@ -1,0 +1,20 @@
+# Gitleaks config: every built-in rule, plus one narrow false-positive allowlist.
+# Used by the pre-commit hook and the CI `secrets` job (both pass --config).
+title = "JALANI gitleaks config"
+
+[extend]
+useDefault = true
+
+# generic-api-key flags `"idempotency_key": "<value>"` because the key name ends
+# in "_key". Idempotency keys are request IDs for POST /v1/allocations, not
+# secrets (see services/common/tests/fixtures/validation_error__missing_field.json).
+# regexTarget = "match" checks the matched text, which starts with the key
+# name, so this only skips findings whose key is exactly `idempotency_key`.
+# Other keys, and other secrets on the same line, are still reported.
+[[rules]]
+id = "generic-api-key"
+
+    [[rules.allowlists]]
+    description = "idempotency_key values are request IDs, not secrets"
+    regexTarget = "match"
+    regexes = ['''^["']?idempotency_key["']?\s*[:=]''']

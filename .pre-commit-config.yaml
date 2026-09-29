@@ -1,0 +1,56 @@
+# Pre-commit hooks (project.md Phase 1.8). One-time setup per clone:
+#   uv sync && pnpm --dir web install && uv run pre-commit install
+# Run every hook on every file:  uv run pre-commit run --all-files
+#
+# Python tools run from uv.lock and web tools from web/node_modules, so the
+# hooks, CI (.github/workflows/ci.yml) and editors all use the same versions.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-toml
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+        exclude: ^docs/brief/
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+        args: [--config, .gitleaks.toml]
+
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: ruff check
+        entry: uv run --frozen ruff check --fix --force-exclude
+        language: system
+        types_or: [python, pyi]
+      - id: ruff-format
+        name: ruff format
+        entry: uv run --frozen ruff format --force-exclude
+        language: system
+        types_or: [python, pyi]
+      # Whole-project run: mypy gives inconsistent results on single files.
+      # Test code is excluded until it type-checks (see docs/HANDOFF.md).
+      - id: mypy
+        name: mypy --strict (services, scripts)
+        entry: uv run --frozen mypy services scripts
+        language: system
+        types: [python]
+        pass_filenames: false
+      - id: eslint
+        name: eslint (web)
+        entry: pnpm --dir web lint
+        language: system
+        files: ^web/.*\.(js|jsx|mjs|cjs|ts|tsx)$
+        pass_filenames: false
+      - id: prettier
+        name: prettier (web)
+        entry: pnpm --dir web format
+        language: system
+        files: ^web/
+        pass_filenames: false

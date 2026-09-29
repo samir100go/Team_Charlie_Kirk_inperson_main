@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "create_allocation",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 44.5,
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "POST",
+    "path": "/v1/allocations",
+    "params": null,
+    "json": {
+      "idempotency_key": "probe-mismatch",
+      "source_depot_id": "depot-gazipur",
+      "destination_station_id": "station-tongi",
+      "route_id": "route-gazipur-mirpur",
+      "fuel_type": "DIESEL",
+      "quantity": 1000
+    }
+  },
+  "response": {
+    "status": 409,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": {
+        "code": "ROUTE_MISMATCH",
+        "message": "Route does not connect selected depot and station"
+      }
+    }
+  }
+}

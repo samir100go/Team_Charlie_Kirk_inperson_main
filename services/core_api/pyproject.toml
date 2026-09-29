@@ -1,0 +1,20 @@
+[project]
+name = "jalani-core-api"
+version = "0.1.0"
+description = "JALANI core-api: Operator API, decision workflow, executor, reconciler"
+requires-python = ">=3.12"
+dependencies = [
+    "jalani-common",
+    "uvicorn[standard]>=0.32",
+]
+
+[tool.uv.sources]
+jalani-common = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.12.20,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "core_api"
+module-root = ""

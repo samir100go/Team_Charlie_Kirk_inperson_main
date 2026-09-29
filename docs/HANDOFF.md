@@ -1,5 +1,9 @@
 # Progress
 
+**2026-09-29 · Thin demo slice on real data (30-min deadline), merged to main.** core-api polls the simulator (timeout + 1 retry, last-good cache), recommends refills by hours-to-stockout; web page shows KPIs, risk table, Approve → `/v1/allocations`, cached-data banner.
+Verified: `make up` healthy, 65 tests, Playwright: approve → PENDING → IN_TRANSIT, error_rate fault → banner, clear → LIVE.
+Next: `docs/DEMO_SCRIPT.md`; rule doesn't yet account for per-tick depot dispatch cap (second approve on the same depot can get 409 DISPATCH_CAPACITY_EXCEEDED, shown in the UI).
+
 **2026-09-29 · Phase 1 done (v0.5.0 + 857ff74).** Stack verified with `make up`; CI green on GitHub; fonts self-hosted.
 Plan switched to solo mode: C0 lean (C0.6 skipped, C0.7 → Phase 10); build order C0 → 2 → 3 (+ first live Command Center) → 4 → 5 → 6 → 7–11.
 Next: waiting for the hours-left number to fix the cut line, then C0 contracts and Phase 2.

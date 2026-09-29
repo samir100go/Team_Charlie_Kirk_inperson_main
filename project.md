@@ -173,32 +173,34 @@ JALANI is an intelligent fuel operations center for a simulated Bangladeshi supp
 - **3 fuels:** DIESEL, PETROL, OCTANE
 - **Demand profiles** (L/sim-day, noise 8–12%) and **hour-of-day factors** are documented → structural prior for forecasting.
 - **Supply:** 22 arrivals — 4 initial burst at ticks 12–20, then 18 recurring resupplies every **64 ticks** (~16 sim hours), each roughly one day of regional demand.
-- Approximate daily system demand (verify in Phase 0): Diesel ≈ 41.6k L, Petrol ≈ 35.1k L, Octane ≈ 18.4k L.
+- Daily system demand (measured in Phase 0): Diesel ≈ 40.9k L, Petrol ≈ 34.2k L, Octane ≈ 17.9k L (hour factors are not normalized).
+- **Supply ends at tick 212** (no arrivals after that) and overflow at depots/stations is destroyed → the world runs dry after ~5.5 sim-days even with perfect play. See `docs/SIMULATOR_NOTES.md` §9.
 
 ### 4.2 Time
 - 1 tick = 15 sim-minutes → 96 ticks = 1 sim-day.
-- Default `SIMULATION_SPEED=8` ticks/s → **1 sim-day = 12 wall-clock seconds.** Decision cycles must be fast (≤ ~100 ms) and adaptive. Demos run slower (§11.4), but the system **must still work at default speed** because judges may run it that way.
+- Default `SIMULATION_SPEED=8` ticks/s (measured ~7.2) → **1 sim-day ≈ 13 wall-clock seconds.** Decision cycles must be fast (≤ ~100 ms) and adaptive. Demos run slower (§11.4), but the system **must still work at default speed** because judges may run it that way.
 
 ### 4.3 API surface
 - Reads: `/v1/health` (bypasses faults), `/v1/instance`, `/v1/regions`, `/v1/depots[/{id}]`, `/v1/stations[/{id}]`, `/v1/routes`, `/v1/supply-arrivals`, `/v1/events`, `/v1/allocations`, `/v1/demand-history?station_id=&limit=` (limit 1–2000, **grows unboundedly — we persist our own history**), `/v1/metrics`.
 - **The only domain write:** `POST /v1/allocations` (+ `POST /v1/allocations/{id}/cancel` for PENDING only).
-- Push: `GET /v1/stream` (SSE: `simulation.tick`, `allocation.status_changed`, `inventory.updated` (depots only), `simulator.notice`). Queue max 200 → silent drop; **no Last-Event-ID replay**; 15 s keepalive.
+- Push: `GET /v1/stream` (SSE: `simulation.tick`, `allocation.status_changed`, `inventory.updated` (depots only), `simulator.notice`). **Measured: `allocation.status_changed` and `inventory.updated` fire only on our create/cancel calls, never on departures, arrivals, failures or supply — refresh REST on every tick.** Queue max 200 → silent drop; **no Last-Event-ID replay**; 15 s keepalive.
 - Admin (bypasses faults): `/admin/run|pause|toggle|step|reset`, `/admin/events`, `/admin/faults`, `/admin/faults/clear`, `/admin/audit`.
 
 ### 4.4 Allocation rules (validation order — first failure wins)
-Idempotency → NOT_FOUND(404) → ROUTE_MISMATCH → DEPOT_CLOSED → STATION_CLOSED → ROUTE_DISRUPTED → ROUTE_CAPACITY_EXCEEDED → INSUFFICIENT_INVENTORY → DISPATCH_CAPACITY_EXCEEDED → DESTINATION_CAPACITY_EXCEEDED. Lifecycle: PENDING → IN_TRANSIT (departs next tick) → ARRIVED; FAILED if route disrupted **at departure**; CANCELLED if cancelled while PENDING (inventory refunded, key stays burned).
+Idempotency → NOT_FOUND(404) → ROUTE_MISMATCH → DEPOT_CLOSED → STATION_CLOSED → ROUTE_DISRUPTED → ROUTE_CAPACITY_EXCEEDED → INSUFFICIENT_INVENTORY → DISPATCH_CAPACITY_EXCEEDED → DESTINATION_CAPACITY_EXCEEDED. Lifecycle: PENDING → IN_TRANSIT (departs on the next step, `departure_tick == created_tick`) → ARRIVED (visible after `transit_ticks + 1` steps, **clamped to station capacity**); FAILED if route disrupted **at departure** (`ROUTE_UNAVAILABLE`, **no refund**); CANCELLED if cancelled while PENDING (inventory refunded, key stays burned). DESTINATION_CAPACITY ignores in-transit fuel.
 
 ### 4.5 Crisis events and faults
-- Events: `demand_spike`, `route_disruption`, `station_outage`, `depot_constraint`, `shipment_delay` (one-shot), `supply_shortfall` (one-shot). **Scheduled events are visible in `/v1/events` before they start** → proactive planning.
+- Events: `demand_spike`, `route_disruption`, `station_outage`, `depot_constraint`, `shipment_delay` (one-shot, but hits **every future** matching arrival), `supply_shortfall` (same). Events last `duration_ticks + 1` ticks; `depot_constraint` changes nothing but the status. **Scheduled events are visible in `/v1/events` before they start** → proactive planning.
 - Faults on `/v1/*` (not `/admin/*`, not `/v1/health`): `latency`, `unavailable`, `error_rate`, `stale_data` (`X-Simulator-Stale: true`), `stream_disconnect`.
 - Error envelopes differ: `{"detail":{"code":…}}`, `{"error":{"code":"FAULT_INJECTED"}}`, SSE fault `{"detail":{"code":"FAULT_INJECTED"}}`, Pydantic `{"detail":[…]}`. **Parse all four.**
 
 ### 4.6 Doc inconsistencies to verify in Phase 0 [P1]
-- Idempotent replay status: 201 (§5.4) vs 200 (cheat sheet) → accept both.
-- Are hour-of-day factors normalized?
-- What happens when an arriving shipment would overflow station capacity?
-- Does `CONSTRAINED` reduce dispatch capacity or only signal?
-- Is demand independent of our actions?
+*Answered in `docs/SIMULATOR_NOTES.md` §2 (Phase 0, 2026-09-29).*
+- Idempotent replay status: 201 (§5.4) vs 200 (cheat sheet) → accept both. **Live: 201.**
+- Are hour-of-day factors normalized? **No.**
+- What happens when an arriving shipment would overflow station capacity? **Clamped; excess destroyed.**
+- Does `CONSTRAINED` reduce dispatch capacity or only signal? **Only signals.**
+- Is demand independent of our actions? **Yes.**
 
 ### 4.7 Judging weights
 Working Product & UX **20%** · Intelligence & Decision Quality **20%** · Architecture & Integration **15%** · DevOps & Engineering **15%** · Resilience & Incident Response **10%** · Observability & Performance **10%** · Demo & Problem Understanding **10%**.
@@ -321,18 +323,18 @@ flowchart LR
 
 - [x] 0.1 Check MCP servers. Note which are live in `docs/SIMULATOR_NOTES.md`.
 - [x] 0.2 Repo setup: `.gitignore`, `LICENSE`, `README.md` stub, this file. *(GitHub MCP not connected: using the existing `origin` repo.)*
-- [ ] 0.3 Start the simulator alone (`docker-compose.sim.yml`, paused). `curl localhost:8000/v1/health`.
-- [ ] 0.4 Run `scripts/probe_simulator.py` → real fixtures for every endpoint in `services/common/tests/fixtures/`. *(Script + `make sim-probe` written; not yet run: waiting on Docker.)*
-- [ ] 0.5 Run `scripts/sim_experiments.py` (deterministic, via `/admin/step`); record results in `docs/SIMULATOR_NOTES.md`: *(Runner + `make sim-experiments` written; not yet run.)*
-  - [ ] 96 ticks, no allocations → daily demand vs profile → are hour factors normalized?
-  - [ ] Idempotent replay: 200 or 201? Same key + different body → 409?
-  - [ ] Overflow on arrival: what happens?
-  - [ ] `depot_constraint` → does dispatch capacity change?
-  - [ ] `route_disruption` with a PENDING allocation → FAILED at departure; cancel refunds inventory.
-  - [ ] Every fault type: exact status codes, bodies, headers.
-  - [ ] SSE cadence at speed 8; confirm no station `inventory.updated`.
-  - [ ] `/admin/reset` → back to tick 0.
-- [ ] 0.6 Finish `docs/SIMULATOR_NOTES.md`: confirmed behaviors, discrepancies, design implications. **Share the key findings with P2 in HANDOFF.**
+- [x] 0.3 Start the simulator alone (`docker-compose.sim.yml`, paused). `curl localhost:8000/v1/health`.
+- [x] 0.4 Run `scripts/probe_simulator.py` → real fixtures for every endpoint in `services/common/tests/fixtures/`. *(119 recorded fixtures; only 2 unrecordable doc-derived ones remain. Pinned by `test_sim_fixtures.py`.)*
+- [x] 0.5 Run `scripts/sim_experiments.py` (deterministic, via `/admin/step`); record results in `docs/SIMULATOR_NOTES.md`: *(E1–E12 in `docs/experiments/phase0_results.json`.)*
+  - [x] 96 ticks, no allocations → daily demand vs profile → are hour factors normalized? **No.**
+  - [x] Idempotent replay: 200 or 201? Same key + different body → 409? **201; yes.**
+  - [x] Overflow on arrival: what happens? **Clamped to capacity, excess destroyed.**
+  - [x] `depot_constraint` → does dispatch capacity change? **No, signal only.**
+  - [x] `route_disruption` with a PENDING allocation → FAILED at departure; cancel refunds inventory. **Yes, but FAILED is NOT refunded.**
+  - [x] Every fault type: exact status codes, bodies, headers.
+  - [x] SSE cadence at speed 8; confirm no station `inventory.updated`. **~7.2 ticks/s; confirmed.**
+  - [x] `/admin/reset` → back to tick 0. **Yes, and PAUSED.**
+- [x] 0.6 Finish `docs/SIMULATOR_NOTES.md`: confirmed behaviors, discrepancies, design implications. **Share the key findings with P2 in HANDOFF.**
 
 **Verify:** real fixtures for all endpoints and all 5 fault types; notes answer every question in §4.6.
 
@@ -345,7 +347,7 @@ flowchart LR
 - [ ] 1.1 Folder structure from §6; uv workspace with `services/common` as a local package. *(Partial: uv workspace, `services/*` with §6 subpackages, `web/`, `observability/` done. `loadtest/`, `scenarios/`, `bench/`, `deploy/`, `docs/ADR/`, `.github/` not yet.)*
 - [x] 1.2 Each Python service: FastAPI app with `/healthz`, `/readyz`, `/metrics`, `/version`. *(All three run under uvicorn outside Docker; 14 tests.)*
 - [ ] 1.3 Multi-stage Dockerfiles (slim, non-root, `HEALTHCHECK`). Web: Next.js standalone (P2 adds `web/Dockerfile`). *(Written: `services/python.Dockerfile` (shared) + a starter `web/Dockerfile`. uv install steps reproduced without Docker; standalone build served locally. Not yet built with Docker.)*
-- [ ] 1.4 `docker-compose.yml`: all Part A services, health checks, `depends_on: service_healthy`, named volumes, resource limits, `restart: unless-stopped`, simulator image and env vars passed through. *(Written; `docker compose config` valid; promtool/amtool pass. Promtail replaced by Grafana Alloy: Promtail EOL 2026-03-02. Simulator healthcheck assumes the image has Python (unverified). Not yet run: needs Docker + `.env.example`.)*
+- [ ] 1.4 `docker-compose.yml`: all Part A services, health checks, `depends_on: service_healthy`, named volumes, resource limits, `restart: unless-stopped`, simulator image and env vars passed through. *(Written; `docker compose config` valid; promtool/amtool pass. Promtail replaced by Grafana Alloy: Promtail EOL 2026-03-02. Simulator healthcheck assumes the image has Python: verified in Phase 0 (Python 3.12 + curl, image ships its own HEALTHCHECK). Not yet run: needs Docker + `.env.example`.)*
 - [ ] 1.5 `.env.example` documenting every variable; services fail fast on missing required vars.
 - [ ] 1.6 `Makefile`: `up`, `up-lite`, `down`, `logs`, `ps`, `test`, `lint`, `fmt`, `e2e`, `loadtest`, `sim-reset`, `sim-run`, `sim-pause`, `sim-step N=`, `demo`, `rollback VERSION=`. *(Partial: only `sim-up`, `sim-down`, `sim-probe`, `sim-experiments`.)*
 - [ ] 1.7 [P2] `.github/workflows/ci.yml` stub: lint + unit tests + docker build per service.

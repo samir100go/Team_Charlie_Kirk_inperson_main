@@ -278,7 +278,11 @@ export default function Home() {
             </h2>
             {msg && <p className="mb-2 rounded bg-zinc-800 px-3 py-2 text-sm">{msg}</p>}
             {w.recommendations?.length === 0 && (
-              <p className="text-zinc-500">No station is under 24 h of cover.</p>
+              <p className="text-zinc-500">
+                {(w.waiting?.length ?? 0) > 0
+                  ? "This tick's dispatch capacity is fully committed; the rest ship next tick."
+                  : "No station is under 24 h of cover."}
+              </p>
             )}
             <ul className="space-y-2">
               {w.recommendations?.map((r) => (

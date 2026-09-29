@@ -350,8 +350,8 @@ flowchart LR
 - [ ] 1.4 `docker-compose.yml`: all Part A services, health checks, `depends_on: service_healthy`, named volumes, resource limits, `restart: unless-stopped`, simulator image and env vars passed through. *(Written; `docker compose config` valid; promtool/amtool pass. Promtail replaced by Grafana Alloy: Promtail EOL 2026-03-02. Simulator healthcheck assumes the image has Python: verified in Phase 0 (Python 3.12 + curl, image ships its own HEALTHCHECK). Not yet run: needs Docker + `.env.example`.)*
 - [ ] 1.5 `.env.example` documenting every variable; services fail fast on missing required vars.
 - [ ] 1.6 `Makefile`: `up`, `up-lite`, `down`, `logs`, `ps`, `test`, `lint`, `fmt`, `e2e`, `loadtest`, `sim-reset`, `sim-run`, `sim-pause`, `sim-step N=`, `demo`, `rollback VERSION=`. *(Partial: only `sim-up`, `sim-down`, `sim-probe`, `sim-experiments`.)*
-- [ ] 1.7 [P2] `.github/workflows/ci.yml` stub: lint + unit tests + docker build per service.
-- [ ] 1.8 [P2] Pre-commit: ruff, mypy, eslint, prettier, gitleaks.
+- [ ] 1.7 [P2] `.github/workflows/ci.yml` stub: lint + unit tests + docker build per service. *(Written: python (ruff, mypy, pytest), web (eslint, tsc, prettier), gitleaks on full history, docker build of all 4 images with buildx GHA cache. actionlint clean; every non-Docker step passes locally. Ticked when the first PR run is green.)*
+- [x] 1.8 [P2] Pre-commit: ruff, mypy, eslint, prettier, gitleaks. *(`.pre-commit-config.yaml`; tool versions come from `uv.lock` and `web/node_modules`. `.gitattributes` forces LF so Windows and Linux agree. All hooks pass on all files; gitleaks catches a planted token. mypy skips `*/tests/` until they type-check: see HANDOFF.)*
 
 **Verify:** `make up` → all containers healthy; `curl localhost:8080/healthz` ok; CI green. **→ Handoff to P2.**
 

@@ -1,0 +1,46 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_create_event",
+    "recorded_at": "2026-09-29T04:53:49+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 47.3,
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "POST",
+    "path": "/admin/events",
+    "params": null,
+    "json": {
+      "type": "demand_spike",
+      "start_tick": 40,
+      "duration_ticks": 8,
+      "parameters": {
+        "region_ids": [
+          "region-chattogram"
+        ],
+        "multiplier": 1.5
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "id": 4,
+      "type": "demand_spike",
+      "start_tick": 40,
+      "end_tick": 48,
+      "status": "SCHEDULED",
+      "parameters": {
+        "region_ids": [
+          "region-chattogram"
+        ],
+        "multiplier": 1.5
+      }
+    }
+  }
+}

@@ -931,6 +931,132 @@ def e11_station_outage(sim: Sim, slow: bool) -> dict[str, Any]:
     }
 
 
+# -- E12: follow-ups on E1-E11 surprises ---------------------------------------------------
+
+
+def e12_followups(sim: Sim, slow: bool) -> dict[str, Any]:
+    out: dict[str, Any] = {}
+
+    # a) Does error_rate hit POST /v1/allocations too? (ROUTE_MISMATCH body: no side effects)
+    sim.reset()
+    sim.inject_fault("error_rate", 30, rate=0.5)
+    posts = [sim.post("/v1/allocations", _mismatch_body(f"e12a-{i}")) for i in range(40)]
+    sim.clear_faults()
+    out["error_rate_on_post"] = dict(Counter(r.status for r in posts))
+
+    # b) Does stale_data freeze the data, or only add the header?
+    sim.reset()
+    sim.inject_fault("stale_data", 30)
+    before = sim.get("/v1/instance")
+    sim.step(3)
+    after = sim.get("/v1/instance")
+    sim.clear_faults()
+    out["stale_data_freezes_data"] = {
+        "tick_before": (before.json or {}).get("tick"),
+        "tick_after_3_steps": (after.json or {}).get("tick"),
+        "header": after.headers.get("x-simulator-stale", "absent"),
+    }
+
+    # c) FAILED allocation: is the depot refunded? what does the audit log say?
+    sim.reset()
+    d0 = sim.depot(GAZIPUR)["inventory"]["DIESEL"]
+    a = sim.allocate("e12c", GAZIPUR, MIRPUR, R_GAZ_MIR, "DIESEL", 3000)
+    d1 = sim.depot(GAZIPUR)["inventory"]["DIESEL"]
+    sim.inject_event("route_disruption", sim.tick(), 2, route_ids=[R_GAZ_MIR])
+    sim.step(1)
+    d2 = sim.depot(GAZIPUR)["inventory"]["DIESEL"]
+    audit = [
+        e
+        for e in sim.get_json("/admin/audit", limit=50)
+        if e.get("entity_type") == "allocation" and a.ok and e.get("entity_id") == str(a.json["id"])
+    ]
+    out["failed_allocation_refund"] = {
+        "depot_before": d0,
+        "after_create": d1,
+        "after_failure": d2,
+        "refunded": d2 - d1,
+        "allocation": sim.allocation(a.json["id"]) if a.ok else None,
+        "metrics": sim.get_json("/v1/metrics"),
+        "audit": audit,
+    }
+
+    # d) Does cancelling a PENDING allocation free this tick's dispatch capacity?
+    #    (Mirpur DIESEL room is 6000 and Tongi's is 7000 at tick 0: 6000 + 6000 fills 12000.)
+    sim.reset()
+    big = sim.allocate("e12d-1", GAZIPUR, MIRPUR, R_GAZ_MIR, "DIESEL", 6000)
+    other = sim.allocate("e12d-2", GAZIPUR, TONGI, R_GAZ_TON, "DIESEL", 6000)
+    blocked = sim.allocate("e12d-3", GAZIPUR, TONGI, R_GAZ_TON, "PETROL", 1000)
+    if big.ok:
+        sim.post(f"/v1/allocations/{big.json['id']}/cancel")
+    after_cancel = sim.allocate("e12d-4", GAZIPUR, TONGI, R_GAZ_TON, "PETROL", 1000)
+    out["cancel_frees_dispatch"] = {
+        "fill": [big.status, other.status],
+        "before_cancel": {"status": blocked.status, "code": blocked.code},
+        "after_cancel": {"status": after_cancel.status, "code": after_cancel.code},
+    }
+
+    # h) error_rate on a *valid* POST: does a 503 still create the allocation?
+    sim.reset()
+    sim.inject_fault("error_rate", 30, rate=0.5)
+    attempts = [
+        (
+            f"e12h-{i}",
+            sim.allocate(f"e12h-{i}", PATIYA, KARNAPHULI, "route-patiya-karnaphuli", "DIESEL", 100),
+        )
+        for i in range(20)
+    ]
+    sim.clear_faults()
+    keys = {a["idempotency_key"] for a in sim.get_json("/v1/allocations")}
+    out["error_rate_post_side_effects"] = {
+        "503s": sum(r.status == 503 for _, r in attempts),
+        "503_but_created": sum(r.status == 503 and k in keys for k, r in attempts),
+        "201s": sum(r.status == 201 for _, r in attempts),
+    }
+
+    # e) Does a station keep receiving deliveries while in OUTAGE, and does
+    #    STATION_CLOSED fire the moment the event is created or only once ACTIVE?
+    sim.reset()
+    sim.inject_event("station_outage", sim.tick(), 2, station_ids=[COXSBAZAR])
+    immediate = sim.allocate("e12e-1", PATIYA, COXSBAZAR, R_PAT_COX, "DIESEL", 500)
+    sim.step(1)
+    later = sim.allocate("e12e-2", PATIYA, COXSBAZAR, R_PAT_COX, "DIESEL", 500)
+    out["station_outage_admission"] = {
+        "post_same_tick_as_inject": {"status": immediate.status, "code": immediate.code},
+        "post_after_1_step": {"status": later.status, "code": later.code},
+    }
+
+    # f) Noise shape: residual range per profile vs documented noise (uniform => |r| <= noise)
+    rows = json.loads((OUT_DIR / "raw" / "e1_demand_rows.json").read_text())
+    regions = {r["id"]: r for r in sim.get_json("/v1/regions")}
+    stations = {s["id"]: s for s in sim.get_json("/v1/stations")}
+    resid: dict[str, list[float]] = defaultdict(list)
+    for r in rows:
+        s = stations[r["station_id"]]
+        prof = s["demand_profile"]
+        base = PROFILE_DAILY[prof][r["fuel_type"]] * regions[s["region_id"]]["demand_factor"] / 96
+        resid[prof].append(r["demand_liters"] / (base * doc_hour_factor(prof, hour_of(r))) - 1)
+    out["noise_shape"] = {
+        p: {
+            "min": r4(min(v)),
+            "max": r4(max(v)),
+            "std": r4(statistics.pstdev(v)),
+            "uniform_std": r4(PROFILE_NOISE[p] / 3**0.5),
+            "gaussian_std": PROFILE_NOISE[p],
+        }
+        for p, v in resid.items()
+    }
+
+    # g) Does the SSE stream emit anything when allocations depart/arrive or supply lands?
+    sim.reset()
+    sim.allocate("e12g", GAZIPUR, MIRPUR, R_GAZ_MIR, "DIESEL", 2000)
+    cap = SSECapture(base_url=sim.base_url).start()
+    sim.step(14)  # departure (t0), arrival (t2), supply-001 lands at t12
+    cap.stop(grace_s=1.0)
+    out["sse_during_steps"] = dict(Counter(e.event for e in cap.events()))
+    sim.reset()
+    return out
+
+
 EXPERIMENTS: dict[str, Callable[[Sim, bool], dict[str, Any]]] = {
     "e1": e1_demand,
     "e2": e2_idempotency,
@@ -943,6 +1069,7 @@ EXPERIMENTS: dict[str, Callable[[Sim, bool], dict[str, Any]]] = {
     "e9": e9_demand_spike,
     "e10": e10_supply_events,
     "e11": e11_station_outage,
+    "e12": e12_followups,
 }
 
 

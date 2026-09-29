@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "create_allocation",
+    "recorded_at": "2026-09-29T04:53:48+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 46.7,
+    "note": "depot-gazipur OCTANE=3414.688 < quantity=3855.3140000000003 after draining",
+    "sim_tick": 1
+  },
+  "request": {
+    "method": "POST",
+    "path": "/v1/allocations",
+    "params": null,
+    "json": {
+      "idempotency_key": "probe-drain-11",
+      "source_depot_id": "depot-gazipur",
+      "destination_station_id": "station-karnaphuli",
+      "route_id": "route-gazipur-karnaphuli",
+      "fuel_type": "OCTANE",
+      "quantity": 3855.3140000000003
+    }
+  },
+  "response": {
+    "status": 409,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": {
+        "code": "INSUFFICIENT_INVENTORY",
+        "message": "Depot does not have enough inventory"
+      }
+    }
+  }
+}

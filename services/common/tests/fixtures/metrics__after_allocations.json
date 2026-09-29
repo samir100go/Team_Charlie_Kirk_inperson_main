@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "metrics",
+    "recorded_at": "2026-09-29T04:53:48+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 2.8,
+    "sim_tick": 3
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/metrics",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "served_demand_liters": 1926.389,
+      "unmet_demand_liters": 0.0,
+      "service_level": 1.0,
+      "allocation_liters": 9500.0,
+      "allocation_failures": 0
+    }
+  }
+}

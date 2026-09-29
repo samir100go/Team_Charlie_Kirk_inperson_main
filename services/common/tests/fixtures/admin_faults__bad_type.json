@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_create_fault",
+    "recorded_at": "2026-09-29T04:53:53+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 45.5,
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "POST",
+    "path": "/admin/faults",
+    "params": null,
+    "json": {
+      "type": "meteor_strike",
+      "duration_seconds": 10,
+      "parameters": {}
+    }
+  },
+  "response": {
+    "status": 422,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": [
+        {
+          "type": "literal_error",
+          "loc": [
+            "body",
+            "type"
+          ],
+          "msg": "Input should be 'latency', 'unavailable', 'error_rate', 'stale_data' or 'stream_disconnect'",
+          "input": "meteor_strike",
+          "ctx": {
+            "expected": "'latency', 'unavailable', 'error_rate', 'stale_data' or 'stream_disconnect'"
+          }
+        }
+      ]
+    }
+  }
+}

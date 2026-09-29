@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "create_allocation",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 45.1,
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "POST",
+    "path": "/v1/allocations",
+    "params": null,
+    "json": {
+      "idempotency_key": "probe-404",
+      "source_depot_id": "depot-nowhere",
+      "destination_station_id": "station-mirpur",
+      "route_id": "route-gazipur-mirpur",
+      "fuel_type": "DIESEL",
+      "quantity": 1000
+    }
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": {
+        "code": "NOT_FOUND",
+        "message": "Source depot not found"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "demand_history",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 2.5,
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/demand-history",
+    "params": {
+      "station_id": "station-mirpur",
+      "limit": 50
+    },
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": []
+  }
+}

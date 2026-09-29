@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "stream_event",
+    "recorded_at": "2026-09-29T04:53:55+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0"
+  },
+  "event": "inventory.updated",
+  "data": {
+    "entity_type": "depot",
+    "entity_id": "depot-gazipur",
+    "inventory": {
+      "DIESEL": 58000.0,
+      "PETROL": 45000,
+      "OCTANE": 26000
+    }
+  }
+}

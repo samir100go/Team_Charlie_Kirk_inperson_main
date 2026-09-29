@@ -1,0 +1,69 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_faults",
+    "recorded_at": "2026-09-29T04:53:53+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 1.9,
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "GET",
+    "path": "/admin/faults",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": 5,
+        "type": "stream_disconnect",
+        "start_wall_time": "2026-09-29T04:53:53.657590",
+        "end_wall_time": "2026-09-29T04:54:53.657590",
+        "active": true,
+        "parameters": {}
+      },
+      {
+        "id": 4,
+        "type": "stale_data",
+        "start_wall_time": "2026-09-29T04:53:53.289484",
+        "end_wall_time": "2026-09-29T04:54:53.289484",
+        "active": false,
+        "parameters": {}
+      },
+      {
+        "id": 3,
+        "type": "error_rate",
+        "start_wall_time": "2026-09-29T04:53:52.897882",
+        "end_wall_time": "2026-09-29T04:54:52.897882",
+        "active": false,
+        "parameters": {
+          "rate": 0.5
+        }
+      },
+      {
+        "id": 2,
+        "type": "unavailable",
+        "start_wall_time": "2026-09-29T04:53:52.565566",
+        "end_wall_time": "2026-09-29T04:54:52.565566",
+        "active": false,
+        "parameters": {}
+      },
+      {
+        "id": 1,
+        "type": "latency",
+        "start_wall_time": "2026-09-29T04:53:49.833356",
+        "end_wall_time": "2026-09-29T04:54:49.833356",
+        "active": false,
+        "parameters": {
+          "delay_ms": 300
+        }
+      }
+    ]
+  }
+}

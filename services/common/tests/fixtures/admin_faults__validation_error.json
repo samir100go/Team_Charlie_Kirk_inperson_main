@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_create_fault",
+    "recorded_at": "2026-09-29T04:53:53+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 43.6,
+    "note": "duration_seconds=0",
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "POST",
+    "path": "/admin/faults",
+    "params": null,
+    "json": {
+      "type": "latency",
+      "duration_seconds": 0,
+      "parameters": {}
+    }
+  },
+  "response": {
+    "status": 422,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": [
+        {
+          "type": "greater_than",
+          "loc": [
+            "body",
+            "duration_seconds"
+          ],
+          "msg": "Input should be greater than 0",
+          "input": 0,
+          "ctx": {
+            "gt": 0
+          }
+        }
+      ]
+    }
+  }
+}

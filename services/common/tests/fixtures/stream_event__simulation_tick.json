@@ -1,0 +1,13 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "stream_event",
+    "recorded_at": "2026-09-29T04:53:55+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0"
+  },
+  "event": "simulation.tick",
+  "data": {
+    "tick": 1,
+    "sim_time": "2026-01-01T00:15:00"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_create_event",
+    "recorded_at": "2026-09-29T04:53:49+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 44.0,
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "POST",
+    "path": "/admin/events",
+    "params": null,
+    "json": {
+      "type": "meteor_strike",
+      "start_tick": 0,
+      "duration_ticks": 2,
+      "parameters": {}
+    }
+  },
+  "response": {
+    "status": 422,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": [
+        {
+          "type": "literal_error",
+          "loc": [
+            "body",
+            "type"
+          ],
+          "msg": "Input should be 'demand_spike', 'shipment_delay', 'route_disruption', 'station_outage', 'depot_constraint' or 'supply_shortfall'",
+          "input": "meteor_strike",
+          "ctx": {
+            "expected": "'demand_spike', 'shipment_delay', 'route_disruption', 'station_outage', 'depot_constraint' or 'supply_shortfall'"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,3304 @@
+{
+  "stations": [
+    {
+      "station-mirpur": {
+        "DIESEL": 9000,
+        "PETROL": 9000,
+        "OCTANE": 5000
+      },
+      "station-tongi": {
+        "DIESEL": 11000,
+        "PETROL": 6000,
+        "OCTANE": 3500
+      },
+      "station-karnaphuli": {
+        "DIESEL": 8500,
+        "PETROL": 9500,
+        "OCTANE": 5200
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7500,
+        "PETROL": 7500,
+        "OCTANE": 4200
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8940.412,
+        "PETROL": 8928.727,
+        "OCTANE": 4962.369
+      },
+      "station-tongi": {
+        "DIESEL": 10930.472,
+        "PETROL": 5979.3,
+        "OCTANE": 3489.95
+      },
+      "station-karnaphuli": {
+        "DIESEL": 8412.299,
+        "PETROL": 9400.924,
+        "OCTANE": 5144.686
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7451.17,
+        "PETROL": 7444.752,
+        "OCTANE": 4172.414
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8881.507,
+        "PETROL": 8849.407,
+        "OCTANE": 4924.507
+      },
+      "station-tongi": {
+        "DIESEL": 10866.169,
+        "PETROL": 5958.016,
+        "OCTANE": 3479.302
+      },
+      "station-karnaphuli": {
+        "DIESEL": 8328.771,
+        "PETROL": 9311.196,
+        "OCTANE": 5090.671
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7397.318,
+        "PETROL": 7385.149,
+        "OCTANE": 4146.905
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8825.188,
+        "PETROL": 8768.707,
+        "OCTANE": 4882.737
+      },
+      "station-tongi": {
+        "DIESEL": 10801.726,
+        "PETROL": 5937.047,
+        "OCTANE": 3468.307
+      },
+      "station-karnaphuli": {
+        "DIESEL": 8250.432,
+        "PETROL": 9216.924,
+        "OCTANE": 5032.536
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7346.294,
+        "PETROL": 7325.663,
+        "OCTANE": 4118.05
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8760.027,
+        "PETROL": 8690.029,
+        "OCTANE": 4838.437
+      },
+      "station-tongi": {
+        "DIESEL": 10738.392,
+        "PETROL": 5917.45,
+        "OCTANE": 3458.49
+      },
+      "station-karnaphuli": {
+        "DIESEL": 8159.651,
+        "PETROL": 9120.291,
+        "OCTANE": 4975.794
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7290.441,
+        "PETROL": 7270.108,
+        "OCTANE": 4091.909
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8695.969,
+        "PETROL": 8620.52,
+        "OCTANE": 4801.675
+      },
+      "station-tongi": {
+        "DIESEL": 10677.31,
+        "PETROL": 5897.115,
+        "OCTANE": 3448.869
+      },
+      "station-karnaphuli": {
+        "DIESEL": 8077.881,
+        "PETROL": 9019.572,
+        "OCTANE": 4928.947
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7239.123,
+        "PETROL": 7211.795,
+        "OCTANE": 4067.58
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8629.571,
+        "PETROL": 8541.012,
+        "OCTANE": 4764.297
+      },
+      "station-tongi": {
+        "DIESEL": 10614.305,
+        "PETROL": 5874.813,
+        "OCTANE": 3437.768
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7979.483,
+        "PETROL": 8923.499,
+        "OCTANE": 4870.652
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7190.91,
+        "PETROL": 7159.506,
+        "OCTANE": 4043.608
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8573.776,
+        "PETROL": 8465.376,
+        "OCTANE": 4720.086
+      },
+      "station-tongi": {
+        "DIESEL": 10548.262,
+        "PETROL": 5853.921,
+        "OCTANE": 3426.846
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7890.164,
+        "PETROL": 8825.217,
+        "OCTANE": 4815.673
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7135.581,
+        "PETROL": 7109.052,
+        "OCTANE": 4018.126
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8509.3,
+        "PETROL": 8391.764,
+        "OCTANE": 4681.919
+      },
+      "station-tongi": {
+        "DIESEL": 10481.563,
+        "PETROL": 5833.163,
+        "OCTANE": 3417.05
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7810.868,
+        "PETROL": 8740.297,
+        "OCTANE": 4766.782
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7088.096,
+        "PETROL": 7048.295,
+        "OCTANE": 3993.618
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8453.206,
+        "PETROL": 8320.587,
+        "OCTANE": 4640.684
+      },
+      "station-tongi": {
+        "DIESEL": 10416.865,
+        "PETROL": 5811.323,
+        "OCTANE": 3406.747
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7730.163,
+        "PETROL": 8644.838,
+        "OCTANE": 4720.526
+      },
+      "station-coxsbazar": {
+        "DIESEL": 7038.808,
+        "PETROL": 6987.713,
+        "OCTANE": 3964.804
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8390.185,
+        "PETROL": 8245.804,
+        "OCTANE": 4596.238
+      },
+      "station-tongi": {
+        "DIESEL": 10347.255,
+        "PETROL": 5790.113,
+        "OCTANE": 3397.169
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7641.453,
+        "PETROL": 8554.61,
+        "OCTANE": 4663.438
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6983.594,
+        "PETROL": 6935.223,
+        "OCTANE": 3940.799
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8331.405,
+        "PETROL": 8173.315,
+        "OCTANE": 4558.767
+      },
+      "station-tongi": {
+        "DIESEL": 10283.672,
+        "PETROL": 5769.516,
+        "OCTANE": 3386.626
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7562.736,
+        "PETROL": 8465.237,
+        "OCTANE": 4605.57
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6931.473,
+        "PETROL": 6881.277,
+        "OCTANE": 3916.371
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8267.99,
+        "PETROL": 8090.605,
+        "OCTANE": 4518.52
+      },
+      "station-tongi": {
+        "DIESEL": 10220.097,
+        "PETROL": 5750.013,
+        "OCTANE": 3375.535
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7468.225,
+        "PETROL": 8375.116,
+        "OCTANE": 4547.861
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6879.179,
+        "PETROL": 6820.258,
+        "OCTANE": 3889.36
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8209.212,
+        "PETROL": 8006.598,
+        "OCTANE": 4476.771
+      },
+      "station-tongi": {
+        "DIESEL": 10151.314,
+        "PETROL": 5727.779,
+        "OCTANE": 3365.646
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7381.423,
+        "PETROL": 8276.516,
+        "OCTANE": 4500.624
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6830.948,
+        "PETROL": 6768.842,
+        "OCTANE": 3862.793
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8143.575,
+        "PETROL": 7927.365,
+        "OCTANE": 4438.198
+      },
+      "station-tongi": {
+        "DIESEL": 10084.845,
+        "PETROL": 5707.365,
+        "OCTANE": 3355.212
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7286.63,
+        "PETROL": 8179.556,
+        "OCTANE": 4444.446
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6776.636,
+        "PETROL": 6712.375,
+        "OCTANE": 3838.599
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8085.338,
+        "PETROL": 7851.393,
+        "OCTANE": 4398.109
+      },
+      "station-tongi": {
+        "DIESEL": 10015.714,
+        "PETROL": 5684.978,
+        "OCTANE": 3344.98
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7205.958,
+        "PETROL": 8091.011,
+        "OCTANE": 4393.237
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6725.691,
+        "PETROL": 6655.729,
+        "OCTANE": 3814.363
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 8025.449,
+        "PETROL": 7772.426,
+        "OCTANE": 4353.825
+      },
+      "station-tongi": {
+        "DIESEL": 9945.096,
+        "PETROL": 5664.995,
+        "OCTANE": 3335.029
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7121.623,
+        "PETROL": 8005.027,
+        "OCTANE": 4340.84
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6668.223,
+        "PETROL": 6597.033,
+        "OCTANE": 3786.39
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7957.744,
+        "PETROL": 7690.714,
+        "OCTANE": 4313.663
+      },
+      "station-tongi": {
+        "DIESEL": 9882.559,
+        "PETROL": 5642.949,
+        "OCTANE": 3324.402
+      },
+      "station-karnaphuli": {
+        "DIESEL": 7037.623,
+        "PETROL": 7920.006,
+        "OCTANE": 4283.16
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6613.211,
+        "PETROL": 6540.233,
+        "OCTANE": 3760.918
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7895.014,
+        "PETROL": 7607.677,
+        "OCTANE": 4273.562
+      },
+      "station-tongi": {
+        "DIESEL": 9820.126,
+        "PETROL": 5623.277,
+        "OCTANE": 3314.218
+      },
+      "station-karnaphuli": {
+        "DIESEL": 6942.048,
+        "PETROL": 7833.21,
+        "OCTANE": 4232.85
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6557.862,
+        "PETROL": 6481.7,
+        "OCTANE": 3734.609
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7837.497,
+        "PETROL": 7529.334,
+        "OCTANE": 4230.17
+      },
+      "station-tongi": {
+        "DIESEL": 9752.006,
+        "PETROL": 5601.109,
+        "OCTANE": 3303.144
+      },
+      "station-karnaphuli": {
+        "DIESEL": 6859.044,
+        "PETROL": 7740.195,
+        "OCTANE": 4177.688
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6507.31,
+        "PETROL": 6422.905,
+        "OCTANE": 3708.786
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7781.702,
+        "PETROL": 7450.138,
+        "OCTANE": 4188.154
+      },
+      "station-tongi": {
+        "DIESEL": 9689.239,
+        "PETROL": 5581.199,
+        "OCTANE": 3293.228
+      },
+      "station-karnaphuli": {
+        "DIESEL": 6773.109,
+        "PETROL": 7644.574,
+        "OCTANE": 4128.138
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6454.962,
+        "PETROL": 6370.781,
+        "OCTANE": 3684.551
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7714.677,
+        "PETROL": 7377.295,
+        "OCTANE": 4149.915
+      },
+      "station-tongi": {
+        "DIESEL": 9627.508,
+        "PETROL": 5561.525,
+        "OCTANE": 3282.85
+      },
+      "station-karnaphuli": {
+        "DIESEL": 6676.093,
+        "PETROL": 7556.535,
+        "OCTANE": 4081.975
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6401.351,
+        "PETROL": 6310.316,
+        "OCTANE": 3660.245
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7652.71,
+        "PETROL": 7303.538,
+        "OCTANE": 4110.556
+      },
+      "station-tongi": {
+        "DIESEL": 9557.362,
+        "PETROL": 5539.938,
+        "OCTANE": 3271.89
+      },
+      "station-karnaphuli": {
+        "DIESEL": 6595.184,
+        "PETROL": 7454.288,
+        "OCTANE": 4023.802
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6350.029,
+        "PETROL": 6259.027,
+        "OCTANE": 3632.733
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7588.426,
+        "PETROL": 7225.596,
+        "OCTANE": 4065.818
+      },
+      "station-tongi": {
+        "DIESEL": 9492.77,
+        "PETROL": 5517.628,
+        "OCTANE": 3260.761
+      },
+      "station-karnaphuli": {
+        "DIESEL": 6498.648,
+        "PETROL": 7360.014,
+        "OCTANE": 3966.045
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6299.165,
+        "PETROL": 6198.719,
+        "OCTANE": 3606.824
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7521.879,
+        "PETROL": 7151.614,
+        "OCTANE": 4026.59
+      },
+      "station-tongi": {
+        "DIESEL": 9422.241,
+        "PETROL": 5495.485,
+        "OCTANE": 3249.906
+      },
+      "station-karnaphuli": {
+        "DIESEL": 6406.04,
+        "PETROL": 7259.318,
+        "OCTANE": 3908.787
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6242.618,
+        "PETROL": 6141.7,
+        "OCTANE": 3579.09
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7460.646,
+        "PETROL": 7071.858,
+        "OCTANE": 3985.147
+      },
+      "station-tongi": {
+        "DIESEL": 9211.048,
+        "PETROL": 5421.788,
+        "OCTANE": 3215.812
+      },
+      "station-karnaphuli": {
+        "DIESEL": 6228.106,
+        "PETROL": 7090.306,
+        "OCTANE": 3821.196
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6184.821,
+        "PETROL": 6083.06,
+        "OCTANE": 3554.976
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7404.095,
+        "PETROL": 6993.759,
+        "OCTANE": 3946.536
+      },
+      "station-tongi": {
+        "DIESEL": 8971.756,
+        "PETROL": 5350.841,
+        "OCTANE": 3179.308
+      },
+      "station-karnaphuli": {
+        "DIESEL": 6070.571,
+        "PETROL": 6906.038,
+        "OCTANE": 3716.583
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6127.365,
+        "PETROL": 6032.075,
+        "OCTANE": 3529.942
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7346.555,
+        "PETROL": 6911.493,
+        "OCTANE": 3902.735
+      },
+      "station-tongi": {
+        "DIESEL": 8748.002,
+        "PETROL": 5282.982,
+        "OCTANE": 3141.749
+      },
+      "station-karnaphuli": {
+        "DIESEL": 5909.035,
+        "PETROL": 6757.648,
+        "OCTANE": 3628.849
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6078.97,
+        "PETROL": 5972.081,
+        "OCTANE": 3502.53
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7279.602,
+        "PETROL": 6836.104,
+        "OCTANE": 3864.258
+      },
+      "station-tongi": {
+        "DIESEL": 8524.172,
+        "PETROL": 5207.257,
+        "OCTANE": 3106.379
+      },
+      "station-karnaphuli": {
+        "DIESEL": 5736.369,
+        "PETROL": 6601.343,
+        "OCTANE": 3541.891
+      },
+      "station-coxsbazar": {
+        "DIESEL": 6022.701,
+        "PETROL": 5915.322,
+        "OCTANE": 3477.082
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7153.786,
+        "PETROL": 6686.617,
+        "OCTANE": 3787.846
+      },
+      "station-tongi": {
+        "DIESEL": 8307.488,
+        "PETROL": 5132.863,
+        "OCTANE": 3072.644
+      },
+      "station-karnaphuli": {
+        "DIESEL": 5570.151,
+        "PETROL": 6416.292,
+        "OCTANE": 3451.336
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5929.711,
+        "PETROL": 5803.749,
+        "OCTANE": 3425.482
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 7017.258,
+        "PETROL": 6529.73,
+        "OCTANE": 3708.381
+      },
+      "station-tongi": {
+        "DIESEL": 8083.126,
+        "PETROL": 5059.869,
+        "OCTANE": 3035.876
+      },
+      "station-karnaphuli": {
+        "DIESEL": 5418.115,
+        "PETROL": 6240.484,
+        "OCTANE": 3366.483
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5830.58,
+        "PETROL": 5694.359,
+        "OCTANE": 3375.487
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 6882.092,
+        "PETROL": 6360.465,
+        "OCTANE": 3621.768
+      },
+      "station-tongi": {
+        "DIESEL": 7868.095,
+        "PETROL": 4981.944,
+        "OCTANE": 2999.074
+      },
+      "station-karnaphuli": {
+        "DIESEL": 5269.423,
+        "PETROL": 6068.734,
+        "OCTANE": 3272.085
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5732.682,
+        "PETROL": 5594.419,
+        "OCTANE": 3323.803
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 6760.068,
+        "PETROL": 6214.961,
+        "OCTANE": 3537.043
+      },
+      "station-tongi": {
+        "DIESEL": 7640.079,
+        "PETROL": 4912.46,
+        "OCTANE": 2964.981
+      },
+      "station-karnaphuli": {
+        "DIESEL": 5114.78,
+        "PETROL": 5909.651,
+        "OCTANE": 3182.157
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5633.28,
+        "PETROL": 5488.321,
+        "OCTANE": 3270.348
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 6637.313,
+        "PETROL": 6042.33,
+        "OCTANE": 3448.12
+      },
+      "station-tongi": {
+        "DIESEL": 7427.848,
+        "PETROL": 4842.31,
+        "OCTANE": 2931.215
+      },
+      "station-karnaphuli": {
+        "DIESEL": 4970.667,
+        "PETROL": 5754.277,
+        "OCTANE": 3094.272
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5535.257,
+        "PETROL": 5373.137,
+        "OCTANE": 3222.193
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 6520.927,
+        "PETROL": 5883.347,
+        "OCTANE": 3358.27
+      },
+      "station-tongi": {
+        "DIESEL": 7205.644,
+        "PETROL": 4775.403,
+        "OCTANE": 2897.393
+      },
+      "station-karnaphuli": {
+        "DIESEL": 4825.077,
+        "PETROL": 5602.51,
+        "OCTANE": 2991.918
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5433.415,
+        "PETROL": 5255.848,
+        "OCTANE": 3172.596
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 6396.127,
+        "PETROL": 5728.256,
+        "OCTANE": 3282.027
+      },
+      "station-tongi": {
+        "DIESEL": 6984.215,
+        "PETROL": 4706.05,
+        "OCTANE": 2862.58
+      },
+      "station-karnaphuli": {
+        "DIESEL": 4649.381,
+        "PETROL": 5452.576,
+        "OCTANE": 2888.968
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5331.222,
+        "PETROL": 5147.183,
+        "OCTANE": 3124.042
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 6267.14,
+        "PETROL": 5566.74,
+        "OCTANE": 3196.267
+      },
+      "station-tongi": {
+        "DIESEL": 6745.396,
+        "PETROL": 4630.666,
+        "OCTANE": 2827.543
+      },
+      "station-karnaphuli": {
+        "DIESEL": 4475.111,
+        "PETROL": 5272.23,
+        "OCTANE": 2797.962
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5225.058,
+        "PETROL": 5030.177,
+        "OCTANE": 3077.442
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 6131.219,
+        "PETROL": 5403.359,
+        "OCTANE": 3108.739
+      },
+      "station-tongi": {
+        "DIESEL": 6524.035,
+        "PETROL": 4555.794,
+        "OCTANE": 2790.159
+      },
+      "station-karnaphuli": {
+        "DIESEL": 4315.95,
+        "PETROL": 5115.655,
+        "OCTANE": 2707.883
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5127.008,
+        "PETROL": 4918.168,
+        "OCTANE": 3031.844
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 6006.612,
+        "PETROL": 5242.867,
+        "OCTANE": 3023.009
+      },
+      "station-tongi": {
+        "DIESEL": 6288.464,
+        "PETROL": 4484.152,
+        "OCTANE": 2756.285
+      },
+      "station-karnaphuli": {
+        "DIESEL": 4149.013,
+        "PETROL": 4962.991,
+        "OCTANE": 2621.019
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5017.078,
+        "PETROL": 4810.511,
+        "OCTANE": 2980.974
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5889.661,
+        "PETROL": 5090.636,
+        "OCTANE": 2945.081
+      },
+      "station-tongi": {
+        "DIESEL": 6070.6,
+        "PETROL": 4413.958,
+        "OCTANE": 2722.359
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3978.94,
+        "PETROL": 4807.192,
+        "OCTANE": 2523.855
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4920.609,
+        "PETROL": 4697.793,
+        "OCTANE": 2927.822
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5770.543,
+        "PETROL": 4939.715,
+        "OCTANE": 2855.988
+      },
+      "station-tongi": {
+        "DIESEL": 5837.842,
+        "PETROL": 4340.577,
+        "OCTANE": 2684.634
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3825.364,
+        "PETROL": 4659.455,
+        "OCTANE": 2421.48
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4823.514,
+        "PETROL": 4594.669,
+        "OCTANE": 2882.181
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5705.902,
+        "PETROL": 4856.551,
+        "OCTANE": 2815.656
+      },
+      "station-tongi": {
+        "DIESEL": 5625.713,
+        "PETROL": 4262.701,
+        "OCTANE": 2651.706
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3741.896,
+        "PETROL": 4558.758,
+        "OCTANE": 2372.668
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4718.318,
+        "PETROL": 4485.04,
+        "OCTANE": 2828.525
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5647.726,
+        "PETROL": 4784.289,
+        "OCTANE": 2778.585
+      },
+      "station-tongi": {
+        "DIESEL": 5406.677,
+        "PETROL": 4191.216,
+        "OCTANE": 2614.793
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3651.971,
+        "PETROL": 4471.532,
+        "OCTANE": 2322.994
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4610.332,
+        "PETROL": 4371.869,
+        "OCTANE": 2782.136
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5584.72,
+        "PETROL": 4701.448,
+        "OCTANE": 2739.135
+      },
+      "station-tongi": {
+        "DIESEL": 5191.976,
+        "PETROL": 4120.124,
+        "OCTANE": 2577.799
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3569.556,
+        "PETROL": 4384.763,
+        "OCTANE": 2273.828
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4515.325,
+        "PETROL": 4269.584,
+        "OCTANE": 2730.603
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5520.023,
+        "PETROL": 4626.765,
+        "OCTANE": 2697.13
+      },
+      "station-tongi": {
+        "DIESEL": 4960.947,
+        "PETROL": 4048.003,
+        "OCTANE": 2540.754
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3473.177,
+        "PETROL": 4301.772,
+        "OCTANE": 2220.054
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4413.722,
+        "PETROL": 4164.542,
+        "OCTANE": 2680.219
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5459.963,
+        "PETROL": 4547.653,
+        "OCTANE": 2657.447
+      },
+      "station-tongi": {
+        "DIESEL": 4725.193,
+        "PETROL": 3978.093,
+        "OCTANE": 2502.705
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3377.048,
+        "PETROL": 4217.253,
+        "OCTANE": 2170.535
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4318.269,
+        "PETROL": 4059.451,
+        "OCTANE": 2625.92
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5393.884,
+        "PETROL": 4468.61,
+        "OCTANE": 2616.172
+      },
+      "station-tongi": {
+        "DIESEL": 4482.982,
+        "PETROL": 3907.055,
+        "OCTANE": 2468.369
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3285.231,
+        "PETROL": 4124.99,
+        "OCTANE": 2118.865
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4217.802,
+        "PETROL": 3944.241,
+        "OCTANE": 2571.123
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5333.978,
+        "PETROL": 4395.539,
+        "OCTANE": 2576.121
+      },
+      "station-tongi": {
+        "DIESEL": 4238.926,
+        "PETROL": 3830.562,
+        "OCTANE": 2434.212
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3190.568,
+        "PETROL": 4026.894,
+        "OCTANE": 2071.441
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4113.53,
+        "PETROL": 3839.336,
+        "OCTANE": 2522.503
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5274.382,
+        "PETROL": 4326.474,
+        "OCTANE": 2532.374
+      },
+      "station-tongi": {
+        "DIESEL": 3997.386,
+        "PETROL": 3753.106,
+        "OCTANE": 2399.575
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3108.668,
+        "PETROL": 3943.477,
+        "OCTANE": 2024.97
+      },
+      "station-coxsbazar": {
+        "DIESEL": 4012.924,
+        "PETROL": 3729.24,
+        "OCTANE": 2475.052
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5212.949,
+        "PETROL": 4246.455,
+        "OCTANE": 2488.317
+      },
+      "station-tongi": {
+        "DIESEL": 3772.089,
+        "PETROL": 3681.21,
+        "OCTANE": 2363.438
+      },
+      "station-karnaphuli": {
+        "DIESEL": 3010.949,
+        "PETROL": 3852.334,
+        "OCTANE": 1976.286
+      },
+      "station-coxsbazar": {
+        "DIESEL": 3902.311,
+        "PETROL": 3631.948,
+        "OCTANE": 2421.138
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5155.224,
+        "PETROL": 4173.976,
+        "OCTANE": 2449.515
+      },
+      "station-tongi": {
+        "DIESEL": 3545.874,
+        "PETROL": 3609.676,
+        "OCTANE": 2325.871
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2926.369,
+        "PETROL": 3759.887,
+        "OCTANE": 1919.211
+      },
+      "station-coxsbazar": {
+        "DIESEL": 3795.624,
+        "PETROL": 3532.86,
+        "OCTANE": 2365.86
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5094.373,
+        "PETROL": 4091.029,
+        "OCTANE": 2409.502
+      },
+      "station-tongi": {
+        "DIESEL": 3322.624,
+        "PETROL": 3539.446,
+        "OCTANE": 2287.562
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2842.164,
+        "PETROL": 3674.805,
+        "OCTANE": 1871.014
+      },
+      "station-coxsbazar": {
+        "DIESEL": 3691.247,
+        "PETROL": 3427.838,
+        "OCTANE": 2317.654
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 5029.977,
+        "PETROL": 4018.413,
+        "OCTANE": 2364.628
+      },
+      "station-tongi": {
+        "DIESEL": 3102.149,
+        "PETROL": 3460.983,
+        "OCTANE": 2252.296
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2760.03,
+        "PETROL": 3583.958,
+        "OCTANE": 1824.214
+      },
+      "station-coxsbazar": {
+        "DIESEL": 3594.421,
+        "PETROL": 3310.688,
+        "OCTANE": 2271.697
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4970.523,
+        "PETROL": 3939.57,
+        "OCTANE": 2323.651
+      },
+      "station-tongi": {
+        "DIESEL": 2889.98,
+        "PETROL": 3383.98,
+        "OCTANE": 2215.458
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2679.903,
+        "PETROL": 3486.982,
+        "OCTANE": 1767.939
+      },
+      "station-coxsbazar": {
+        "DIESEL": 3491.079,
+        "PETROL": 3212.447,
+        "OCTANE": 2223.991
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4914.724,
+        "PETROL": 3860.5,
+        "OCTANE": 2284.243
+      },
+      "station-tongi": {
+        "DIESEL": 2666.045,
+        "PETROL": 3313.411,
+        "OCTANE": 2182.239
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2587.088,
+        "PETROL": 3386.645,
+        "OCTANE": 1718.075
+      },
+      "station-coxsbazar": {
+        "DIESEL": 3394.394,
+        "PETROL": 3104.609,
+        "OCTANE": 2175.142
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4847.112,
+        "PETROL": 3784.305,
+        "OCTANE": 2246.201
+      },
+      "station-tongi": {
+        "DIESEL": 2452.84,
+        "PETROL": 3241.241,
+        "OCTANE": 2147.199
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2495.406,
+        "PETROL": 3300.905,
+        "OCTANE": 1663.377
+      },
+      "station-coxsbazar": {
+        "DIESEL": 3283.273,
+        "PETROL": 3002.238,
+        "OCTANE": 2122.797
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4788.979,
+        "PETROL": 3713.778,
+        "OCTANE": 2205.246
+      },
+      "station-tongi": {
+        "DIESEL": 2216.64,
+        "PETROL": 3174.026,
+        "OCTANE": 2110.939
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2412.674,
+        "PETROL": 3206.543,
+        "OCTANE": 1617.243
+      },
+      "station-coxsbazar": {
+        "DIESEL": 3175.222,
+        "PETROL": 2905.938,
+        "OCTANE": 2068.99
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4725.868,
+        "PETROL": 3644.437,
+        "OCTANE": 2164.75
+      },
+      "station-tongi": {
+        "DIESEL": 2003.717,
+        "PETROL": 3098.742,
+        "OCTANE": 2074.757
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2321.382,
+        "PETROL": 3121.668,
+        "OCTANE": 1559.64
+      },
+      "station-coxsbazar": {
+        "DIESEL": 3081.231,
+        "PETROL": 2794.835,
+        "OCTANE": 2015.887
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4664.07,
+        "PETROL": 3562.826,
+        "OCTANE": 2127.455
+      },
+      "station-tongi": {
+        "DIESEL": 1789.254,
+        "PETROL": 3025.308,
+        "OCTANE": 2038.385
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2237.059,
+        "PETROL": 3034.99,
+        "OCTANE": 1501.554
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2978.385,
+        "PETROL": 2692.287,
+        "OCTANE": 1969.191
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4597.821,
+        "PETROL": 3484.814,
+        "OCTANE": 2084.679
+      },
+      "station-tongi": {
+        "DIESEL": 1574.041,
+        "PETROL": 2951.185,
+        "OCTANE": 2001.542
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2157.087,
+        "PETROL": 2944.431,
+        "OCTANE": 1448.603
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2881.075,
+        "PETROL": 2579.691,
+        "OCTANE": 1920.735
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4535.994,
+        "PETROL": 3411.004,
+        "OCTANE": 2043.366
+      },
+      "station-tongi": {
+        "DIESEL": 1352.7,
+        "PETROL": 2876.924,
+        "OCTANE": 1968.333
+      },
+      "station-karnaphuli": {
+        "DIESEL": 2066.084,
+        "PETROL": 2841.687,
+        "OCTANE": 1393.456
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2784.33,
+        "PETROL": 2479.256,
+        "OCTANE": 1870.46
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4478.349,
+        "PETROL": 3341.992,
+        "OCTANE": 2000.379
+      },
+      "station-tongi": {
+        "DIESEL": 1113.093,
+        "PETROL": 2809.074,
+        "OCTANE": 1934.739
+      },
+      "station-karnaphuli": {
+        "DIESEL": 1972.978,
+        "PETROL": 2739.695,
+        "OCTANE": 1335.541
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2673.31,
+        "PETROL": 2368.293,
+        "OCTANE": 1820.485
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4411.043,
+        "PETROL": 3269.632,
+        "OCTANE": 1963.525
+      },
+      "station-tongi": {
+        "DIESEL": 889.413,
+        "PETROL": 2732.513,
+        "OCTANE": 1898.026
+      },
+      "station-karnaphuli": {
+        "DIESEL": 1874.64,
+        "PETROL": 2642.041,
+        "OCTANE": 1287.112
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2567.173,
+        "PETROL": 2251.562,
+        "OCTANE": 1766.446
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4348.087,
+        "PETROL": 3187.995,
+        "OCTANE": 1921.041
+      },
+      "station-tongi": {
+        "DIESEL": 657.814,
+        "PETROL": 2659.167,
+        "OCTANE": 1861.395
+      },
+      "station-karnaphuli": {
+        "DIESEL": 1781.167,
+        "PETROL": 2546.508,
+        "OCTANE": 1233.63
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2466.463,
+        "PETROL": 2134.536,
+        "OCTANE": 1715.463
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4286.861,
+        "PETROL": 3106.479,
+        "OCTANE": 1882.549
+      },
+      "station-tongi": {
+        "DIESEL": 448.514,
+        "PETROL": 2587.277,
+        "OCTANE": 1826.926
+      },
+      "station-karnaphuli": {
+        "DIESEL": 1683.665,
+        "PETROL": 2448.103,
+        "OCTANE": 1186.094
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2362.342,
+        "PETROL": 2022.73,
+        "OCTANE": 1660.124
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4169.38,
+        "PETROL": 2945.813,
+        "OCTANE": 1799.369
+      },
+      "station-tongi": {
+        "DIESEL": 217.537,
+        "PETROL": 2515.089,
+        "OCTANE": 1792.077
+      },
+      "station-karnaphuli": {
+        "DIESEL": 1531.805,
+        "PETROL": 2293.923,
+        "OCTANE": 1083.878
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2263.738,
+        "PETROL": 1916.004,
+        "OCTANE": 1609.341
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 4051.907,
+        "PETROL": 2782.356,
+        "OCTANE": 1707.917
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 2439.36,
+        "OCTANE": 1757.627
+      },
+      "station-karnaphuli": {
+        "DIESEL": 1354.54,
+        "PETROL": 2137.575,
+        "OCTANE": 999.161
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2157.262,
+        "PETROL": 1808.758,
+        "OCTANE": 1555.844
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 3921.938,
+        "PETROL": 2622.59,
+        "OCTANE": 1621.92
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 2369.159,
+        "OCTANE": 1721.518
+      },
+      "station-karnaphuli": {
+        "DIESEL": 1213.556,
+        "PETROL": 1963.89,
+        "OCTANE": 909.635
+      },
+      "station-coxsbazar": {
+        "DIESEL": 2056.443,
+        "PETROL": 1691.933,
+        "OCTANE": 1501.322
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 3792.974,
+        "PETROL": 2463.729,
+        "OCTANE": 1540.458
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 2301.247,
+        "OCTANE": 1686.415
+      },
+      "station-karnaphuli": {
+        "DIESEL": 1054.38,
+        "PETROL": 1813.189,
+        "OCTANE": 823.161
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1962.359,
+        "PETROL": 1587.517,
+        "OCTANE": 1446.04
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 3653.398,
+        "PETROL": 2318.868,
+        "OCTANE": 1455.456
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 2223.056,
+        "OCTANE": 1652.355
+      },
+      "station-karnaphuli": {
+        "DIESEL": 881.185,
+        "PETROL": 1663.768,
+        "OCTANE": 718.93
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1851.023,
+        "PETROL": 1486.267,
+        "OCTANE": 1393.637
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 3514.442,
+        "PETROL": 2170.655,
+        "OCTANE": 1364.941
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 2145.753,
+        "OCTANE": 1619.106
+      },
+      "station-karnaphuli": {
+        "DIESEL": 727.816,
+        "PETROL": 1510.726,
+        "OCTANE": 615.423
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1749.523,
+        "PETROL": 1372.787,
+        "OCTANE": 1346.07
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 3388.055,
+        "PETROL": 2025.279,
+        "OCTANE": 1285.677
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 2072.433,
+        "OCTANE": 1582.533
+      },
+      "station-karnaphuli": {
+        "DIESEL": 549.736,
+        "PETROL": 1351.925,
+        "OCTANE": 510.828
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1658.103,
+        "PETROL": 1275.031,
+        "OCTANE": 1297.075
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 3262.464,
+        "PETROL": 1865.826,
+        "OCTANE": 1209.207
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 2001.706,
+        "OCTANE": 1544.205
+      },
+      "station-karnaphuli": {
+        "DIESEL": 399.002,
+        "PETROL": 1181.517,
+        "OCTANE": 409.181
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1557.503,
+        "PETROL": 1166.731,
+        "OCTANE": 1250.515
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 3123.274,
+        "PETROL": 1714.268,
+        "OCTANE": 1118.652
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1979.636,
+        "OCTANE": 1533.805
+      },
+      "station-karnaphuli": {
+        "DIESEL": 236.065,
+        "PETROL": 1028.136,
+        "OCTANE": 322.426
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1458.878,
+        "PETROL": 1057.484,
+        "OCTANE": 1203.235
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 2990.58,
+        "PETROL": 1562.25,
+        "OCTANE": 1027.733
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1959.36,
+        "OCTANE": 1523.683
+      },
+      "station-karnaphuli": {
+        "DIESEL": 89.132,
+        "PETROL": 842.17,
+        "OCTANE": 230.737
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1358.882,
+        "PETROL": 950.993,
+        "OCTANE": 1149.051
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 2866.347,
+        "PETROL": 1417.392,
+        "OCTANE": 936.318
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1936.821,
+        "OCTANE": 1512.616
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 683.471,
+        "OCTANE": 143.276
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1266.977,
+        "PETROL": 834.748,
+        "OCTANE": 1100.329
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 2731.592,
+        "PETROL": 1245.824,
+        "OCTANE": 844.43
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1915.001,
+        "OCTANE": 1502.652
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 519.095,
+        "OCTANE": 51.159
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1158.173,
+        "PETROL": 719.638,
+        "OCTANE": 1048.099
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 2599.835,
+        "PETROL": 1091.161,
+        "OCTANE": 755.226
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1895.123,
+        "OCTANE": 1491.786
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 336.077,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 1062.426,
+        "PETROL": 602.549,
+        "OCTANE": 1001.702
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 2461.947,
+        "PETROL": 928.29,
+        "OCTANE": 668.935
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1873.536,
+        "OCTANE": 1481.328
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 164.218,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 970.355,
+        "PETROL": 493.817,
+        "OCTANE": 951.904
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 2321.35,
+        "PETROL": 775.178,
+        "OCTANE": 592.151
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1853.946,
+        "OCTANE": 1471.24
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 11.722,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 864.492,
+        "PETROL": 392.899,
+        "OCTANE": 904.337
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 2196.232,
+        "PETROL": 608.102,
+        "OCTANE": 506.853
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1833.841,
+        "OCTANE": 1460.568
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 770.31,
+        "PETROL": 293.851,
+        "OCTANE": 851.48
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 2067.113,
+        "PETROL": 459.966,
+        "OCTANE": 414.076
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1812.687,
+        "OCTANE": 1449.584
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 666.954,
+        "PETROL": 188.926,
+        "OCTANE": 797.32
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1941.991,
+        "PETROL": 294.264,
+        "OCTANE": 335.023
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1790.915,
+        "OCTANE": 1438.936
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 568.597,
+        "PETROL": 75.294,
+        "OCTANE": 744.804
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1824.432,
+        "PETROL": 130.618,
+        "OCTANE": 250.165
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1769.219,
+        "OCTANE": 1427.946
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 460.182,
+        "PETROL": 0,
+        "OCTANE": 691.416
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1690.701,
+        "PETROL": 0,
+        "OCTANE": 160.468
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1749.032,
+        "OCTANE": 1417.853
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 361.656,
+        "PETROL": 0,
+        "OCTANE": 643.13
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1634.46,
+        "PETROL": 0,
+        "OCTANE": 122.369
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1727.374,
+        "OCTANE": 1407.478
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 312.479,
+        "PETROL": 0,
+        "OCTANE": 616.268
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1576.281,
+        "PETROL": 0,
+        "OCTANE": 78.703
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1705.53,
+        "OCTANE": 1397.167
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 258.538,
+        "PETROL": 0,
+        "OCTANE": 588.068
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1518.242,
+        "PETROL": 0,
+        "OCTANE": 39.206
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1685.742,
+        "OCTANE": 1386.826
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 204.011,
+        "PETROL": 0,
+        "OCTANE": 560.08
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1454.808,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1665.396,
+        "OCTANE": 1377.154
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 154.575,
+        "PETROL": 0,
+        "OCTANE": 534.35
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1396.373,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1642.658,
+        "OCTANE": 1367.169
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 106.524,
+        "PETROL": 0,
+        "OCTANE": 509.291
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1339.653,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1621.188,
+        "OCTANE": 1357.372
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 53.286,
+        "PETROL": 0,
+        "OCTANE": 480.671
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1281.621,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1599.683,
+        "OCTANE": 1347.194
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 5.678,
+        "PETROL": 0,
+        "OCTANE": 454.672
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1220.289,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1578.661,
+        "OCTANE": 1336.316
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 427.755
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1162.611,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1559.246,
+        "OCTANE": 1325.227
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 402.761
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1098.896,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1537.535,
+        "OCTANE": 1314.619
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 375.158
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 1041.313,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1516.245,
+        "OCTANE": 1303.935
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 350.017
+      }
+    },
+    {
+      "station-mirpur": {
+        "DIESEL": 977.702,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-tongi": {
+        "DIESEL": 0,
+        "PETROL": 1496.706,
+        "OCTANE": 1293.39
+      },
+      "station-karnaphuli": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 0
+      },
+      "station-coxsbazar": {
+        "DIESEL": 0,
+        "PETROL": 0,
+        "OCTANE": 323.092
+      }
+    }
+  ],
+  "depots": [
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 60000,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 55000,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 45000,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 24000
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 78000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 59000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 26000
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 71000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 42000,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 33000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    },
+    {
+      "depot-gazipur": {
+        "DIESEL": 90000.0,
+        "PETROL": 69000.0,
+        "OCTANE": 33000.0
+      },
+      "depot-patiya": {
+        "DIESEL": 81000.0,
+        "PETROL": 50000.0,
+        "OCTANE": 39000.0
+      }
+    }
+  ]
+}

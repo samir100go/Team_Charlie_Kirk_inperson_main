@@ -1,0 +1,629 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "demand_history",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 3.3,
+    "note": "docs: limit clamped to [1, 2000] - clamp or 422?",
+    "sim_tick": 20
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/demand-history",
+    "params": {
+      "station_id": "station-mirpur",
+      "limit": 5000
+    },
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": 231,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 19,
+        "sim_time": "2026-01-01T04:45:00",
+        "demand_liters": 42.016,
+        "served_liters": 42.016,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 230,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 19,
+        "sim_time": "2026-01-01T04:45:00",
+        "demand_liters": 79.196,
+        "served_liters": 79.196,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 229,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 19,
+        "sim_time": "2026-01-01T04:45:00",
+        "demand_liters": 55.795,
+        "served_liters": 55.795,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 219,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 18,
+        "sim_time": "2026-01-01T04:30:00",
+        "demand_liters": 43.392,
+        "served_liters": 43.392,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 218,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 18,
+        "sim_time": "2026-01-01T04:30:00",
+        "demand_liters": 78.343,
+        "served_liters": 78.343,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 217,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 18,
+        "sim_time": "2026-01-01T04:30:00",
+        "demand_liters": 57.517,
+        "served_liters": 57.517,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 207,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 17,
+        "sim_time": "2026-01-01T04:15:00",
+        "demand_liters": 40.101,
+        "served_liters": 40.101,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 206,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 17,
+        "sim_time": "2026-01-01T04:15:00",
+        "demand_liters": 83.037,
+        "served_liters": 83.037,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 205,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 17,
+        "sim_time": "2026-01-01T04:15:00",
+        "demand_liters": 62.73,
+        "served_liters": 62.73,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 195,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 16,
+        "sim_time": "2026-01-01T04:00:00",
+        "demand_liters": 40.162,
+        "served_liters": 40.162,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 194,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 16,
+        "sim_time": "2026-01-01T04:00:00",
+        "demand_liters": 81.712,
+        "served_liters": 81.712,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 193,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 16,
+        "sim_time": "2026-01-01T04:00:00",
+        "demand_liters": 67.705,
+        "served_liters": 67.705,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 183,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 15,
+        "sim_time": "2026-01-01T03:45:00",
+        "demand_liters": 44.284,
+        "served_liters": 44.284,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 182,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 15,
+        "sim_time": "2026-01-01T03:45:00",
+        "demand_liters": 78.967,
+        "served_liters": 78.967,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 181,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 15,
+        "sim_time": "2026-01-01T03:45:00",
+        "demand_liters": 59.889,
+        "served_liters": 59.889,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 171,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 14,
+        "sim_time": "2026-01-01T03:30:00",
+        "demand_liters": 40.089,
+        "served_liters": 40.089,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 170,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 14,
+        "sim_time": "2026-01-01T03:30:00",
+        "demand_liters": 75.972,
+        "served_liters": 75.972,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 169,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 14,
+        "sim_time": "2026-01-01T03:30:00",
+        "demand_liters": 58.237,
+        "served_liters": 58.237,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 159,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 13,
+        "sim_time": "2026-01-01T03:15:00",
+        "demand_liters": 38.573,
+        "served_liters": 38.573,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 158,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 13,
+        "sim_time": "2026-01-01T03:15:00",
+        "demand_liters": 79.233,
+        "served_liters": 79.233,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 157,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 13,
+        "sim_time": "2026-01-01T03:15:00",
+        "demand_liters": 65.637,
+        "served_liters": 65.637,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 147,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 12,
+        "sim_time": "2026-01-01T03:00:00",
+        "demand_liters": 41.749,
+        "served_liters": 41.749,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 146,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 12,
+        "sim_time": "2026-01-01T03:00:00",
+        "demand_liters": 84.007,
+        "served_liters": 84.007,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 145,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 12,
+        "sim_time": "2026-01-01T03:00:00",
+        "demand_liters": 58.778,
+        "served_liters": 58.778,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 135,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 11,
+        "sim_time": "2026-01-01T02:45:00",
+        "demand_liters": 40.247,
+        "served_liters": 40.247,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 134,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 11,
+        "sim_time": "2026-01-01T02:45:00",
+        "demand_liters": 82.71,
+        "served_liters": 82.71,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 133,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 11,
+        "sim_time": "2026-01-01T02:45:00",
+        "demand_liters": 63.415,
+        "served_liters": 63.415,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 123,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 10,
+        "sim_time": "2026-01-01T02:30:00",
+        "demand_liters": 37.471,
+        "served_liters": 37.471,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 122,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 10,
+        "sim_time": "2026-01-01T02:30:00",
+        "demand_liters": 72.489,
+        "served_liters": 72.489,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 121,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 10,
+        "sim_time": "2026-01-01T02:30:00",
+        "demand_liters": 58.78,
+        "served_liters": 58.78,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 111,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 9,
+        "sim_time": "2026-01-01T02:15:00",
+        "demand_liters": 44.446,
+        "served_liters": 44.446,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 110,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 9,
+        "sim_time": "2026-01-01T02:15:00",
+        "demand_liters": 74.783,
+        "served_liters": 74.783,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 109,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 9,
+        "sim_time": "2026-01-01T02:15:00",
+        "demand_liters": 63.021,
+        "served_liters": 63.021,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 99,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 8,
+        "sim_time": "2026-01-01T02:00:00",
+        "demand_liters": 41.235,
+        "served_liters": 41.235,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 98,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 8,
+        "sim_time": "2026-01-01T02:00:00",
+        "demand_liters": 71.177,
+        "served_liters": 71.177,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 97,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 8,
+        "sim_time": "2026-01-01T02:00:00",
+        "demand_liters": 56.094,
+        "served_liters": 56.094,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 87,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 7,
+        "sim_time": "2026-01-01T01:45:00",
+        "demand_liters": 38.167,
+        "served_liters": 38.167,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 86,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 7,
+        "sim_time": "2026-01-01T01:45:00",
+        "demand_liters": 73.612,
+        "served_liters": 73.612,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 85,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 7,
+        "sim_time": "2026-01-01T01:45:00",
+        "demand_liters": 64.476,
+        "served_liters": 64.476,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 75,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 6,
+        "sim_time": "2026-01-01T01:30:00",
+        "demand_liters": 44.211,
+        "served_liters": 44.211,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 74,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 6,
+        "sim_time": "2026-01-01T01:30:00",
+        "demand_liters": 75.636,
+        "served_liters": 75.636,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 73,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 6,
+        "sim_time": "2026-01-01T01:30:00",
+        "demand_liters": 55.795,
+        "served_liters": 55.795,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 63,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 5,
+        "sim_time": "2026-01-01T01:15:00",
+        "demand_liters": 37.378,
+        "served_liters": 37.378,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 62,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 5,
+        "sim_time": "2026-01-01T01:15:00",
+        "demand_liters": 79.508,
+        "served_liters": 79.508,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 61,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 5,
+        "sim_time": "2026-01-01T01:15:00",
+        "demand_liters": 66.398,
+        "served_liters": 66.398,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 51,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 4,
+        "sim_time": "2026-01-01T01:00:00",
+        "demand_liters": 36.762,
+        "served_liters": 36.762,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 50,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 4,
+        "sim_time": "2026-01-01T01:00:00",
+        "demand_liters": 69.509,
+        "served_liters": 69.509,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 49,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 4,
+        "sim_time": "2026-01-01T01:00:00",
+        "demand_liters": 64.058,
+        "served_liters": 64.058,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 39,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 3,
+        "sim_time": "2026-01-01T00:45:00",
+        "demand_liters": 44.3,
+        "served_liters": 44.3,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 38,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 3,
+        "sim_time": "2026-01-01T00:45:00",
+        "demand_liters": 78.678,
+        "served_liters": 78.678,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 37,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 3,
+        "sim_time": "2026-01-01T00:45:00",
+        "demand_liters": 65.161,
+        "served_liters": 65.161,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 27,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 2,
+        "sim_time": "2026-01-01T00:30:00",
+        "demand_liters": 41.77,
+        "served_liters": 41.77,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 26,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 2,
+        "sim_time": "2026-01-01T00:30:00",
+        "demand_liters": 80.7,
+        "served_liters": 80.7,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 25,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 2,
+        "sim_time": "2026-01-01T00:30:00",
+        "demand_liters": 56.319,
+        "served_liters": 56.319,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 15,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 1,
+        "sim_time": "2026-01-01T00:15:00",
+        "demand_liters": 37.862,
+        "served_liters": 37.862,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 14,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 1,
+        "sim_time": "2026-01-01T00:15:00",
+        "demand_liters": 79.32,
+        "served_liters": 79.32,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 13,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 1,
+        "sim_time": "2026-01-01T00:15:00",
+        "demand_liters": 58.905,
+        "served_liters": 58.905,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 3,
+        "station_id": "station-mirpur",
+        "fuel_type": "OCTANE",
+        "tick": 0,
+        "sim_time": "2026-01-01T00:00:00",
+        "demand_liters": 37.631,
+        "served_liters": 37.631,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 2,
+        "station_id": "station-mirpur",
+        "fuel_type": "PETROL",
+        "tick": 0,
+        "sim_time": "2026-01-01T00:00:00",
+        "demand_liters": 71.273,
+        "served_liters": 71.273,
+        "unmet_liters": 0.0
+      },
+      {
+        "id": 1,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 0,
+        "sim_time": "2026-01-01T00:00:00",
+        "demand_liters": 59.588,
+        "served_liters": 59.588,
+        "unmet_liters": 0.0
+      }
+    ]
+  }
+}

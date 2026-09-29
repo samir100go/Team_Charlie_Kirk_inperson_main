@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Generate DOC-DERIVED fixtures from the BUP Fuel Supply Simulator Integration Guide.
 
-These stand in for recorded fixtures until `make sim-probe` can run against a
-live simulator. Every file is marked `_meta.source = "doc-derived"` with the guide
-section it came from; fields the guide does not state literally are listed in
-`_meta.inferred`. A recorded fixture with the same file name in fixtures/ wins
-over the one in fixtures/doc_derived/ (see jalani_common tests' fixture loader).
+Since Phase 0.4 ran against the real simulator, recorded fixtures (`make sim-probe`)
+replace these. Only the cases a live simulator cannot produce are still written
+(see UNRECORDABLE). Every file is marked `_meta.source = "doc-derived"` with the
+guide section it came from; fields the guide does not state literally are listed
+in `_meta.inferred`.
 
     python scripts/make_doc_fixtures.py
 """
@@ -473,9 +473,15 @@ def build() -> dict[str, dict[str, Any]]:
     return fx
 
 
+# Cases the real simulator cannot be driven into (docs/SIMULATOR_NOTES.md):
+# depots are only ever OPEN or CONSTRAINED, and the background-runner error notice
+# needs an internal exception. Everything else is recorded by `make sim-probe`.
+UNRECORDABLE = {"create_allocation__depot_closed", "stream_event__simulator_notice_error"}
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    fixtures = build()
+    fixtures = {k: v for k, v in build().items() if k in UNRECORDABLE}
     for old in OUT.glob("*.json"):
         if old.stem not in fixtures:
             old.unlink()

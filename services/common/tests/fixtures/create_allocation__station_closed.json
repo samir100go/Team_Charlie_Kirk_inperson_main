@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "create_allocation",
+    "recorded_at": "2026-09-29T04:53:49+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 45.5,
+    "sim_tick": 1
+  },
+  "request": {
+    "method": "POST",
+    "path": "/v1/allocations",
+    "params": null,
+    "json": {
+      "idempotency_key": "probe-station-closed",
+      "source_depot_id": "depot-patiya",
+      "destination_station_id": "station-coxsbazar",
+      "route_id": "route-patiya-coxsbazar",
+      "fuel_type": "DIESEL",
+      "quantity": 1000
+    }
+  },
+  "response": {
+    "status": 409,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": {
+        "code": "STATION_CLOSED",
+        "message": "Station unavailable"
+      }
+    }
+  }
+}

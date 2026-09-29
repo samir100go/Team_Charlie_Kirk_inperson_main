@@ -153,6 +153,13 @@ def section_reads(r: Recorder) -> None:
     )
     r.save("metrics__initial", sim.get("/v1/metrics"), "metrics")
     r.save("openapi__ok", sim.get("/openapi.json"), "openapi")
+    r.save("root__ok", sim.get("/"), "root", note="undocumented in the guide; listed in openapi")
+    r.save(
+        "admin_stats__ok",
+        sim.get("/admin/stats"),
+        "admin_stats",
+        note="undocumented in the guide; listed in openapi",
+    )
     r.save("admin_console__ok", sim.get("/admin"), "admin_console")
     r.save("admin_audit__initial", sim.get("/admin/audit", limit=20), "admin_audit")
     r.save("admin_faults__empty", sim.get("/admin/faults"), "admin_faults")

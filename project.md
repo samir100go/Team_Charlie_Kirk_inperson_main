@@ -270,12 +270,12 @@ jalani/
 
 ## Phase 1 — Skeleton, compose, Makefile, CI stub (≈5%)
 
-- [ ] 1.1 Create folder structure from §5. Python services share `services/common` as a local package (uv workspace).
-- [ ] 1.2 Each Python service: FastAPI app with `/healthz` (liveness) and `/readyz` (readiness: checks its dependencies), `/metrics`, `/version` (git SHA, build time, image tag, model version).
-- [ ] 1.3 Multi-stage Dockerfiles (slim, non-root user, `HEALTHCHECK`). Web: Next.js standalone output.
-- [ ] 1.4 `docker-compose.yml` with **all** services from §4.1 (Part A ones), health checks, `depends_on: condition: service_healthy`, named volumes, one network, resource limits, `restart: unless-stopped`. Simulator image pinned via `${SIMULATOR_IMAGE}`; `SIMULATION_SPEED`, `TICK_MINUTES`, `SIMULATOR_START_MODE` passed through.
+- [ ] 1.1 Create folder structure from §5. Python services share `services/common` as a local package (uv workspace). *(Partial: uv workspace, `services/*` with §5 subpackages, `web/`, `observability/` done. `loadtest/`, `scenarios/`, `bench/`, `deploy/`, `docs/ADR/`, `.github/` not yet.)*
+- [x] 1.2 Each Python service: FastAPI app with `/healthz` (liveness) and `/readyz` (readiness: checks its dependencies), `/metrics`, `/version` (git SHA, build time, image tag, model version). *(All three run under uvicorn outside Docker; 14 tests.)*
+- [ ] 1.3 Multi-stage Dockerfiles (slim, non-root user, `HEALTHCHECK`). Web: Next.js standalone output. *(Written: `services/python.Dockerfile` (shared) + `web/Dockerfile`. uv install steps reproduced without Docker; standalone build served locally. Not yet built with Docker.)*
+- [ ] 1.4 `docker-compose.yml` with **all** services from §4.1 (Part A ones), health checks, `depends_on: condition: service_healthy`, named volumes, one network, resource limits, `restart: unless-stopped`. Simulator image pinned via `${SIMULATOR_IMAGE}`; `SIMULATION_SPEED`, `TICK_MINUTES`, `SIMULATOR_START_MODE` passed through. *(Written; `docker compose config` valid; promtool/amtool pass. Promtail replaced by Grafana Alloy: Promtail EOL 2026-03-02. Not yet run: needs Docker + `.env.example`.)*
 - [ ] 1.5 `.env.example` documenting every variable (URLs, DB DSN, Redis URL, JWT secret placeholder, LLM key placeholder, thresholds, feature flags). App fails fast with a clear message if a required var is missing.
-- [ ] 1.6 `Makefile`: `up`, `up-lite` (no observability), `down`, `logs`, `ps`, `test`, `lint`, `fmt`, `e2e`, `loadtest`, `sim-reset`, `sim-run`, `sim-pause`, `sim-step N=`, `demo`, `rollback VERSION=`.
+- [ ] 1.6 `Makefile`: `up`, `up-lite` (no observability), `down`, `logs`, `ps`, `test`, `lint`, `fmt`, `e2e`, `loadtest`, `sim-reset`, `sim-run`, `sim-pause`, `sim-step N=`, `demo`, `rollback VERSION=`. *(Partial: only `sim-up`, `sim-down`, `sim-probe`, `sim-experiments`.)*
 - [ ] 1.7 `.github/workflows/ci.yml` stub: lint + unit tests + docker build for every service.
 - [ ] 1.8 Pre-commit: ruff, mypy, eslint, prettier, gitleaks.
 

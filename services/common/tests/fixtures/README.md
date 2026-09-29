@@ -16,7 +16,7 @@ Each fixture is one HTTP exchange with the simulator:
 | `fixtures/doc_derived/*.json` | **doc-derived** from the Integration Guide examples | `scripts/make_doc_fixtures.py` |
 
 **Precedence:** a recorded fixture replaces the doc-derived fixture with the same
-file name. The test loader (`tests/fixtures.py`) always prefers `fixtures/<name>.json`.
+file name. The contract-test loader (Phase 2.1) must always prefer `fixtures/<name>.json`.
 
 Doc-derived caveats (see each file's `_meta.inferred`):
 

@@ -77,7 +77,9 @@ class Recorder:
             return None
 
 
-def alloc_body(key: str, depot: str, station: str, route: str, fuel: str, qty: float) -> dict:
+def alloc_body(
+    key: str, depot: str, station: str, route: str, fuel: str, qty: float
+) -> dict[str, Any]:
     return {
         "idempotency_key": key,
         "source_depot_id": depot,

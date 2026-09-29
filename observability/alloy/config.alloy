@@ -1,0 +1,56 @@
+// Grafana Alloy ships container logs to Loki. It replaces Promtail, which
+// reached end of life on 2026-03-02.
+
+// Only containers of this compose project.
+discovery.docker "jalani" {
+  host             = "unix:///var/run/docker.sock"
+  refresh_interval = "5s"
+
+  filter {
+    name   = "label"
+    values = ["com.docker.compose.project=jalani"]
+  }
+}
+
+discovery.relabel "jalani" {
+  targets = []
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/(.*)"
+    target_label  = "container"
+  }
+
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    target_label  = "compose_service"
+  }
+}
+
+loki.source.docker "jalani" {
+  host             = "unix:///var/run/docker.sock"
+  targets          = discovery.docker.jalani.targets
+  relabel_rules    = discovery.relabel.jalani.rules
+  refresh_interval = "5s"
+  forward_to       = [loki.process.jalani.receiver]
+}
+
+// Our services log JSON lines (structlog). Promote only the low-cardinality
+// `level` to a label; other lines (uvicorn access logs, simulator) pass through.
+loki.process "jalani" {
+  stage.json {
+    expressions = { level = "level" }
+  }
+
+  stage.labels {
+    values = { level = "" }
+  }
+
+  forward_to = [loki.write.default.receiver]
+}
+
+loki.write "default" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}

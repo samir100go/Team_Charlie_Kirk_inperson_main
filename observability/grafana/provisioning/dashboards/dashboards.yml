@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: jalani
+    type: file
+    folder: JALANI
+    disableDeletion: true
+    allowUiUpdates: false
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/dashboards

@@ -1,0 +1,21 @@
+# Baseline availability alerts. The full rule set (error rate, p95 SLO, simulator
+# circuit, staleness, fallback, forecast drift, service level) lands in Phase 8.
+groups:
+  - name: jalani-availability
+    rules:
+      - alert: JalaniTargetDown
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.job }} target {{ $labels.instance }} is down"
+          description: "Prometheus cannot scrape {{ $labels.instance }} for 30s."
+      - alert: JalaniServiceErrors
+        expr: sum by (service) (rate(jalani_http_requests_total{status=~"5.."}[1m])) > 0.5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.service }} is returning 5xx responses"
+          description: "More than 0.5 req/s of 5xx from {{ $labels.service }} for 1 minute."

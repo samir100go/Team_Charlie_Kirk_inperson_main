@@ -1,0 +1,354 @@
+# JALANI full stack. Quick start:  make up   (creates .env from .env.example on first run)
+# Every variable is documented in .env.example. Secrets have no defaults on purpose.
+name: jalani
+
+x-base: &base
+  restart: unless-stopped
+  networks: [jalani]
+  logging:
+    driver: json-file
+    options: { max-size: "10m", max-file: "3" }
+
+x-build-args: &build-args
+  GIT_SHA: ${GIT_SHA:-unknown}
+  BUILD_TIME: ${BUILD_TIME:-unknown}
+  IMAGE_TAG: ${IMAGE_TAG:-dev}
+
+x-app-env: &app-env
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+  SIMULATOR_URL: http://simulator:8000
+  DATABASE_URL: postgresql://${POSTGRES_USER:-jalani}:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env (make .env)}@postgres:5432/${POSTGRES_DB:-jalani}
+  REDIS_URL: redis://redis:6379/0
+  READINESS_TIMEOUT_S: ${READINESS_TIMEOUT_S:-2}
+  CHAOS_ENABLED: ${CHAOS_ENABLED:-false}
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+  GIT_SHA: ${GIT_SHA:-unknown}
+  BUILD_TIME: ${BUILD_TIME:-unknown}
+  IMAGE_TAG: ${IMAGE_TAG:-dev}
+
+x-python-healthcheck: &python-healthcheck
+  interval: 10s
+  timeout: 3s
+  retries: 5
+  start_period: 20s
+
+services:
+  # --- the world (organizer image, never modified) ---------------------------------
+  simulator:
+    <<: *base
+    image: ${SIMULATOR_IMAGE:-asifmahmoud414/bup-fuel-supply-simulator:1.0.0}
+    environment:
+      SIMULATION_SPEED: ${SIMULATION_SPEED:-8}
+      TICK_MINUTES: ${TICK_MINUTES:-15}
+      SIMULATOR_START_MODE: ${SIMULATOR_START_MODE:-paused}
+    ports: ["8000:8000"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/v1/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    deploy:
+      resources:
+        limits: { cpus: "1.0", memory: 512M }
+
+  # --- data layer ----------------------------------------------------------------------
+  postgres:
+    <<: *base
+    image: postgres:16.15-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-jalani}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env (make .env)}
+      POSTGRES_DB: ${POSTGRES_DB:-jalani}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    ports: ["127.0.0.1:5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    deploy:
+      resources:
+        limits: { cpus: "1.0", memory: 768M }
+
+  redis:
+    <<: *base
+    image: redis:7.4.11-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: [redisdata:/data]
+    ports: ["127.0.0.1:6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    deploy:
+      resources:
+        limits: { cpus: "0.5", memory: 256M }
+
+  # --- our services ---------------------------------------------------------------------
+  ingestor:
+    <<: *base
+    build:
+      context: .
+      dockerfile: services/python.Dockerfile
+      args: { <<: *build-args, SERVICE: ingestor, PACKAGE: jalani-ingestor, PORT: "8070" }
+    image: jalani/ingestor:${IMAGE_TAG:-dev}
+    environment:
+      <<: *app-env
+      POLL_INTERVAL_MS: ${POLL_INTERVAL_MS:-500}
+    ports: ["8070:8070"]
+    healthcheck:
+      <<: *python-healthcheck
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8070/healthz', timeout=2)"]
+    depends_on:
+      simulator: { condition: service_healthy }
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    deploy:
+      resources:
+        limits: { cpus: "1.0", memory: 512M }
+
+  intelligence:
+    <<: *base
+    build:
+      context: .
+      dockerfile: services/python.Dockerfile
+      args: { <<: *build-args, SERVICE: intelligence, PACKAGE: jalani-intelligence, PORT: "8090" }
+    image: jalani/intelligence:${IMAGE_TAG:-dev}
+    environment:
+      <<: *app-env
+      MODEL_VERSION: ${MODEL_VERSION:-structural-prior-v0}
+    ports: ["8090:8090"]
+    healthcheck:
+      <<: *python-healthcheck
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8090/healthz', timeout=2)"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    deploy:
+      resources:
+        limits: { cpus: "2.0", memory: 1536M }
+
+  core-api:
+    <<: *base
+    build:
+      context: .
+      dockerfile: services/python.Dockerfile
+      args: { <<: *build-args, SERVICE: core_api, PACKAGE: jalani-core-api, PORT: "8080" }
+    image: jalani/core-api:${IMAGE_TAG:-dev}
+    environment:
+      <<: *app-env
+      INTELLIGENCE_URL: http://intelligence:8090
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env (make .env)}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      AUTOPILOT_ENABLED: ${AUTOPILOT_ENABLED:-true}
+    ports: ["8080:8080"]
+    healthcheck:
+      <<: *python-healthcheck
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=2)"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      # Soft dependency: core-api runs its fallback policy while intelligence is down.
+      intelligence: { condition: service_started }
+    deploy:
+      resources:
+        limits: { cpus: "1.0", memory: 512M }
+
+  web:
+    <<: *base
+    build:
+      context: ./web
+      args: *build-args
+    image: jalani/web:${IMAGE_TAG:-dev}
+    environment:
+      CORE_API_URL: http://core-api:8080
+    ports: ["3000:3000"]
+    depends_on:
+      core-api: { condition: service_healthy }
+    deploy:
+      resources:
+        limits: { cpus: "1.0", memory: 512M }
+
+  # --- observability --------------------------------------------------------------------
+  prometheus:
+    <<: *base
+    image: prom/prometheus:v3.15.0
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=7d
+      - --web.enable-lifecycle
+      - --web.enable-remote-write-receiver # k6 results (Phase 9)
+    volumes:
+      - ./observability/prometheus:/etc/prometheus:ro
+      - prometheus-data:/prometheus
+    ports: ["9090:9090"]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:9090/-/healthy"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    deploy:
+      resources:
+        limits: { cpus: "1.0", memory: 1G }
+
+  alertmanager:
+    <<: *base
+    image: prom/alertmanager:v0.34.1
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --storage.path=/alertmanager
+    volumes:
+      - ./observability/alertmanager:/etc/alertmanager:ro
+      - alertmanager-data:/alertmanager
+    ports: ["9093:9093"]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:9093/-/healthy"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    deploy:
+      resources:
+        limits: { cpus: "0.25", memory: 128M }
+
+  grafana:
+    <<: *base
+    image: grafana/grafana:13.2.2
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?set GRAFANA_ADMIN_PASSWORD in .env (make .env)}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "true" # read-only dashboards linked from the operator UI
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    ports: ["3001:3000"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/api/health >/dev/null || curl -fsS http://127.0.0.1:3000/api/health >/dev/null"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 20s
+    depends_on:
+      prometheus: { condition: service_healthy }
+      loki: { condition: service_started }
+      tempo: { condition: service_started }
+    deploy:
+      resources:
+        limits: { cpus: "1.0", memory: 512M }
+
+  loki:
+    <<: *base
+    image: grafana/loki:3.7.8
+    command: ["-config.file=/etc/loki/loki.yml"]
+    volumes:
+      - ./observability/loki/loki.yml:/etc/loki/loki.yml:ro
+      - loki-data:/loki
+    ports: ["3100:3100"]
+    # No healthcheck: the image has no shell/HTTP client. Prometheus scrapes it (up{job="loki"}).
+    deploy:
+      resources:
+        limits: { cpus: "1.0", memory: 512M }
+
+  alloy:
+    <<: *base
+    image: grafana/alloy:v1.20.1
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+      - /etc/alloy/config.alloy
+    volumes:
+      - ./observability/alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro # read container logs (read-only)
+      - alloy-data:/var/lib/alloy/data
+    ports: ["12345:12345"]
+    depends_on:
+      loki: { condition: service_started }
+    deploy:
+      resources:
+        limits: { cpus: "0.5", memory: 256M }
+
+  tempo-init: # Tempo runs as uid 10001; a fresh named volume is root-owned.
+    image: grafana/tempo:2.10.8
+    user: root
+    entrypoint: ["chown", "-R", "10001:10001", "/var/tempo"]
+    volumes: [tempo-data:/var/tempo]
+    networks: [jalani]
+    restart: "no"
+
+  tempo:
+    <<: *base
+    image: grafana/tempo:2.10.8
+    command: ["-config.file=/etc/tempo/tempo.yml"]
+    volumes:
+      - ./observability/tempo/tempo.yml:/etc/tempo/tempo.yml:ro
+      - tempo-data:/var/tempo
+    ports: ["3200:3200"]
+    depends_on:
+      tempo-init: { condition: service_completed_successfully }
+    # No healthcheck: distroless image. Prometheus scrapes it (up{job="tempo"}).
+    deploy:
+      resources:
+        limits: { cpus: "0.5", memory: 512M }
+
+  otel-collector:
+    <<: *base
+    image: otel/opentelemetry-collector-contrib:0.161.0
+    command: ["--config=/etc/otelcol/config.yml"]
+    volumes:
+      - ./observability/otel-collector/config.yml:/etc/otelcol/config.yml:ro
+    ports: ["4317:4317", "4318:4318"]
+    depends_on:
+      tempo: { condition: service_started }
+    deploy:
+      resources:
+        limits: { cpus: "0.5", memory: 256M }
+
+  cadvisor:
+    <<: *base
+    image: gcr.io/cadvisor/cadvisor:v0.55.1
+    privileged: true
+    devices: ["/dev/kmsg"]
+    command: ["--docker_only=true", "--housekeeping_interval=10s"]
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    ports: ["8081:8080"]
+    deploy:
+      resources:
+        limits: { cpus: "0.5", memory: 256M }
+
+  # --- load testing (profile: docker compose --profile loadtest ...) --------------------------
+  k6:
+    image: grafana/k6:1.8.1
+    profiles: [loadtest]
+    networks: [jalani]
+    entrypoint: ["k6"]
+    command: ["version"] # `make loadtest` runs the scripts (Phase 9)
+    environment:
+      K6_PROMETHEUS_RW_SERVER_URL: http://prometheus:9090/api/v1/write
+      CORE_API_URL: http://core-api:8080
+    volumes: ["./loadtest/k6:/scripts:ro"]
+
+networks:
+  jalani:
+    name: jalani
+
+volumes:
+  pgdata:
+  redisdata:
+  prometheus-data:
+  alertmanager-data:
+  grafana-data:
+  loki-data:
+  alloy-data:
+  tempo-data:

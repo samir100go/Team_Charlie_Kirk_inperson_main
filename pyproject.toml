@@ -1,0 +1,77 @@
+[project]
+name = "jalani"
+version = "0.1.0"
+description = "JALANI: fuel supply intelligence & resilience platform (BUP CSE FEST 2026)"
+license = "MIT"
+requires-python = ">=3.12"
+# The root is a virtual project: depending on every member makes a plain
+# `uv sync` install the whole workspace for development and tests.
+dependencies = [
+    "jalani-common",
+    "jalani-core-api",
+    "jalani-ingestor",
+    "jalani-intelligence",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.13",
+    "hypothesis>=6.120",
+    "mypy>=1.13",
+    "pre-commit>=4.0",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "respx>=0.22",
+    "ruff>=0.8",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = [
+    "services/common",
+    "services/core_api",
+    "services/ingestor",
+    "services/intelligence",
+]
+
+[tool.uv.sources]
+jalani-common = { workspace = true }
+jalani-core-api = { workspace = true }
+jalani-ingestor = { workspace = true }
+jalani-intelligence = { workspace = true }
+
+# --- ruff ------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["web", "services/intelligence/models"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "BLE", "UP", "SIM", "RUF", "ASYNC", "PT"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["jalani_common", "core_api", "ingestor", "intelligence", "simlib", "simfixtures"]
+
+# --- mypy ------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+warn_unused_configs = true
+mypy_path = "services/common:services/ingestor:services/core_api:services/intelligence:scripts:services/common/tests"
+explicit_package_bases = true
+
+[[tool.mypy.overrides]]
+module = ["asyncpg"]
+ignore_missing_imports = true
+
+# --- pytest ----------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["services"]
+addopts = ["--import-mode=importlib", "-ra"]
+pythonpath = ["services/common/tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = ["error::pytest.PytestUnraisableExceptionWarning"]

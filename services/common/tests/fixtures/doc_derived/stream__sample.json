@@ -1,0 +1,90 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "stream",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a76.1, \u00a76.3",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)",
+    "inferred": [
+      "content-type charset",
+      "event ordering",
+      "inventory numbers"
+    ]
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/stream",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/event-stream; charset=utf-8"
+    },
+    "text": ": connected\n\nevent: simulation.tick\ndata: {\"tick\": 6, \"sim_time\": \"2026-01-01T01:30:00+00:00\"}\n\nevent: allocation.status_changed\ndata: {\"id\": 1, \"idempotency_key\": \"demo-001\", \"source_depot_id\": \"depot-gazipur\", \"destination_station_id\": \"station-mirpur\", \"route_id\": \"route-gazipur-mirpur\", \"fuel_type\": \"DIESEL\", \"quantity\": 3000, \"created_tick\": 5, \"departure_tick\": 6, \"expected_arrival_tick\": 8, \"actual_arrival_tick\": null, \"status\": \"IN_TRANSIT\", \"failure_reason\": null}\n\nevent: inventory.updated\ndata: {\"entity_type\": \"depot\", \"entity_id\": \"depot-gazipur\", \"inventory\": {\"DIESEL\": 57000, \"PETROL\": 45000, \"OCTANE\": 26000}}\n\nevent: simulator.notice\ndata: {\"message\": \"Simulation reset\"}\n\n: keepalive\n",
+    "raw_lines": [
+      ": connected",
+      "",
+      "event: simulation.tick",
+      "data: {\"tick\": 6, \"sim_time\": \"2026-01-01T01:30:00+00:00\"}",
+      "",
+      "event: allocation.status_changed",
+      "data: {\"id\": 1, \"idempotency_key\": \"demo-001\", \"source_depot_id\": \"depot-gazipur\", \"destination_station_id\": \"station-mirpur\", \"route_id\": \"route-gazipur-mirpur\", \"fuel_type\": \"DIESEL\", \"quantity\": 3000, \"created_tick\": 5, \"departure_tick\": 6, \"expected_arrival_tick\": 8, \"actual_arrival_tick\": null, \"status\": \"IN_TRANSIT\", \"failure_reason\": null}",
+      "",
+      "event: inventory.updated",
+      "data: {\"entity_type\": \"depot\", \"entity_id\": \"depot-gazipur\", \"inventory\": {\"DIESEL\": 57000, \"PETROL\": 45000, \"OCTANE\": 26000}}",
+      "",
+      "event: simulator.notice",
+      "data: {\"message\": \"Simulation reset\"}",
+      "",
+      ": keepalive",
+      ""
+    ],
+    "events": [
+      {
+        "event": "simulation.tick",
+        "data": {
+          "tick": 6,
+          "sim_time": "2026-01-01T01:30:00+00:00"
+        }
+      },
+      {
+        "event": "allocation.status_changed",
+        "data": {
+          "id": 1,
+          "idempotency_key": "demo-001",
+          "source_depot_id": "depot-gazipur",
+          "destination_station_id": "station-mirpur",
+          "route_id": "route-gazipur-mirpur",
+          "fuel_type": "DIESEL",
+          "quantity": 3000,
+          "created_tick": 5,
+          "departure_tick": 6,
+          "expected_arrival_tick": 8,
+          "actual_arrival_tick": null,
+          "status": "IN_TRANSIT",
+          "failure_reason": null
+        }
+      },
+      {
+        "event": "inventory.updated",
+        "data": {
+          "entity_type": "depot",
+          "entity_id": "depot-gazipur",
+          "inventory": {
+            "DIESEL": 57000,
+            "PETROL": 45000,
+            "OCTANE": 26000
+          }
+        }
+      },
+      {
+        "event": "simulator.notice",
+        "data": {
+          "message": "Simulation reset"
+        }
+      }
+    ]
+  }
+}

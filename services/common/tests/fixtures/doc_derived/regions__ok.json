@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "regions",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a74.4",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)"
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/regions",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": "region-dhaka",
+        "name": "Dhaka Division",
+        "demand_factor": 1.0
+      },
+      {
+        "id": "region-chattogram",
+        "name": "Chattogram Division",
+        "demand_factor": 1.08
+      }
+    ]
+  }
+}

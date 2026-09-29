@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "admin_clear_faults",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a77.11",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)"
+  },
+  "request": {
+    "method": "POST",
+    "path": "/admin/faults/clear",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "json": {
+      "status": "cleared"
+    }
+  }
+}

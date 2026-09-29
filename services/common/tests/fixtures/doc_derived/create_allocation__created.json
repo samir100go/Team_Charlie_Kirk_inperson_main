@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "create_allocation",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a75.3",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)"
+  },
+  "request": {
+    "method": "POST",
+    "path": "/v1/allocations",
+    "params": null,
+    "json": {
+      "idempotency_key": "demo-001",
+      "source_depot_id": "depot-gazipur",
+      "destination_station_id": "station-mirpur",
+      "route_id": "route-gazipur-mirpur",
+      "fuel_type": "DIESEL",
+      "quantity": 3000
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "json": {
+      "id": 1,
+      "idempotency_key": "demo-001",
+      "source_depot_id": "depot-gazipur",
+      "destination_station_id": "station-mirpur",
+      "route_id": "route-gazipur-mirpur",
+      "fuel_type": "DIESEL",
+      "quantity": 3000,
+      "created_tick": 5,
+      "departure_tick": null,
+      "expected_arrival_tick": null,
+      "actual_arrival_tick": null,
+      "status": "PENDING",
+      "failure_reason": null
+    }
+  }
+}

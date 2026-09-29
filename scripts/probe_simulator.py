@@ -187,11 +187,11 @@ def section_reads(r: Recorder) -> None:
         sim.get("/v1/demand-history", station_id="station-nowhere", limit=5),
         "demand_history",
     )
-    r.save("metrics__after_steps", sim.get("/v1/metrics"), "metrics")
+    r.save("metrics__ok", sim.get("/v1/metrics"), "metrics")
     r.save("supply_arrivals__after_burst", sim.get("/v1/supply-arrivals"), "supply_arrivals")
     r.save("depots__after_burst", sim.get("/v1/depots"), "depots")
     r.save("stations__after_steps", sim.get("/v1/stations"), "stations")
-    r.save("admin_audit__after_steps", sim.get("/admin/audit", limit=50), "admin_audit")
+    r.save("admin_audit__ok", sim.get("/admin/audit", limit=50), "admin_audit")
 
     r.save("admin_run__ok", sim.post("/admin/run"), "admin_run")
     r.save("admin_toggle__ok", sim.post("/admin/toggle"), "admin_toggle")
@@ -332,7 +332,7 @@ def section_allocations(r: Recorder) -> None:
             return alloc is not None and alloc["status"] in {"ARRIVED", "FAILED"}
 
         step_until(sim, arrived, max_steps=6)
-        r.save("allocations__arrived", sim.get("/v1/allocations"), "allocations")
+        r.save("allocations__ok", sim.get("/v1/allocations"), "allocations")
         r.save("metrics__after_allocations", sim.get("/v1/metrics"), "metrics")
 
 
@@ -388,7 +388,7 @@ def section_events(r: Recorder) -> None:
         "admin_create_event",
     )
     r.save(
-        "admin_events_create__demand_spike_scheduled",
+        "admin_events_create__demand_spike",
         sim.inject_event(
             "demand_spike", t + 40, 8, region_ids=["region-chattogram"], multiplier=1.5
         ),
@@ -467,7 +467,7 @@ def section_events(r: Recorder) -> None:
     )
     r.save("admin_events__list", sim.get("/admin/events"), "admin_events")
     sim.step(6)
-    r.save("events__resolved", sim.get("/v1/events"), "events")
+    r.save("events__ok", sim.get("/v1/events"), "events")
 
 
 def section_faults(r: Recorder) -> None:
@@ -515,7 +515,7 @@ def section_faults(r: Recorder) -> None:
             f"fault_{type_}__stream",
             stream_fixture(cap, note=f"GET /v1/stream while {type_} fault active"),
         )
-        r.save(f"admin_faults_clear__after_{type_}", sim.clear_faults(), "admin_clear_faults")
+        r.save("admin_faults_clear__ok", sim.clear_faults(), "admin_clear_faults")
 
     r.save(
         "admin_faults__bad_type",

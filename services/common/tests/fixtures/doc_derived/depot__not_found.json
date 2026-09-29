@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "depot",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a74.5",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)",
+    "envelope": "detail_object",
+    "note": "guide shows the code only; no message field"
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/depots/depot-nowhere",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": {
+        "code": "NOT_FOUND"
+      }
+    }
+  }
+}

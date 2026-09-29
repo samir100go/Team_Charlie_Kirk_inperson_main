@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "station",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a74.6",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)"
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/stations/station-mirpur",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "json": {
+      "id": "station-mirpur",
+      "name": "Mirpur Fuel Station",
+      "region_id": "region-dhaka",
+      "status": "OPEN",
+      "demand_profile": "urban_high",
+      "demand_multiplier": 1.0,
+      "capacity": {
+        "DIESEL": 15000,
+        "PETROL": 14000,
+        "OCTANE": 9000
+      },
+      "inventory": {
+        "DIESEL": 9000,
+        "PETROL": 9000,
+        "OCTANE": 5000
+      }
+    }
+  }
+}

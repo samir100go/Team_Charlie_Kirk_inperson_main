@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "station",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a74.5 (same 404 rule as depots)",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)",
+    "envelope": "detail_object",
+    "inferred": [
+      "whole response: guide states it for depots only"
+    ]
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/stations/station-nowhere",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": {
+        "code": "NOT_FOUND"
+      }
+    }
+  }
+}

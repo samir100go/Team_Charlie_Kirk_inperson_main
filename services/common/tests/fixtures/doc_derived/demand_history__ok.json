@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "demand_history",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a74.11",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)"
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/demand-history",
+    "params": {
+      "station_id": "station-mirpur",
+      "limit": 200
+    },
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": 100,
+        "station_id": "station-mirpur",
+        "fuel_type": "DIESEL",
+        "tick": 12,
+        "sim_time": "2026-01-01T03:00:00+00:00",
+        "demand_liters": 95.123,
+        "served_liters": 95.123,
+        "unmet_liters": 0.0
+      }
+    ]
+  }
+}

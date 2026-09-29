@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "supply_arrivals",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a74.8",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)",
+    "note": "real list has 22 arrivals (\u00a78.7); only one example is documented"
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/supply-arrivals",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": "supply-001",
+        "depot_id": "depot-gazipur",
+        "fuel_type": "DIESEL",
+        "quantity": 18000,
+        "planned_tick": 12,
+        "actual_tick": null,
+        "status": "SCHEDULED"
+      }
+    ]
+  }
+}

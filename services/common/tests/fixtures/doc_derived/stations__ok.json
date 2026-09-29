@@ -1,0 +1,100 @@
+{
+  "_meta": {
+    "source": "doc-derived",
+    "endpoint": "stations",
+    "doc": "BUP_Fuel_Supply_Simulator_Integration_Guide_Final.pdf",
+    "doc_ref": "\u00a74.6 example + \u00a78.3 table",
+    "replace_with": "make sim-probe (writes the recorded fixture with the same name)",
+    "inferred": [
+      "station-tongi.name",
+      "station-karnaphuli.name",
+      "station-coxsbazar.name"
+    ]
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/stations",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": "station-mirpur",
+        "name": "Mirpur Fuel Station",
+        "region_id": "region-dhaka",
+        "status": "OPEN",
+        "demand_profile": "urban_high",
+        "demand_multiplier": 1.0,
+        "capacity": {
+          "DIESEL": 15000,
+          "PETROL": 14000,
+          "OCTANE": 9000
+        },
+        "inventory": {
+          "DIESEL": 9000,
+          "PETROL": 9000,
+          "OCTANE": 5000
+        }
+      },
+      {
+        "id": "station-tongi",
+        "name": "Tongi Fuel Station",
+        "region_id": "region-dhaka",
+        "status": "OPEN",
+        "demand_profile": "industrial",
+        "demand_multiplier": 1.0,
+        "capacity": {
+          "DIESEL": 18000,
+          "PETROL": 9000,
+          "OCTANE": 6000
+        },
+        "inventory": {
+          "DIESEL": 11000,
+          "PETROL": 6000,
+          "OCTANE": 3500
+        }
+      },
+      {
+        "id": "station-karnaphuli",
+        "name": "Karnaphuli Fuel Station",
+        "region_id": "region-chattogram",
+        "status": "OPEN",
+        "demand_profile": "highway",
+        "demand_multiplier": 1.0,
+        "capacity": {
+          "DIESEL": 14000,
+          "PETROL": 15000,
+          "OCTANE": 9000
+        },
+        "inventory": {
+          "DIESEL": 8500,
+          "PETROL": 9500,
+          "OCTANE": 5200
+        }
+      },
+      {
+        "id": "station-coxsbazar",
+        "name": "Coxsbazar Fuel Station",
+        "region_id": "region-chattogram",
+        "status": "OPEN",
+        "demand_profile": "regional",
+        "demand_multiplier": 1.0,
+        "capacity": {
+          "DIESEL": 12000,
+          "PETROL": 12000,
+          "OCTANE": 7000
+        },
+        "inventory": {
+          "DIESEL": 7500,
+          "PETROL": 7500,
+          "OCTANE": 4200
+        }
+      }
+    ]
+  }
+}

@@ -54,4 +54,6 @@ Person 2 has stopped work. **Person 1 owns everything from here, including every
 - **CI** needs no secrets; it only uses the built-in `GITHUB_TOKEN` (GHA cache, gitleaks download).
 
 ## Done
+- [x] (P2→P1) mypy on test files: `UNREACHABLE` typed as `dict[str, Any]`; `--exclude /tests/` removed from `.pre-commit-config.yaml` and `ci.yml`. `mypy services scripts` is clean (39 files). — 2026-09-29
+- [x] (P1) Phase 1 verified with `make up` (all containers healthy, observability wired). New: `.env.example` + `make .env`, full Makefile, `docker-compose.override.demo.yml` (`make demo`). Compose fixes: `tempo-init` on busybox, Tempo not published on the host (Windows reserves 3188-3287), core-api host port via `CORE_API_PORT` (default 8080). Windows clone line endings renormalized per the handover. — 2026-09-29
 - [x] (P1→P2) 1.7 CI and 1.8 pre-commit are yours; compose, Makefile and CI become fully yours once Phase 1 verifies. — 2026-09-29 → 1.8 done. 1.7 written and merged but not yet green on GitHub (see Person 2 handover). Compose, Makefile and `.env.example` were never handed over, so they stay with P1.

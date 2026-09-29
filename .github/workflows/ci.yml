@@ -39,7 +39,7 @@ jobs:
       - name: ruff format
         run: uv run --frozen ruff format --check .
       - name: mypy --strict
-        run: uv run --frozen mypy services scripts --exclude /tests/
+        run: uv run --frozen mypy services scripts
       - name: pytest
         run: uv run --frozen pytest
 

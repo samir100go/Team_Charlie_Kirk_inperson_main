@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -7,7 +9,7 @@ from ingestor.config import IngestorSettings
 from ingestor.main import create
 from jalani_common.config import ConfigError
 
-UNREACHABLE = dict(
+UNREACHABLE: dict[str, Any] = dict(
     simulator_url="http://127.0.0.1:9", database_url="postgresql://x@127.0.0.1:9/x",
     redis_url="redis://127.0.0.1:9/0", readiness_timeout_s=0.5,
 )  # fmt: skip

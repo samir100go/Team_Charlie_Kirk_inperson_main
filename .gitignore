@@ -89,3 +89,11 @@ coverage/
 htmlcov/
 .coverage
 .coverage.*
+
+# Playwright MCP scratch output
+.playwright-mcp/
+
+# Model artifacts (metadata files are whitelisted where needed)
+services/intelligence/models/*
+!services/intelligence/models/.gitkeep
+!services/intelligence/models/registry.json

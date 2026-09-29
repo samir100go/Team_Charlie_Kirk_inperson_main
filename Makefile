@@ -16,7 +16,8 @@ export BUILD_TIME ?= $(shell date -u +%Y-%m-%dT%H:%M:%SZ)
 LITE_SERVICES := simulator postgres redis ingestor intelligence core-api web
 
 .PHONY: help up up-lite down logs ps test lint fmt e2e loadtest demo rollback \
-	sim-reset sim-run sim-pause sim-step sim-up sim-down sim-probe sim-experiments
+	sim-reset sim-run sim-pause sim-step sim-status sim-up sim-down sim-probe sim-experiments \
+	demo-spike demo-fault demo-clear
 
 help: ## List targets
 	@grep -hE '^[a-zA-Z_.-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}'
@@ -82,6 +83,29 @@ sim-pause: ## Stop ticking
 sim-step: ## Advance N ticks deterministically: make sim-step N=4
 	@for i in $$(seq 1 $(or $(N),1)); do curl -fsS -X POST $(SIM_URL)/admin/step >/dev/null || exit 1; done
 	@curl -fsS $(SIM_URL)/v1/instance && echo
+
+sim-status: ## Tick, status, active events and faults (check before a demo)
+	@curl -fsS $(SIM_URL)/v1/instance && echo
+	@echo "events: $$(curl -fsS $(SIM_URL)/v1/events)"
+	@echo "active faults: $$(curl -fsS $(SIM_URL)/admin/faults | grep -o '"type":"[a-z_]*"[^}]*"active":true' || echo none)"
+
+# --- demo helpers (docs/DEMO_SCRIPT.md) -----------------------------------------------------
+MULT ?= 3
+TICKS ?= 48
+RATE ?= 0.9
+FAULT_S ?= 60
+
+demo-spike: ## Dhaka demand spike starting now: make demo-spike MULT=3 TICKS=48
+	@tick=$$(curl -fsS $(SIM_URL)/v1/instance | grep -o '"tick":[0-9]*' | cut -d: -f2); \
+	curl -fsS -X POST $(SIM_URL)/admin/events -H 'content-type: application/json' \
+	  -d "{\"type\":\"demand_spike\",\"start_tick\":$$tick,\"duration_ticks\":$(TICKS),\"parameters\":{\"region_ids\":[\"region-dhaka\"],\"multiplier\":$(MULT)}}" && echo
+
+demo-fault: ## error_rate fault on /v1/*: make demo-fault RATE=0.9 FAULT_S=60
+	@curl -fsS -X POST $(SIM_URL)/admin/faults -H 'content-type: application/json' \
+	  -d '{"type":"error_rate","duration_seconds":$(FAULT_S),"parameters":{"rate":$(RATE)}}' && echo
+
+demo-clear: ## Clear every active fault
+	@curl -fsS -X POST $(SIM_URL)/admin/faults/clear && echo
 
 # --- Phase 0 tooling (standalone simulator) ------------------------------------------------
 

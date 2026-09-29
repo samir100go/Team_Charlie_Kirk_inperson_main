@@ -19,7 +19,7 @@ LITE_SERVICES := simulator postgres redis ingestor intelligence core-api web
 
 .PHONY: help up up-lite down logs ps test lint fmt e2e loadtest demo rollback \
 	sim-reset sim-run sim-pause sim-step sim-status sim-up sim-down sim-probe sim-experiments \
-	demo-spike demo-fault demo-clear
+	demo-spike demo-disrupt demo-outage demo-fault demo-clear
 
 help: ## List targets
 	@grep -hE '^[a-zA-Z_.-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}'
@@ -112,6 +112,19 @@ demo-spike: ## Dhaka demand spike starting now: make demo-spike MULT=3 TICKS=48
 	@tick=$$(curl -fsS $(SIM_URL)/v1/instance | grep -o '"tick":[0-9]*' | cut -d: -f2); \
 	curl -fsS -X POST $(SIM_URL)/admin/events -H 'content-type: application/json' \
 	  -d "{\"type\":\"demand_spike\",\"start_tick\":$$tick,\"duration_ticks\":$(TICKS),\"parameters\":{\"region_ids\":[\"region-dhaka\"],\"multiplier\":$(MULT)}}" && echo
+
+ROUTE ?= route-gazipur-mirpur
+STATION ?= station-karnaphuli
+
+demo-disrupt: ## Regional disruption starting now: make demo-disrupt ROUTE=route-gazipur-mirpur TICKS=16
+	@tick=$$(curl -fsS $(SIM_URL)/v1/instance | grep -o '"tick":[0-9]*' | cut -d: -f2); \
+	curl -fsS -X POST $(SIM_URL)/admin/events -H 'content-type: application/json' \
+	  -d "{\"type\":\"route_disruption\",\"start_tick\":$$tick,\"duration_ticks\":$(TICKS),\"parameters\":{\"route_ids\":[\"$(ROUTE)\"]}}" && echo
+
+demo-outage: ## Station outage starting now: make demo-outage STATION=station-karnaphuli TICKS=16
+	@tick=$$(curl -fsS $(SIM_URL)/v1/instance | grep -o '"tick":[0-9]*' | cut -d: -f2); \
+	curl -fsS -X POST $(SIM_URL)/admin/events -H 'content-type: application/json' \
+	  -d "{\"type\":\"station_outage\",\"start_tick\":$$tick,\"duration_ticks\":$(TICKS),\"parameters\":{\"station_ids\":[\"$(STATION)\"]}}" && echo
 
 demo-fault: ## error_rate fault on /v1/*: make demo-fault RATE=0.9 FAULT_S=60
 	@curl -fsS -X POST $(SIM_URL)/admin/faults -H 'content-type: application/json' \

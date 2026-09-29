@@ -61,6 +61,24 @@ def incoming_schedule(w: dict[str, Any]) -> dict[tuple[str, str], list[tuple[int
     return out
 
 
+def disrupted_at_departure(events: list[dict[str, Any]], tick: int) -> dict[str, int]:
+    """Routes a new allocation must avoid: route_id -> event id.
+
+    An allocation created now departs while the simulator processes `tick`, after events
+    starting at `tick` have activated. A route_disruption covering that tick makes the
+    allocation FAIL at departure, and a FAILED allocation is not refunded (SIMULATOR_NOTES
+    #5), so a route that still reads AVAILABLE can already be unusable.
+    """
+    blocked: dict[str, int] = {}
+    for ev in events:
+        if ev.get("type") != "route_disruption" or ev.get("status") not in {"ACTIVE", "SCHEDULED"}:
+            continue
+        if int(ev["start_tick"]) <= tick <= int(ev["end_tick"]):
+            for route_id in (ev.get("parameters") or {}).get("route_ids") or []:
+                blocked[route_id] = int(ev["id"])
+    return blocked
+
+
 def _arrivals(sched: list[tuple[int, float]], tick: int, n: int) -> list[float]:
     arr = [0.0] * n
     for eta, qty in sched:
@@ -103,6 +121,7 @@ def plan(w: dict[str, Any], predictions: dict[str, Any] | None = None) -> dict[s
     free_now = dict(dispatch_left)
     stock_left = {d["id"]: {f: float(d["inventory"][f]) for f in FUELS} for d in w["depots"]}
     active_events = [e for e in w.get("events", []) if e["status"] in {"ACTIVE", "SCHEDULED"}]
+    blocked = disrupted_at_departure(active_events, tick)
 
     stations_out: list[dict[str, Any]] = []
     candidates: list[dict[str, Any]] = []
@@ -189,7 +208,9 @@ def plan(w: dict[str, Any], predictions: dict[str, Any] | None = None) -> dict[s
             (
                 r
                 for r in w["routes"]
-                if r["destination_station_id"] == st["id"] and r["status"] == "AVAILABLE"
+                if r["destination_station_id"] == st["id"]
+                and r["status"] == "AVAILABLE"
+                and r["id"] not in blocked
             ),
             key=lambda r: r["transit_ticks"],
         )
@@ -391,6 +412,11 @@ def _recommendation(
         targets = (p.get("station_ids") or []) + (p.get("region_ids") or [])
         if ev["type"] in NETWORK_EVENTS or st["id"] in targets or st["region_id"] in targets:
             window = f"ticks {ev['start_tick']}-{ev['end_tick']}"
+            ids = (p.get("route_ids") or []) + (p.get("depot_ids") or [])
+            if ids:
+                window += " on " + ", ".join(ids)
+            if ev["type"] == "route_disruption":
+                window += " (avoided: a shipment departing into it FAILS and loses the fuel)"
             signals.append(
                 {"name": f"event #{ev['id']}", "value": f"{ev['type']} {ev['status']} {window}"}
             )

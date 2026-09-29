@@ -1,0 +1,73 @@
+{
+  "ticks": 120,
+  "spike": {
+    "start": 40,
+    "duration": 40,
+    "multiplier": 3.0,
+    "region": "region-dhaka"
+  },
+  "mape": {
+    "after spike h=1": {
+      "ma8": 0.3912,
+      "model": 0.0472,
+      "model_no_events": 0.0982,
+      "naive": 0.1305,
+      "prior": 0.046
+    },
+    "before spike h=1": {
+      "ma8": 0.1456,
+      "model": 0.0452,
+      "model_no_events": 0.0452,
+      "naive": 0.0825,
+      "prior": 0.0444
+    },
+    "during spike h=1": {
+      "ma8": 0.2463,
+      "model": 0.0462,
+      "model_no_events": 0.0611,
+      "naive": 0.1042,
+      "prior": 0.6667
+    },
+    "other region h=1": {
+      "ma8": 0.1304,
+      "model": 0.0565,
+      "model_no_events": 0.0565,
+      "naive": 0.0889,
+      "prior": 0.056
+    },
+    "after spike h=8": {
+      "ma8": 1.2913,
+      "model": 0.0461,
+      "model_no_events": 0.4506,
+      "naive": 0.7203,
+      "prior": 0.046
+    },
+    "before spike h=8": {
+      "ma8": 0.4077,
+      "model": 0.0434,
+      "model_no_events": 0.0434,
+      "naive": 0.3185,
+      "prior": 0.0431
+    },
+    "during spike h=8": {
+      "ma8": 0.4926,
+      "model": 0.0448,
+      "model_no_events": 0.1664,
+      "naive": 0.4217,
+      "prior": 0.6667
+    },
+    "other region h=8": {
+      "ma8": 0.2643,
+      "model": 0.0567,
+      "model_no_events": 0.0567,
+      "naive": 0.22,
+      "prior": 0.056
+    }
+  },
+  "detection_delay_ticks": {
+    "series_detected": 6,
+    "max": 0,
+    "mean": 0.0
+  },
+  "note": "MAPE = mean |forecast - actual| / actual; noise floor ~ noise/2 (4-6 %)"
+}

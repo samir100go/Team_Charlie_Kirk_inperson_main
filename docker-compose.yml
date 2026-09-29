@@ -143,7 +143,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env (make .env)}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
       AUTOPILOT_ENABLED: ${AUTOPILOT_ENABLED:-true}
-    ports: ["8080:8080"]
+    ports: ["${CORE_API_PORT:-8080}:8080"] # host port overridable if 8080 is taken
     healthcheck:
       <<: *python-healthcheck
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=2)"]
@@ -275,7 +275,7 @@ services:
         limits: { cpus: "0.5", memory: 256M }
 
   tempo-init: # Tempo runs as uid 10001; a fresh named volume is root-owned.
-    image: grafana/tempo:2.10.8
+    image: busybox:1.37.0 # the Tempo image is distroless: no chown
     user: root
     entrypoint: ["chown", "-R", "10001:10001", "/var/tempo"]
     volumes: [tempo-data:/var/tempo]
@@ -289,7 +289,9 @@ services:
     volumes:
       - ./observability/tempo/tempo.yml:/etc/tempo/tempo.yml:ro
       - tempo-data:/var/tempo
-    ports: ["3200:3200"]
+    # Not published on the host: Grafana and Prometheus reach tempo:3200 on the network,
+    # and Windows (Hyper-V) often reserves host ports 3188-3287.
+    expose: ["3200"]
     depends_on:
       tempo-init: { condition: service_completed_successfully }
     # No healthcheck: distroless image. Prometheus scrapes it (up{job="tempo"}).

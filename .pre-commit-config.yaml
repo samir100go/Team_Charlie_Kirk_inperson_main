@@ -38,7 +38,7 @@ repos:
       # Test code is excluded until it type-checks (see docs/HANDOFF.md).
       - id: mypy
         name: mypy --strict (services, scripts)
-        entry: uv run --frozen mypy services scripts --exclude /tests/
+        entry: uv run --frozen mypy services scripts
         language: system
         types: [python]
         pass_filenames: false

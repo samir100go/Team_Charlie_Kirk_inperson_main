@@ -1,0 +1,6 @@
+# Demo overlay (project.md §11.4): a slower world so the audience can follow it.
+#   make demo            (DEMO_SPEED from .env, default 2 ticks/s)
+services:
+  simulator:
+    environment:
+      SIMULATION_SPEED: ${DEMO_SPEED:-2}

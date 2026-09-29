@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Fuel = {
   fuel: string;
@@ -62,14 +62,12 @@ export default function Home() {
   const [apiDown, setApiDown] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
-  const last = useRef<World | null>(null);
 
   const load = useCallback(async () => {
     try {
       const res = await fetch("/api/state", { cache: "no-store" });
       if (!res.ok) throw new Error(String(res.status));
       const data = (await res.json()) as World;
-      last.current = data;
       setWorld(data);
       setApiDown(false);
     } catch {
@@ -107,7 +105,7 @@ export default function Home() {
     }
   }
 
-  const w = world ?? last.current;
+  const w = world; // only replaced on success, so it is always the last good snapshot
   const degraded = apiDown || (w !== null && !w.meta.simulator_available);
 
   return (

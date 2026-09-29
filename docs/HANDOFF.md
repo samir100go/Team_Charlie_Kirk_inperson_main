@@ -1,5 +1,8 @@
 # Progress
 
+**2026-09-29 · Item 8 merged (documentation) — all 8 items done.** README (setup, dependencies, deployment), architecture diagram (docs/architecture.svg), DATA, RESILIENCE (with evidence), OBSERVABILITY, LOADTEST, 14-step DEMO_SCRIPT, REQUIREMENTS_TRACEABILITY.
+Also: disruption-aware routing (avoids routes disrupted at departure), make demo-disrupt/-outage; final gate: 96 tests, web build, `make up` all healthy.
+
 **2026-09-29 · Items 5-6 merged (load test, observability).** k6 on the end-to-end decision API: ~140 decisions/s at the core-api 1-CPU limit, p95 78/275/804 ms at 5/20/50 VUs, 0 errors (docs/LOADTEST.md).
 Grafana: intelligence row (MAPE, confidence, policy, fallbacks, shortage rate, decisions), firing-alerts table, Loki operational log; 9 alert rules, PredictionFallbackActive verified firing → Alertmanager.
 

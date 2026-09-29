@@ -252,8 +252,8 @@ jalani/
 - [x] 0.1 Check MCP servers (`/mcp`). Fix any that need auth. Note which are live in `docs/SIMULATOR_NOTES.md` header.
 - [x] 0.2 Create repo `jalani` (GitHub MCP if connected), add `.gitignore`, `LICENSE`, `README.md` stub, this `project.md`. *(GitHub MCP not connected: using the existing `origin` repo.)*
 - [ ] 0.3 Start the simulator alone with the organizer compose snippet (`SIMULATOR_START_MODE=paused`). `curl localhost:8000/v1/health`.
-- [ ] 0.4 Write `scripts/probe_simulator.py` that calls **every** endpoint and saves responses to `services/common/tests/fixtures/*.json` (these become contract-test fixtures).
-- [ ] 0.5 Deterministic experiments using `/admin/step` (record results in `docs/SIMULATOR_NOTES.md`):
+- [ ] 0.4 Write `scripts/probe_simulator.py` that calls **every** endpoint and saves responses to `services/common/tests/fixtures/*.json` (these become contract-test fixtures). *(Script written + `make sim-probe`; not yet run: waiting on Docker.)*
+- [ ] 0.5 Deterministic experiments using `/admin/step` (record results in `docs/SIMULATOR_NOTES.md`): *(Runner `scripts/sim_experiments.py` + `make sim-experiments` written; not yet run.)*
   - [ ] Step 96 ticks with no allocations; compute per-station daily demand vs documented profile → are hour factors normalized?
   - [ ] Create an allocation, replay same key+body → 200 or 201? Same key, different body → 409?
   - [ ] Allocation that would overflow on arrival (inventory near cap + in-transit) → what happens at arrival?

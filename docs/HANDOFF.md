@@ -1,3 +1,11 @@
+# Progress
+
+**2026-09-29 · Phase 1 done (v0.5.0 + 857ff74).** Stack verified with `make up`; CI green on GitHub; fonts self-hosted.
+Plan switched to solo mode: C0 lean (C0.6 skipped, C0.7 → Phase 10); build order C0 → 2 → 3 (+ first live Command Center) → 4 → 5 → 6 → 7–11.
+Next: waiting for the hours-left number to fix the cut line, then C0 contracts and Phase 2.
+
+---
+
 # Handoff queue
 
 Both agents read this at the start of every session. Format: `- [ ] (FROM→TO) request. Context: why. — HH:MM`. Move items to **Done** when finished.

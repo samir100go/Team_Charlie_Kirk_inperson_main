@@ -249,6 +249,25 @@ def plan(w: dict[str, Any], predictions: dict[str, Any] | None = None) -> dict[s
         "recommendations": recs,
         "waiting": waiting,
         "allocations": w["allocations"][:10],
+        "routes": [
+            {
+                k: r[k]
+                for k in (
+                    "id",
+                    "source_depot_id",
+                    "destination_station_id",
+                    "status",
+                    "transit_ticks",
+                    "max_shipment",
+                )
+            }
+            for r in w["routes"]
+        ],
+        "supply": [
+            {**a, "eta_hours": round((a["planned_tick"] - tick) * tick_h, 2)}
+            for a in sorted(w.get("supply", []), key=lambda a: a["planned_tick"])
+            if a["status"] in {"SCHEDULED", "DELAYED"}
+        ][:8],
     }
 
 

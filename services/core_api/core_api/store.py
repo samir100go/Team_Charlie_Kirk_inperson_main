@@ -90,6 +90,7 @@ class Store:
         self._open: dict[tuple[str, str], dict[str, Any]] = {}  # (source, kind) -> alert
         self._next_id = -1  # local ids until the database assigns real ones
         self._lock = asyncio.Lock()
+        self._schema_ready = False
 
     # -- connection -----------------------------------------------------------------------
     async def connect(self) -> bool:
@@ -102,6 +103,13 @@ class Store:
                 )
             async with self.pool.acquire() as con:
                 await con.execute(SCHEMA)
+                if not self._schema_ready:
+                    # Alerts left open by a previous run describe conditions this instance
+                    # re-evaluates live, so close them instead of showing stale ones.
+                    await con.execute(
+                        "UPDATE system_alerts SET resolved_at = now() WHERE resolved_at IS NULL"
+                    )
+                    self._schema_ready = True
             await self._set_available(True)
             await self.flush()
             await self._load_recent()

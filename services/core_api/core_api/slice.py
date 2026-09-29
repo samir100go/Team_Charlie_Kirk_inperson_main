@@ -262,7 +262,16 @@ class Slice:
             self.world["instance"] = instance
             self.fetched_at, self.last_error = time.time(), None
             return
-        regions, stations, depots, routes, events, metrics, allocations = await asyncio.gather(
+        (
+            regions,
+            stations,
+            depots,
+            routes,
+            events,
+            metrics,
+            allocations,
+            supply,
+        ) = await asyncio.gather(
             self._get("/v1/regions"),
             self._get("/v1/stations"),
             self._get("/v1/depots"),
@@ -270,6 +279,7 @@ class Slice:
             self._get("/v1/events"),
             self._get("/v1/metrics"),
             self._get("/v1/allocations"),
+            self._get("/v1/supply-arrivals"),
         )
         demand = await asyncio.gather(
             *(
@@ -286,6 +296,7 @@ class Slice:
             "events": events,
             "metrics": metrics,
             "allocations": allocations,
+            "supply": supply,
             "demand": {s["id"]: rows for s, rows in zip(stations, demand, strict=True)},
         }
         self._tick = instance["tick"]

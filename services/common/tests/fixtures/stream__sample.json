@@ -1,0 +1,188 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "stream",
+    "recorded_at": "2026-09-29T04:53:55+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "reader_ended": null,
+    "note": "create 2 allocations, cancel 1, step 4 ticks, then /admin/reset"
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/stream",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "cache-control": "no-cache",
+      "content-type": "text/event-stream; charset=utf-8",
+      "transfer-encoding": "chunked"
+    },
+    "raw_lines": [
+      ": connected",
+      "",
+      "event: allocation.status_changed",
+      "data: {\"id\": 1, \"idempotency_key\": \"probe-sse-1\", \"source_depot_id\": \"depot-gazipur\", \"destination_station_id\": \"station-mirpur\", \"route_id\": \"route-gazipur-mirpur\", \"fuel_type\": \"DIESEL\", \"quantity\": 2000.0, \"created_tick\": 0, \"departure_tick\": null, \"expected_arrival_tick\": null, \"actual_arrival_tick\": null, \"status\": \"PENDING\", \"failure_reason\": null}",
+      "",
+      "event: inventory.updated",
+      "data: {\"entity_type\": \"depot\", \"entity_id\": \"depot-gazipur\", \"inventory\": {\"DIESEL\": 58000.0, \"PETROL\": 45000, \"OCTANE\": 26000}}",
+      "",
+      "event: allocation.status_changed",
+      "data: {\"id\": 2, \"idempotency_key\": \"probe-sse-2\", \"source_depot_id\": \"depot-gazipur\", \"destination_station_id\": \"station-tongi\", \"route_id\": \"route-gazipur-tongi\", \"fuel_type\": \"PETROL\", \"quantity\": 1000.0, \"created_tick\": 0, \"departure_tick\": null, \"expected_arrival_tick\": null, \"actual_arrival_tick\": null, \"status\": \"PENDING\", \"failure_reason\": null}",
+      "",
+      "event: inventory.updated",
+      "data: {\"entity_type\": \"depot\", \"entity_id\": \"depot-gazipur\", \"inventory\": {\"DIESEL\": 58000.0, \"PETROL\": 44000.0, \"OCTANE\": 26000}}",
+      "",
+      "event: allocation.status_changed",
+      "data: {\"id\": 2, \"idempotency_key\": \"probe-sse-2\", \"source_depot_id\": \"depot-gazipur\", \"destination_station_id\": \"station-tongi\", \"route_id\": \"route-gazipur-tongi\", \"fuel_type\": \"PETROL\", \"quantity\": 1000.0, \"created_tick\": 0, \"departure_tick\": null, \"expected_arrival_tick\": null, \"actual_arrival_tick\": null, \"status\": \"CANCELLED\", \"failure_reason\": null}",
+      "",
+      "event: inventory.updated",
+      "data: {\"entity_type\": \"depot\", \"entity_id\": \"depot-gazipur\", \"inventory\": {\"DIESEL\": 58000.0, \"PETROL\": 45000.0, \"OCTANE\": 26000}}",
+      "",
+      "event: simulation.tick",
+      "data: {\"tick\": 1, \"sim_time\": \"2026-01-01T00:15:00\"}",
+      "",
+      "event: simulation.tick",
+      "data: {\"tick\": 2, \"sim_time\": \"2026-01-01T00:30:00\"}",
+      "",
+      "event: simulation.tick",
+      "data: {\"tick\": 3, \"sim_time\": \"2026-01-01T00:45:00\"}",
+      "",
+      "event: simulation.tick",
+      "data: {\"tick\": 4, \"sim_time\": \"2026-01-01T01:00:00\"}",
+      "",
+      "event: simulator.notice",
+      "data: {\"message\": \"Simulation reset\"}",
+      ""
+    ],
+    "events": [
+      {
+        "event": "allocation.status_changed",
+        "data": {
+          "id": 1,
+          "idempotency_key": "probe-sse-1",
+          "source_depot_id": "depot-gazipur",
+          "destination_station_id": "station-mirpur",
+          "route_id": "route-gazipur-mirpur",
+          "fuel_type": "DIESEL",
+          "quantity": 2000.0,
+          "created_tick": 0,
+          "departure_tick": null,
+          "expected_arrival_tick": null,
+          "actual_arrival_tick": null,
+          "status": "PENDING",
+          "failure_reason": null
+        }
+      },
+      {
+        "event": "inventory.updated",
+        "data": {
+          "entity_type": "depot",
+          "entity_id": "depot-gazipur",
+          "inventory": {
+            "DIESEL": 58000.0,
+            "PETROL": 45000,
+            "OCTANE": 26000
+          }
+        }
+      },
+      {
+        "event": "allocation.status_changed",
+        "data": {
+          "id": 2,
+          "idempotency_key": "probe-sse-2",
+          "source_depot_id": "depot-gazipur",
+          "destination_station_id": "station-tongi",
+          "route_id": "route-gazipur-tongi",
+          "fuel_type": "PETROL",
+          "quantity": 1000.0,
+          "created_tick": 0,
+          "departure_tick": null,
+          "expected_arrival_tick": null,
+          "actual_arrival_tick": null,
+          "status": "PENDING",
+          "failure_reason": null
+        }
+      },
+      {
+        "event": "inventory.updated",
+        "data": {
+          "entity_type": "depot",
+          "entity_id": "depot-gazipur",
+          "inventory": {
+            "DIESEL": 58000.0,
+            "PETROL": 44000.0,
+            "OCTANE": 26000
+          }
+        }
+      },
+      {
+        "event": "allocation.status_changed",
+        "data": {
+          "id": 2,
+          "idempotency_key": "probe-sse-2",
+          "source_depot_id": "depot-gazipur",
+          "destination_station_id": "station-tongi",
+          "route_id": "route-gazipur-tongi",
+          "fuel_type": "PETROL",
+          "quantity": 1000.0,
+          "created_tick": 0,
+          "departure_tick": null,
+          "expected_arrival_tick": null,
+          "actual_arrival_tick": null,
+          "status": "CANCELLED",
+          "failure_reason": null
+        }
+      },
+      {
+        "event": "inventory.updated",
+        "data": {
+          "entity_type": "depot",
+          "entity_id": "depot-gazipur",
+          "inventory": {
+            "DIESEL": 58000.0,
+            "PETROL": 45000.0,
+            "OCTANE": 26000
+          }
+        }
+      },
+      {
+        "event": "simulation.tick",
+        "data": {
+          "tick": 1,
+          "sim_time": "2026-01-01T00:15:00"
+        }
+      },
+      {
+        "event": "simulation.tick",
+        "data": {
+          "tick": 2,
+          "sim_time": "2026-01-01T00:30:00"
+        }
+      },
+      {
+        "event": "simulation.tick",
+        "data": {
+          "tick": 3,
+          "sim_time": "2026-01-01T00:45:00"
+        }
+      },
+      {
+        "event": "simulation.tick",
+        "data": {
+          "tick": 4,
+          "sim_time": "2026-01-01T01:00:00"
+        }
+      },
+      {
+        "event": "simulator.notice",
+        "data": {
+          "message": "Simulation reset"
+        }
+      }
+    ]
+  }
+}

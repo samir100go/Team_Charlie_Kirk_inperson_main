@@ -1,0 +1,31 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "health",
+    "recorded_at": "2026-09-29T04:53:46+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 1.8,
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/health",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "status": "ok",
+      "database": "ok",
+      "simulation": {
+        "status": "PAUSED",
+        "tick": 0
+      }
+    }
+  }
+}

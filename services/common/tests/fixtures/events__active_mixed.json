@@ -1,0 +1,107 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "events",
+    "recorded_at": "2026-09-29T04:53:49+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 2.6,
+    "note": "stepped 1 tick(s) after injecting with start_tick=current to reach ACTIVE",
+    "sim_tick": 1
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/events",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": 6,
+        "type": "supply_shortfall",
+        "start_tick": 0,
+        "end_tick": 1,
+        "status": "ACTIVE",
+        "parameters": {
+          "depot_ids": [
+            "depot-patiya"
+          ],
+          "fuel_types": [
+            "OCTANE"
+          ],
+          "factor": 0.5
+        }
+      },
+      {
+        "id": 5,
+        "type": "shipment_delay",
+        "start_tick": 0,
+        "end_tick": 1,
+        "status": "ACTIVE",
+        "parameters": {
+          "depot_ids": [
+            "depot-gazipur"
+          ],
+          "fuel_types": [
+            "DIESEL"
+          ],
+          "delay_ticks": 2
+        }
+      },
+      {
+        "id": 4,
+        "type": "demand_spike",
+        "start_tick": 40,
+        "end_tick": 48,
+        "status": "SCHEDULED",
+        "parameters": {
+          "region_ids": [
+            "region-chattogram"
+          ],
+          "multiplier": 1.5
+        }
+      },
+      {
+        "id": 3,
+        "type": "depot_constraint",
+        "start_tick": 0,
+        "end_tick": 4,
+        "status": "ACTIVE",
+        "parameters": {
+          "depot_ids": [
+            "depot-patiya"
+          ]
+        }
+      },
+      {
+        "id": 2,
+        "type": "route_disruption",
+        "start_tick": 0,
+        "end_tick": 4,
+        "status": "ACTIVE",
+        "parameters": {
+          "route_ids": [
+            "route-patiya-karnaphuli"
+          ]
+        }
+      },
+      {
+        "id": 1,
+        "type": "station_outage",
+        "start_tick": 0,
+        "end_tick": 4,
+        "status": "ACTIVE",
+        "parameters": {
+          "station_ids": [
+            "station-coxsbazar"
+          ]
+        }
+      }
+    ]
+  }
+}

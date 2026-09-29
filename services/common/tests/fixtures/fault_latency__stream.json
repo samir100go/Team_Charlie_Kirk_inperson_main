@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "stream",
+    "recorded_at": "2026-09-29T04:53:52+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "reader_ended": null,
+    "note": "GET /v1/stream while latency fault active"
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/stream",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "cache-control": "no-cache",
+      "content-type": "text/event-stream; charset=utf-8",
+      "transfer-encoding": "chunked"
+    }
+  }
+}

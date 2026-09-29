@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "depot",
+    "recorded_at": "2026-09-29T04:53:46+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 2.1,
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/depots/depot-nowhere",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": {
+        "code": "NOT_FOUND"
+      }
+    }
+  }
+}

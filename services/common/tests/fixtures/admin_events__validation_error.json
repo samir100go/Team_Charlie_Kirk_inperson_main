@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_create_event",
+    "recorded_at": "2026-09-29T04:53:49+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 44.6,
+    "note": "duration_ticks=0",
+    "sim_tick": 0
+  },
+  "request": {
+    "method": "POST",
+    "path": "/admin/events",
+    "params": null,
+    "json": {
+      "type": "station_outage",
+      "start_tick": 0,
+      "duration_ticks": 0,
+      "parameters": {
+        "station_ids": [
+          "station-coxsbazar"
+        ]
+      }
+    }
+  },
+  "response": {
+    "status": 422,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "detail": [
+        {
+          "type": "greater_than",
+          "loc": [
+            "body",
+            "duration_ticks"
+          ],
+          "msg": "Input should be greater than 0",
+          "input": 0,
+          "ctx": {
+            "gt": 0
+          }
+        }
+      ]
+    }
+  }
+}

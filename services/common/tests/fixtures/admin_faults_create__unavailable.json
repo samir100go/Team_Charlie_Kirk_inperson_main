@@ -1,0 +1,35 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_create_fault",
+    "recorded_at": "2026-09-29T04:53:52+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 48.7,
+    "sim_tick": null
+  },
+  "request": {
+    "method": "POST",
+    "path": "/admin/faults",
+    "params": null,
+    "json": {
+      "type": "unavailable",
+      "duration_seconds": 60,
+      "parameters": {}
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "id": 2,
+      "type": "unavailable",
+      "start_wall_time": "2026-09-29T04:53:52.565566+00:00",
+      "end_wall_time": "2026-09-29T04:54:52.565566+00:00",
+      "active": true,
+      "parameters": {}
+    }
+  }
+}

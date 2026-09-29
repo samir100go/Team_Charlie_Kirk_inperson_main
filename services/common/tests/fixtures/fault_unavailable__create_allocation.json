@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "create_allocation",
+    "recorded_at": "2026-09-29T04:53:52+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 1.2,
+    "note": "body is a deliberate ROUTE_MISMATCH: 409 = fault did not apply to writes",
+    "sim_tick": null
+  },
+  "request": {
+    "method": "POST",
+    "path": "/v1/allocations",
+    "params": null,
+    "json": {
+      "idempotency_key": "probe-fault-unavailable",
+      "source_depot_id": "depot-gazipur",
+      "destination_station_id": "station-tongi",
+      "route_id": "route-gazipur-mirpur",
+      "fuel_type": "DIESEL",
+      "quantity": 1000
+    }
+  },
+  "response": {
+    "status": 503,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "error": {
+        "code": "FAULT_INJECTED",
+        "message": "Simulator API temporarily unavailable."
+      }
+    }
+  }
+}

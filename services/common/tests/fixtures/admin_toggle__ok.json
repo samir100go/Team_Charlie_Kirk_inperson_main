@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "admin_toggle",
+    "recorded_at": "2026-09-29T04:53:47+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 4.8,
+    "sim_tick": 20
+  },
+  "request": {
+    "method": "POST",
+    "path": "/admin/toggle",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": {
+      "id": 1,
+      "scenario_id": "baseline",
+      "scenario_version": "1.0",
+      "seed": 12345,
+      "sim_time": "2026-01-01T05:00:00",
+      "tick": 20,
+      "tick_minutes": 15,
+      "status": "PAUSED"
+    }
+  }
+}

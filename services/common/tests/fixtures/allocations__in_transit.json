@@ -1,0 +1,70 @@
+{
+  "_meta": {
+    "source": "recorded",
+    "endpoint": "allocations",
+    "recorded_at": "2026-09-29T04:53:48+00:00",
+    "simulator_image": "asifmahmoud414/bup-fuel-supply-simulator:1.0.0",
+    "elapsed_ms": 2.3,
+    "sim_tick": 1
+  },
+  "request": {
+    "method": "GET",
+    "path": "/v1/allocations",
+    "params": null,
+    "json": null
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "server": "uvicorn",
+      "content-type": "application/json"
+    },
+    "json": [
+      {
+        "id": 3,
+        "idempotency_key": "probe-cancel",
+        "source_depot_id": "depot-patiya",
+        "destination_station_id": "station-karnaphuli",
+        "route_id": "route-patiya-karnaphuli",
+        "fuel_type": "PETROL",
+        "quantity": 2000.0,
+        "created_tick": 0,
+        "departure_tick": null,
+        "expected_arrival_tick": null,
+        "actual_arrival_tick": null,
+        "status": "CANCELLED",
+        "failure_reason": null
+      },
+      {
+        "id": 2,
+        "idempotency_key": "probe-dispatch-fill",
+        "source_depot_id": "depot-gazipur",
+        "destination_station_id": "station-tongi",
+        "route_id": "route-gazipur-tongi",
+        "fuel_type": "DIESEL",
+        "quantity": 6500.0,
+        "created_tick": 0,
+        "departure_tick": 0,
+        "expected_arrival_tick": 2,
+        "actual_arrival_tick": null,
+        "status": "IN_TRANSIT",
+        "failure_reason": null
+      },
+      {
+        "id": 1,
+        "idempotency_key": "probe-created",
+        "source_depot_id": "depot-gazipur",
+        "destination_station_id": "station-mirpur",
+        "route_id": "route-gazipur-mirpur",
+        "fuel_type": "DIESEL",
+        "quantity": 3000.0,
+        "created_tick": 0,
+        "departure_tick": 0,
+        "expected_arrival_tick": 2,
+        "actual_arrival_tick": null,
+        "status": "IN_TRANSIT",
+        "failure_reason": null
+      }
+    ]
+  }
+}

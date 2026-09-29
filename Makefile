@@ -3,6 +3,8 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 SIM_URL ?= http://localhost:8000
+# Git Bash on Windows rewrites /paths passed to docker; keep container paths intact.
+export MSYS_NO_PATHCONV := 1
 SIM_COMPOSE := docker compose -f docker-compose.sim.yml
 COMPOSE := docker compose
 PY := uv run --no-project python
@@ -66,8 +68,19 @@ fmt: ## Auto-format Python and web code
 e2e: ## Playwright end-to-end tests (Phase 10)
 	@echo "e2e: no Playwright suite yet (Phase 10)" >&2; exit 1
 
-loadtest: ## k6 load tests against core-api (Phase 9)
-	@echo "loadtest: no k6 scripts yet (Phase 9)" >&2; exit 1
+LOAD_LEVELS ?= 5 20 50
+
+loadtest: ## k6: end-to-end decision API at LOAD_LEVELS concurrency, + resource usage -> docs/LOADTEST.md data
+	@mkdir -p loadtest/results
+	@for v in $(LOAD_LEVELS); do \
+	  echo "== decision API at $$v VUs"; \
+	  ( while true; do docker stats --no-stream --format '{{.Name}},{{.CPUPerc}},{{.MemUsage}}' \
+	      >> loadtest/results/stats-vus$$v.csv; done ) & sampler=$$!; \
+	  $(COMPOSE) --profile loadtest run --rm -e VUS=$$v k6 run -q -o experimental-prometheus-rw \
+	    --summary-export /results/decision-vus$$v.json /scripts/decision.js; \
+	  kill $$sampler 2>/dev/null; wait $$sampler 2>/dev/null || true; \
+	done
+	@$(PY) scripts/loadtest_report.py $(LOAD_LEVELS)
 
 # --- simulator control (admin API; bypasses faults) ----------------------------------------
 

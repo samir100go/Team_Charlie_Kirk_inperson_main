@@ -99,3 +99,6 @@ def test_pending_allocations_use_up_this_ticks_capacity_and_are_not_reshipped() 
                    for r in out["recommendations"])  # fmt: skip
     gazipur = sum(r["quantity"] for r in out["recommendations"] if r["depot_id"] == "depot-gazipur")
     assert gazipur <= 12000 - 6500
+    depot = next(d for d in out["depots"] if d["id"] == "depot-gazipur")
+    assert depot["dispatch_left"] == 12000 - 6500  # only what approvals already claimed
+    assert depot["dispatch_planned"] == gazipur

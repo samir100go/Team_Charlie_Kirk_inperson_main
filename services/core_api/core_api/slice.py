@@ -239,6 +239,7 @@ def plan(w: dict[str, Any]) -> dict[str, Any]:
         d["id"]: max(0.0, float(d["dispatch_capacity_per_tick"]) - dispatched.get(d["id"], 0.0))
         for d in w["depots"]
     }
+    free_now = dict(dispatch_left)  # shown to the operator: not yet claimed by any approval
     stock_left = {d["id"]: {f: float(d["inventory"][f]) for f in FUELS} for d in w["depots"]}
 
     stations_out, candidates = [], []
@@ -350,7 +351,8 @@ def plan(w: dict[str, Any]) -> dict[str, Any]:
                 "status": d["status"],
                 "inventory": d["inventory"],
                 "dispatch_capacity_per_tick": d["dispatch_capacity_per_tick"],
-                "dispatch_left": round(dispatch_left[d["id"]], 1),
+                "dispatch_left": round(free_now[d["id"]], 1),
+                "dispatch_planned": round(free_now[d["id"]] - dispatch_left[d["id"]], 1),
             }
             for d in w["depots"]
         ],

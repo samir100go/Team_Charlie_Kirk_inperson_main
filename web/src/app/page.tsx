@@ -49,6 +49,7 @@ type Depot = {
   name: string;
   dispatch_capacity_per_tick: number;
   dispatch_left: number;
+  dispatch_planned: number;
 };
 type Allocation = {
   id: number;
@@ -188,8 +189,13 @@ export default function Home() {
             {w.depots?.map((d) => (
               <Kpi
                 key={d.id}
-                label={`${d.name} · dispatch left this tick`}
+                label={`${d.name} · dispatch free this tick`}
                 value={`${fmt(d.dispatch_left)} / ${fmt(d.dispatch_capacity_per_tick)} L`}
+                note={
+                  d.dispatch_planned > 0
+                    ? `${fmt(d.dispatch_planned)} L in recommendations below`
+                    : undefined
+                }
               />
             ))}
           </section>
@@ -333,11 +339,12 @@ export default function Home() {
   );
 }
 
-function Kpi({ label, value }: { label: string; value: string }) {
+function Kpi({ label, value, note }: { label: string; value: string; note?: string }) {
   return (
     <div className="rounded border border-zinc-700 bg-zinc-900 px-4 py-3">
       <div className="text-xs uppercase tracking-wide text-zinc-400">{label}</div>
       <div className="text-2xl font-semibold tabular-nums">{value}</div>
+      {note && <div className="text-xs text-zinc-400">{note}</div>}
     </div>
   );
 }

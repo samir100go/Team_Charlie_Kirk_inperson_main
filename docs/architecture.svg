@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 620" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <title>JALANI architecture: simulator → data/backend → intelligence → decision → application → monitoring</title>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .col { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; }
+      .box { fill: #ffffff; stroke: #64748b; stroke-width: 1.3; }
+      .h { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .t { font-size: 12.5px; fill: #0f172a; font-weight: 600; }
+      .s { font-size: 11px; fill: #475569; }
+      .flow { stroke: #475569; stroke-width: 2; fill: none; marker-end: url(#a); }
+      .mon { stroke: #94a3b8; stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; marker-end: url(#a); }
+    </style>
+  </defs>
+  <rect width="1280" height="620" fill="#ffffff"/>
+  <text x="640" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">JALANI · Fuel Supply Intelligence &amp; Resilience Platform</text>
+  <text x="640" y="52" text-anchor="middle" class="s">Observe → Detect → Predict → Decide → Simulate → Act → Monitor → Recover · everything runs with `make up` (docker compose)</text>
+
+  <!-- 1 Simulator -->
+  <rect class="col" x="20" y="75" width="190" height="400" rx="10"/>
+  <text class="h" x="115" y="100" text-anchor="middle">1 · Simulator</text>
+  <rect class="box" x="35" y="115" width="160" height="150" rx="8" fill="#fff7ed"/>
+  <text class="t" x="115" y="138" text-anchor="middle">BUP Fuel Supply</text>
+  <text class="t" x="115" y="155" text-anchor="middle">Simulator (organizer)</text>
+  <text class="s" x="115" y="178" text-anchor="middle">REST /v1/* (read world)</text>
+  <text class="s" x="115" y="194" text-anchor="middle">POST /v1/allocations</text>
+  <text class="s" x="115" y="210" text-anchor="middle">/admin/* events &amp; faults</text>
+  <text class="s" x="115" y="232" text-anchor="middle">SIMULATED ONLY</text>
+  <text class="s" x="115" y="248" text-anchor="middle">never real infrastructure</text>
+
+  <!-- 2 Data / backend -->
+  <rect class="col" x="235" y="75" width="220" height="400" rx="10"/>
+  <text class="h" x="345" y="100" text-anchor="middle">2 · Data &amp; backend</text>
+  <rect class="box" x="250" y="115" width="190" height="130" rx="8" fill="#eff6ff"/>
+  <text class="t" x="345" y="138" text-anchor="middle">core-api · world poller</text>
+  <text class="s" x="345" y="158" text-anchor="middle">poll every 0.5 s, refresh per tick</text>
+  <text class="s" x="345" y="174" text-anchor="middle">timeout + 1 retry per call</text>
+  <text class="s" x="345" y="190" text-anchor="middle">contract validation (reject+alert)</text>
+  <text class="s" x="345" y="206" text-anchor="middle">last-good cache, degraded mode</text>
+  <text class="s" x="345" y="222" text-anchor="middle">GET /api/v1/state, /system/status</text>
+  <rect class="box" x="250" y="265" width="90" height="80" rx="8" fill="#f1f5f9"/>
+  <text class="t" x="295" y="290" text-anchor="middle">Postgres</text>
+  <text class="s" x="295" y="308" text-anchor="middle">decision audit</text>
+  <text class="s" x="295" y="323" text-anchor="middle">system alerts</text>
+  <rect class="box" x="350" y="265" width="90" height="80" rx="8" fill="#f1f5f9"/>
+  <text class="t" x="395" y="290" text-anchor="middle">Redis</text>
+  <text class="s" x="395" y="308" text-anchor="middle">last good</text>
+  <text class="s" x="395" y="323" text-anchor="middle">world cache</text>
+  <text class="s" x="345" y="370" text-anchor="middle">both soft: DB down → audit</text>
+  <text class="s" x="345" y="385" text-anchor="middle">buffered, flushed on recovery</text>
+
+  <!-- 3 Intelligence -->
+  <rect class="col" x="480" y="75" width="220" height="400" rx="10"/>
+  <text class="h" x="590" y="100" text-anchor="middle">3 · Intelligence</text>
+  <rect class="box" x="495" y="115" width="190" height="230" rx="8" fill="#f0fdf4"/>
+  <text class="t" x="590" y="138" text-anchor="middle">intelligence service</text>
+  <text class="s" x="590" y="156" text-anchor="middle">POST /v1/predict (stateless)</text>
+  <text class="s" x="590" y="180" text-anchor="middle">demand forecast P10/P50/P90</text>
+  <text class="s" x="590" y="196" text-anchor="middle">structural prior × online level</text>
+  <text class="s" x="590" y="212" text-anchor="middle">event-aware (known spikes)</text>
+  <text class="s" x="590" y="236" text-anchor="middle">spike / drop detection</text>
+  <text class="s" x="590" y="252" text-anchor="middle">(regime change, z-score)</text>
+  <text class="s" x="590" y="276" text-anchor="middle">stockout probability,</text>
+  <text class="s" x="590" y="292" text-anchor="middle">time to stockout range</text>
+  <text class="s" x="590" y="316" text-anchor="middle">confidence + reasons</text>
+  <text class="s" x="590" y="332" text-anchor="middle">1-tick MAPE ≈ 5 % (noise floor)</text>
+
+  <!-- 4 Decision -->
+  <rect class="col" x="725" y="75" width="220" height="400" rx="10"/>
+  <text class="h" x="835" y="100" text-anchor="middle">4 · Decision</text>
+  <rect class="box" x="740" y="115" width="190" height="150" rx="8" fill="#fefce8"/>
+  <text class="t" x="835" y="138" text-anchor="middle">decision engine (core-api)</text>
+  <text class="s" x="835" y="158" text-anchor="middle">most-urgent-first allocation</text>
+  <text class="s" x="835" y="174" text-anchor="middle">dispatch cap, stock, room,</text>
+  <text class="s" x="835" y="190" text-anchor="middle">route status, disruptions</text>
+  <text class="s" x="835" y="210" text-anchor="middle">why · signals · constraints</text>
+  <text class="s" x="835" y="226" text-anchor="middle">impact before→after · alternatives</text>
+  <text class="s" x="835" y="246" text-anchor="middle">fallback rule if ML is down</text>
+  <rect class="box" x="740" y="280" width="190" height="95" rx="8" fill="#fef2f2"/>
+  <text class="t" x="835" y="302" text-anchor="middle">human approval → executor</text>
+  <text class="s" x="835" y="322" text-anchor="middle">operator login (role)</text>
+  <text class="s" x="835" y="338" text-anchor="middle">review if confidence &lt; 60 %</text>
+  <text class="s" x="835" y="354" text-anchor="middle">idempotent POST /v1/allocations</text>
+
+  <!-- 5 Application -->
+  <rect class="col" x="970" y="75" width="290" height="400" rx="10"/>
+  <text class="h" x="1115" y="100" text-anchor="middle">5 · Application</text>
+  <rect class="box" x="985" y="115" width="260" height="210" rx="8" fill="#f5f3ff"/>
+  <text class="t" x="1115" y="138" text-anchor="middle">Operator console (Next.js, :3000)</text>
+  <text class="s" x="1115" y="160" text-anchor="middle">SIMULATED badge · live network map</text>
+  <text class="s" x="1115" y="176" text-anchor="middle">inventory, regional demand, risk</text>
+  <text class="s" x="1115" y="192" text-anchor="middle">shortage alerts · recommendations</text>
+  <text class="s" x="1115" y="208" text-anchor="middle">expected impact · approve / review</text>
+  <text class="s" x="1115" y="224" text-anchor="middle">incoming supply · disruptions</text>
+  <text class="s" x="1115" y="240" text-anchor="middle">system alerts · decision history</text>
+  <text class="s" x="1115" y="256" text-anchor="middle">system status (service health)</text>
+  <text class="s" x="1115" y="272" text-anchor="middle">resilience panel + admin triggers</text>
+  <text class="s" x="1115" y="298" text-anchor="middle">server-side proxy, httpOnly token</text>
+
+  <!-- flows -->
+  <path class="flow" d="M195,165 L250,165"/>
+  <text class="s" x="222" y="158" text-anchor="middle">read</text>
+  <path class="flow" d="M440,160 L495,160"/>
+  <text class="s" x="467" y="152" text-anchor="middle">world</text>
+  <path class="flow" d="M685,190 L740,190"/>
+  <text class="s" x="712" y="182" text-anchor="middle">risk</text>
+  <path class="flow" d="M930,190 L985,190"/>
+  <text class="s" x="957" y="182" text-anchor="middle">plan</text>
+  <path class="flow" d="M985,300 L930,318"/>
+  <text class="s" x="957" y="325" text-anchor="middle">approve</text>
+  <path class="flow" d="M740,360 C430,475 170,470 140,265"/>
+  <text class="s" x="470" y="466" text-anchor="middle">POST /v1/allocations (idempotency key) → simulated shipment</text>
+  <path class="flow" d="M345,245 L300,265"/>
+  <path class="flow" d="M345,245 L390,265"/>
+
+  <!-- 6 Monitoring -->
+  <rect class="col" x="20" y="500" width="1240" height="105" rx="10" fill="#f1f5f9"/>
+  <text class="h" x="40" y="526">6 · Monitoring</text>
+  <text class="s" x="40" y="548">every service exposes /healthz · /readyz · /metrics · /version, JSON logs</text>
+  <rect class="box" x="560" y="512" width="130" height="80" rx="8"/>
+  <text class="t" x="625" y="537" text-anchor="middle">Prometheus</text>
+  <text class="s" x="625" y="555" text-anchor="middle">metrics, 9 alert</text>
+  <text class="s" x="625" y="570" text-anchor="middle">rules → Alertmanager</text>
+  <rect class="box" x="705" y="512" width="130" height="80" rx="8"/>
+  <text class="t" x="770" y="537" text-anchor="middle">Alloy → Loki</text>
+  <text class="s" x="770" y="555" text-anchor="middle">container logs,</text>
+  <text class="s" x="770" y="570" text-anchor="middle">searchable events</text>
+  <rect class="box" x="850" y="512" width="130" height="80" rx="8"/>
+  <text class="t" x="915" y="537" text-anchor="middle">Grafana (:3001)</text>
+  <text class="s" x="915" y="555" text-anchor="middle">JALANI Overview:</text>
+  <text class="s" x="915" y="570" text-anchor="middle">app · system · intel</text>
+  <rect class="box" x="995" y="512" width="120" height="80" rx="8"/>
+  <text class="t" x="1055" y="537" text-anchor="middle">cAdvisor</text>
+  <text class="s" x="1055" y="555" text-anchor="middle">container CPU,</text>
+  <text class="s" x="1055" y="570" text-anchor="middle">memory</text>
+  <rect class="box" x="1130" y="512" width="115" height="80" rx="8"/>
+  <text class="t" x="1187" y="537" text-anchor="middle">k6</text>
+  <text class="s" x="1187" y="555" text-anchor="middle">load tests →</text>
+  <text class="s" x="1187" y="570" text-anchor="middle">Prometheus</text>
+  <path class="mon" d="M345,475 L345,498"/>
+  <path class="mon" d="M590,475 L590,498"/>
+  <path class="mon" d="M835,475 L835,498"/>
+  <path class="mon" d="M1115,475 L1115,498"/>
+</svg>

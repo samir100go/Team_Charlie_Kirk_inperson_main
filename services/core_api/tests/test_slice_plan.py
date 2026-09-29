@@ -146,3 +146,16 @@ def test_pending_allocations_use_up_this_ticks_capacity_and_are_not_reshipped() 
     depot = next(d for d in out["depots"] if d["id"] == "depot-gazipur")
     assert depot["dispatch_left"] == 12000 - 6500  # only what approvals already claimed
     assert depot["dispatch_planned"] == gazipur
+
+
+def test_route_with_a_disruption_starting_now_is_avoided() -> None:
+    # The event is still SCHEDULED and the route still reads AVAILABLE, but it activates
+    # before departures in the next step: shipping on it would FAIL and lose the fuel.
+    w = _world({"station-mirpur": {"PETROL": 300.0}})
+    w["events"] = [{"id": 7, "type": "route_disruption", "start_tick": 0, "end_tick": 16,
+                    "status": "SCHEDULED",
+                    "parameters": {"route_ids": ["route-gazipur-mirpur"]}}]  # fmt: skip
+    recs = [r for r in plan(w)["recommendations"] if r["station_id"] == "station-mirpur"]
+    assert recs
+    assert all(r["route_id"] != "route-gazipur-mirpur" for r in recs)
+    assert {r["route_id"] for r in recs} == {"route-patiya-mirpur"}  # cross-region backup

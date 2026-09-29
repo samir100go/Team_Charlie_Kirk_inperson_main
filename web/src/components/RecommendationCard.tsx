@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { BorderBeam } from "@/components/ui/border-beam";
 import { fmt, hrs, pct, type Recommendation, type RiskSnapshot } from "@/lib/types";
 
 import { RiskBadge } from "./RiskBadge";
@@ -19,11 +20,13 @@ export function RecommendationCard({
   rec,
   disabled,
   busy,
+  loggedIn,
   onApprove,
 }: {
   rec: Recommendation;
   disabled: boolean;
   busy: boolean;
+  loggedIn: boolean;
   onApprove: (rec: Recommendation, reviewed: boolean) => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -32,9 +35,11 @@ export function RecommendationCard({
 
   return (
     <li
-      className="rounded border border-zinc-700 bg-zinc-900 p-3 text-sm"
+      className="relative overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900 p-3 text-sm"
       data-testid="recommendation"
+      data-tier={before.tier}
     >
+      {before.tier === "CRITICAL" && <BorderBeam duration={4} size={90} />}
       <div className="flex flex-wrap items-center gap-2">
         <span className="font-semibold">
           {rec.station} · {rec.fuel}
@@ -130,10 +135,17 @@ export function RecommendationCard({
         <button
           type="button"
           onClick={() => onApprove(rec, reviewed)}
-          disabled={disabled || busy || (rec.review_required && !reviewed)}
+          disabled={!loggedIn || disabled || busy || (rec.review_required && !reviewed)}
+          title={loggedIn ? undefined : "log in as operator to approve"}
           className="ml-auto rounded bg-teal-600 px-3 py-1 font-semibold text-white hover:bg-teal-500 disabled:opacity-40"
         >
-          {busy ? "Sending…" : rec.review_required ? "Approve after review" : "Approve"}
+          {!loggedIn
+            ? "Log in to approve"
+            : busy
+              ? "Sending…"
+              : rec.review_required
+                ? "Approve after review"
+                : "Approve"}
         </button>
       </div>
     </li>

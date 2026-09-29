@@ -28,6 +28,7 @@ class Projection:
     stockout_prob: float  # P(stockout within the horizon)
     horizon_hours: float
     min_inventory_p50: float
+    unmet_p50: float  # liters of demand the P50 path cannot serve within the horizon
 
     def as_dict(self) -> dict[str, float | None]:
         return {
@@ -37,7 +38,25 @@ class Projection:
             "stockout_prob": round(self.stockout_prob, 4),
             "horizon_hours": self.horizon_hours,
             "min_inventory_p50": round(self.min_inventory_p50, 1),
+            "unmet_p50": round(self.unmet_p50, 1),
         }
+
+
+def _unmet(
+    inventory: float,
+    capacity: float,
+    arrivals: Sequence[float],
+    demand: Sequence[float],
+    active: Sequence[bool],
+) -> float:
+    inv, unmet = inventory, 0.0
+    for arr, dem, on in zip(arrivals, demand, active, strict=True):
+        inv = min(capacity, inv + arr)
+        if on:
+            served = min(inv, dem)
+            unmet += dem - served
+            inv -= served
+    return unmet
 
 
 def _first_empty(
@@ -109,4 +128,5 @@ def project(
         stockout_prob=min(1.0, max(0.0, prob)),
         horizon_hours=round(n * tick_hours, 2),
         min_inventory_p50=low50,
+        unmet_p50=_unmet(inventory, capacity, arr, demand_mean, on),
     )

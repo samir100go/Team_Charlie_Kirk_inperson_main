@@ -1,40 +1,40 @@
-"""Thin demo slice: poll the simulator, keep the last good world in memory, recommend refills.
+"""World cache + decision API: poll the simulator, ask the prediction service, serve the plan.
 
 - Polls /v1/instance every POLL_S; on a new tick (or every FULL_REFRESH_S) refreshes
-  stations, depots, routes, events, metrics, allocations and recent demand-history.
-  Every call: timeout + one retry. If any call fails the whole refresh is dropped and
-  the last good state is kept.
-- `plan()` (pure) is the decision rule: hours to stockout = inventory / recent demand rate.
-  Below RECOMMEND_BELOW_H of cover, refill from the fastest AVAILABLE route. Candidates are
-  served most-urgent first against each depot's remaining dispatch capacity for this tick
-  (dispatch_capacity_per_tick minus PENDING allocations, which were all created this tick),
-  its inventory, and the station's room (capacity - inventory - fuel in flight: the
-  simulator destroys overflow, SIMULATOR_NOTES #3/#4). What doesn't fit waits for next tick.
+  regions, stations, depots, routes, events, metrics, allocations and 12 h of demand-history.
+  Every call: timeout + one retry. If any call fails the whole refresh is dropped and the
+  last good state is kept (brief §11: backend dependency unavailable -> retry, cached state,
+  degraded mode).
+- After each refresh the world goes to the intelligence service (/v1/predict). If it fails
+  or times out, decisions use the fallback rule (brief §11: ML unavailable -> fallback
+  allocation policy) until a prediction for the current tick succeeds again.
+- Low-confidence recommendations need an explicit review on approval (brief §11).
 """
 
 from __future__ import annotations
 
 import asyncio
-import math
-import statistics
 import time
 from collections.abc import AsyncIterator, Callable
 from contextlib import AbstractAsyncContextManager, asynccontextmanager
 from typing import Any
 
 import httpx
+import structlog
 from fastapi import APIRouter, FastAPI, HTTPException
 from prometheus_client import Counter, Gauge
+from pydantic import BaseModel
+
+from core_api.decision import FUELS, incoming_schedule, plan
 
 POLL_S = 0.5
 FULL_REFRESH_S = 2.0  # also catches /admin/reset (tick back to 0) and new allocations
 TIMEOUT = httpx.Timeout(2.0, connect=1.0)
-RATE_WINDOW_TICKS = 8
-RECOMMEND_BELOW_H = 24.0
-CRITICAL_H, HIGH_H = 8.0, 16.0
-MIN_SHIPMENT_L = 500.0
-FUELS = ("DIESEL", "PETROL", "OCTANE")
-IN_FLIGHT = {"PENDING", "IN_TRANSIT"}
+PREDICT_TIMEOUT = httpx.Timeout(2.0, connect=0.5)
+PREDICT_COOLDOWN_S = 3.0  # after a failed predict call, don't hammer a sick service
+HISTORY_TICKS = 48
+
+log = structlog.get_logger()
 
 SIM_CALLS = Counter(
     "jalani_sim_requests_total",
@@ -54,10 +54,29 @@ APPROVALS = Counter(
     "jalani_allocations_submitted_total", "Approved recommendations sent to the simulator.",
     ["result"],
 )  # fmt: skip
+PREDICT_CALLS = Counter(
+    "jalani_predict_requests_total", "Calls to the prediction service by outcome.", ["outcome"]
+)
+POLICY_FORECAST = Gauge(
+    "jalani_decision_policy_forecast", "1 = forecast policy, 0 = fallback rule in use."
+)
+FALLBACK_ACTIVATIONS = Counter(
+    "jalani_fallback_activations_total", "Switches from the forecast policy to the fallback rule."
+)
+SHORTAGE_ALERTS = Counter(
+    "jalani_shortage_alerts_total", "Station x fuel series entering CRITICAL risk.", ["fuel"]
+)
+REVIEW_REQUIRED = Gauge(
+    "jalani_recommendations_review_required", "Recommendations waiting for human review."
+)
 
 
 class SimUnavailable(Exception):
     pass
+
+
+class ApproveBody(BaseModel):
+    reviewed: bool = False  # operator confirms they reviewed a low-confidence recommendation
 
 
 def _endpoint(path: str) -> str:
@@ -65,12 +84,24 @@ def _endpoint(path: str) -> str:
 
 
 class Slice:
-    def __init__(self, simulator_url: str) -> None:
+    def __init__(self, simulator_url: str, intelligence_url: str | None = None) -> None:
         self.client = httpx.AsyncClient(base_url=simulator_url.rstrip("/"), timeout=TIMEOUT)
+        self.intel = (
+            httpx.AsyncClient(base_url=intelligence_url.rstrip("/"), timeout=PREDICT_TIMEOUT)
+            if intelligence_url
+            else None
+        )
         self.world: dict[str, Any] | None = None
         self.fetched_at: float | None = None
         self.last_error: str | None = None
         self.sim_stale = False
+        self.predictions: dict[str, Any] | None = None
+        self.predict_error: str | None = None
+        self.predict_ok_at: float | None = None
+        self.predict_latency_ms: float | None = None
+        self._predict_retry_at = 0.0
+        self._policy = "forecast"
+        self._critical: set[tuple[str, str]] = set()
         self._tick: int | None = None
         self._full_at = 0.0
 
@@ -101,10 +132,15 @@ class Slice:
     # -- polling --------------------------------------------------------------------------
     async def poll_forever(self) -> None:
         while True:
+            was_down = self.last_error is not None
             try:
                 await self.poll_once()
                 SIM_AVAILABLE.set(1)
+                if was_down:
+                    log.info("integration.simulator_recovered", tick=self._tick)
             except (SimUnavailable, httpx.HTTPStatusError) as exc:
+                if not was_down:
+                    log.warning("integration.simulator_failed", error=str(exc))
                 self.last_error = str(exc)
                 SIM_AVAILABLE.set(0)
             if self.fetched_at:
@@ -118,7 +154,8 @@ class Slice:
             self.world["instance"] = instance
             self.fetched_at, self.last_error = time.time(), None
             return
-        stations, depots, routes, events, metrics, allocations = await asyncio.gather(
+        regions, stations, depots, routes, events, metrics, allocations = await asyncio.gather(
+            self._get("/v1/regions"),
             self._get("/v1/stations"),
             self._get("/v1/depots"),
             self._get("/v1/routes"),
@@ -128,12 +165,13 @@ class Slice:
         )
         demand = await asyncio.gather(
             *(
-                self._get("/v1/demand-history", station_id=s["id"], limit=3 * RATE_WINDOW_TICKS)
+                self._get("/v1/demand-history", station_id=s["id"], limit=3 * HISTORY_TICKS)
                 for s in stations
             )
         )
         self.world = {
             "instance": instance,
+            "regions": regions,
             "stations": stations,
             "depots": depots,
             "routes": routes,
@@ -149,7 +187,71 @@ class Slice:
         SERVICE_LEVEL.set(metrics["service_level"])
         UNMET_LITERS.set(metrics["unmet_demand_liters"])
         SERVED_LITERS.set(metrics["served_demand_liters"])
+        await self.refresh_predictions()
 
+    # -- prediction service ---------------------------------------------------------------
+    def predict_request(self) -> dict[str, Any]:
+        assert self.world is not None
+        w = self.world
+        tick = w["instance"]["tick"]
+        incoming = [
+            {"station_id": s, "fuel_type": f, "arrival_tick": eta, "quantity": q}
+            for (s, f), items in incoming_schedule(w).items()
+            for eta, q in items
+        ]
+        return {
+            "tick": tick,
+            "tick_minutes": w["instance"]["tick_minutes"],
+            "sim_time": w["instance"]["sim_time"],
+            "horizon_ticks": 96,
+            "regions": {r["id"]: r["demand_factor"] for r in w["regions"]},
+            "stations": w["stations"],
+            "demand": [row for rows in w["demand"].values() for row in rows],
+            "incoming": incoming,
+            "events": [e for e in w["events"] if e["status"] in {"ACTIVE", "SCHEDULED"}],
+        }
+
+    async def refresh_predictions(self, *, force: bool = False) -> None:
+        if self.intel is None or self.world is None:
+            return
+        if not force and time.time() < self._predict_retry_at:
+            self._set_policy()
+            return
+        started = time.perf_counter()
+        try:
+            resp = await self.intel.post("/v1/predict", json=self.predict_request())
+            resp.raise_for_status()
+            self.predictions = resp.json()
+        except httpx.HTTPError as exc:
+            PREDICT_CALLS.labels("failed").inc()
+            self.predict_error = f"{type(exc).__name__}: {exc}"[:200]
+            self._predict_retry_at = time.time() + PREDICT_COOLDOWN_S
+        else:
+            PREDICT_CALLS.labels("ok").inc()
+            self.predict_error = None
+            self.predict_ok_at = time.time()
+            self.predict_latency_ms = round((time.perf_counter() - started) * 1000, 1)
+        self._set_policy()
+
+    def _predictions_for_now(self) -> dict[str, Any] | None:
+        if self.world is None or self.predictions is None or self.predict_error:
+            return None
+        if self.predictions.get("tick") != self.world["instance"]["tick"]:
+            return None
+        return self.predictions
+
+    def _set_policy(self) -> None:
+        policy = "forecast" if self._predictions_for_now() else "fallback"
+        if policy != self._policy:
+            if policy == "fallback":
+                FALLBACK_ACTIVATIONS.inc()
+                log.warning("fallback.activated", reason=self.predict_error or "stale prediction")
+            else:
+                log.info("fallback.recovered", model=(self.predictions or {}).get("model_version"))
+            self._policy = policy
+        POLICY_FORECAST.set(1 if policy == "forecast" else 0)
+
+    # -- views ----------------------------------------------------------------------------
     def view(self) -> dict[str, Any]:
         now = time.time()
         meta = {
@@ -159,19 +261,48 @@ class Slice:
             "simulator_available": self.last_error is None,
             "error": self.last_error,
             "sim_stale": self.sim_stale,
+            "prediction_service": {
+                "available": self.predict_error is None and self.predict_ok_at is not None,
+                "error": self.predict_error,
+                "latency_ms": self.predict_latency_ms,
+                "age_s": round(now - self.predict_ok_at, 1) if self.predict_ok_at else None,
+            },
         }
         if self.world is None:
             return {"meta": meta, "ready": False}
-        out = plan(self.world)
+        out = plan(self.world, self._predictions_for_now())
+        self._track_shortages(out["stations"])
         RECOMMENDATIONS.labels("approvable").set(len(out["recommendations"]))
         RECOMMENDATIONS.labels("next_tick").set(len(out["waiting"]))
+        REVIEW_REQUIRED.set(sum(1 for r in out["recommendations"] if r["review_required"]))
         return {"meta": meta, "ready": True, **out}
 
-    async def approve(self, rec_id: str) -> dict[str, Any]:
+    def _track_shortages(self, stations: list[dict[str, Any]]) -> None:
+        now_critical = {
+            (s["id"], f["fuel"]) for s in stations for f in s["fuels"] if f["risk"] == "CRITICAL"
+        }
+        for station, fuel in now_critical - self._critical:
+            SHORTAGE_ALERTS.labels(fuel).inc()
+            log.warning("shortage.alert", station=station, fuel=fuel, tick=self._tick)
+        self._critical = now_critical
+
+    async def compute(self) -> dict[str, Any]:
+        """Fresh end-to-end decision: predict for the current world, then plan (load-test path)."""
+        await self.refresh_predictions(force=True)
+        return self.view()
+
+    async def approve(self, rec_id: str, reviewed: bool = False) -> dict[str, Any]:
         rec = next((r for r in self.view().get("recommendations", []) if r["id"] == rec_id), None)
         if rec is None:
             APPROVALS.labels("expired").inc()
             raise HTTPException(404, "recommendation changed or expired; refresh")
+        if rec["review_required"] and not reviewed:
+            APPROVALS.labels("review_required").inc()
+            raise HTTPException(
+                409,
+                {"code": "REVIEW_REQUIRED", "message": "low-confidence prediction: confirm review",
+                 "reasons": rec["review_reasons"]},
+            )  # fmt: skip
         body = {
             "idempotency_key": f"jalani-{rec_id}",
             "source_depot_id": rec["depot_id"],
@@ -184,182 +315,21 @@ class Slice:
             resp = await self._call("POST", "/v1/allocations", json=body)  # key makes retry safe
         except SimUnavailable as exc:
             APPROVALS.labels("unavailable").inc()
+            log.warning("decision.failed", rec_id=rec_id, error=str(exc))
             raise HTTPException(503, f"simulator unavailable: {exc}") from None
         if resp.status_code not in (200, 201):
             APPROVALS.labels("rejected").inc()
+            log.warning("decision.rejected", rec_id=rec_id, status=resp.status_code)
             raise HTTPException(resp.status_code, resp.json().get("detail", resp.text))
         APPROVALS.labels("accepted").inc()
+        allocation = resp.json()
+        log.info(
+            "decision.approved", rec_id=rec_id, allocation_id=allocation["id"],
+            station=rec["station_id"], fuel=rec["fuel"], quantity=rec["quantity"],
+            policy=rec["policy"], confidence=rec["confidence"], reviewed=reviewed,
+        )  # fmt: skip
         self._full_at = 0.0  # refresh now so the allocation (and freed capacity) shows at once
-        return {"allocation": resp.json(), "request": body}
-
-
-# -- decision rule (pure) -------------------------------------------------------------------
-
-
-def demand_rate_per_tick(rows: list[dict[str, Any]], fuel: str) -> float:
-    """Mean demand (L/tick) over the newest RATE_WINDOW_TICKS rows for one fuel.
-
-    demand-history is newest-first with one row per station x fuel x tick, so the first
-    N rows of a fuel are its last N ticks.
-    """
-    recent = [r["demand_liters"] for r in rows if r["fuel_type"] == fuel][:RATE_WINDOW_TICKS]
-    return statistics.fmean(recent) if recent else 0.0
-
-
-def risk_tier(hours: float | None, status: str) -> str:
-    if status != "OPEN":
-        return "OUTAGE"
-    if hours is None:
-        return "NORMAL"
-    if hours < CRITICAL_H:
-        return "CRITICAL"
-    if hours < HIGH_H:
-        return "HIGH"
-    if hours < RECOMMEND_BELOW_H:
-        return "ELEVATED"
-    return "NORMAL"
-
-
-def plan(w: dict[str, Any]) -> dict[str, Any]:
-    tick = w["instance"]["tick"]
-    tick_h = w["instance"]["tick_minutes"] / 60
-    in_flight: dict[tuple[str, str], float] = {}
-    dispatched: dict[str, float] = {}  # PENDING = created this tick = uses this tick's cap
-    shipped_now: set[tuple[str, str]] = set()
-    for a in w["allocations"]:
-        if a["status"] in IN_FLIGHT:
-            key = (a["destination_station_id"], a["fuel_type"])
-            in_flight[key] = in_flight.get(key, 0.0) + a["quantity"]
-        if a["status"] == "PENDING":
-            src = a["source_depot_id"]
-            dispatched[src] = dispatched.get(src, 0.0) + a["quantity"]
-            shipped_now.add((a["destination_station_id"], a["fuel_type"]))
-    depots = {d["id"]: d for d in w["depots"]}
-    dispatch_left = {
-        d["id"]: max(0.0, float(d["dispatch_capacity_per_tick"]) - dispatched.get(d["id"], 0.0))
-        for d in w["depots"]
-    }
-    free_now = dict(dispatch_left)  # shown to the operator: not yet claimed by any approval
-    stock_left = {d["id"]: {f: float(d["inventory"][f]) for f in FUELS} for d in w["depots"]}
-
-    stations_out, candidates = [], []
-    for st in w["stations"]:
-        fuels = []
-        for fuel in FUELS:
-            rate_h = demand_rate_per_tick(w["demand"].get(st["id"], []), fuel) / tick_h
-            inv, cap = float(st["inventory"][fuel]), float(st["capacity"][fuel])
-            flight = in_flight.get((st["id"], fuel), 0.0)
-            hours = inv / rate_h if rate_h > 0 else None
-            fuels.append(
-                {
-                    "fuel": fuel,
-                    "inventory": round(inv, 1),
-                    "capacity": cap,
-                    "in_flight": flight,
-                    "demand_lph": round(rate_h, 1),
-                    "hours_to_stockout": None if hours is None else round(hours, 1),
-                    "risk": risk_tier(hours, st["status"]),
-                }
-            )
-            if st["status"] != "OPEN" or rate_h <= 0 or (st["id"], fuel) in shipped_now:
-                continue
-            if (inv + flight) / rate_h >= RECOMMEND_BELOW_H:
-                continue
-            candidates.append((hours or 0.0, st, fuel, inv, cap, flight, rate_h))
-        stations_out.append(
-            {
-                "id": st["id"],
-                "name": st["name"],
-                "status": st["status"],
-                "demand_multiplier": st["demand_multiplier"],
-                "fuels": fuels,
-            }
-        )
-
-    recs, waiting = [], []
-    for hours, st, fuel, inv, cap, flight, rate_h in sorted(candidates, key=lambda c: c[0]):
-        room = cap - inv - flight
-        base = {
-            "station_id": st["id"],
-            "station": st["name"],
-            "fuel": fuel,
-            "hours_to_stockout": round(hours, 1),
-            "demand_lph": round(rate_h, 1),
-        }
-        if room < MIN_SHIPMENT_L:
-            waiting.append({**base, "reason": "tank is full once incoming fuel lands"})
-            continue
-        routes = sorted(
-            (
-                r
-                for r in w["routes"]
-                if r["destination_station_id"] == st["id"] and r["status"] == "AVAILABLE"
-            ),
-            key=lambda r: r["transit_ticks"],
-        )
-        chosen = None
-        for route in routes:
-            src = route["source_depot_id"]
-            qty = math.floor(
-                min(route["max_shipment"], stock_left[src][fuel], dispatch_left[src], room)
-            )
-            if qty >= MIN_SHIPMENT_L:
-                chosen = (route, depots[src], float(qty))
-                break
-        if chosen is None:
-            why = (
-                "no open route to this station"
-                if not routes
-                else "dispatch capacity this tick is taken by more urgent stations "
-                + "(or depot stock is out)"
-            )
-            waiting.append({**base, "reason": why})
-            continue
-        route, depot, qty = chosen
-        dispatch_left[depot["id"]] -= qty
-        stock_left[depot["id"]][fuel] -= qty
-        cover_after = (inv + flight + qty) / rate_h
-        recs.append(
-            {
-                **base,
-                "id": f"t{tick}-{st['id']}-{fuel}-{depot['id']}-{int(qty)}",
-                "depot_id": depot["id"],
-                "depot": depot["name"],
-                "route_id": route["id"],
-                "transit_ticks": route["transit_ticks"],
-                "quantity": qty,
-                "current_l": round(inv, 1),
-                "incoming_l": flight,
-                "hours_cover_after": round(cover_after, 1),
-                "reason": (
-                    f"{st['name']} {fuel} runs out in ~{hours:.1f} h at {rate_h:.0f} L/h. "
-                    f"Ship {qty:.0f} L from {depot['name']} via {route['id']} "
-                    f"({route['transit_ticks']} ticks): cover = ({inv:.0f} now + {flight:.0f} "
-                    f"incoming + {qty:.0f}) L / {rate_h:.0f} L/h = {cover_after:.1f} h"
-                ),
-            }
-        )
-    return {
-        "instance": w["instance"],
-        "metrics": w["metrics"],
-        "events": [e for e in w.get("events", []) if e["status"] in {"ACTIVE", "SCHEDULED"}],
-        "stations": stations_out,
-        "depots": [
-            {
-                "id": d["id"],
-                "name": d["name"],
-                "status": d["status"],
-                "inventory": d["inventory"],
-                "dispatch_capacity_per_tick": d["dispatch_capacity_per_tick"],
-                "dispatch_left": round(free_now[d["id"]], 1),
-                "dispatch_planned": round(free_now[d["id"]] - dispatch_left[d["id"]], 1),
-            }
-            for d in w["depots"]
-        ],
-        "recommendations": recs,
-        "waiting": waiting,
-        "allocations": w["allocations"][:10],
-    }
+        return {"allocation": allocation, "request": body, "recommendation": rec}
 
 
 def router(state: Slice) -> APIRouter:
@@ -369,9 +339,13 @@ def router(state: Slice) -> APIRouter:
     async def get_state() -> dict[str, Any]:
         return state.view()
 
+    @r.post("/recommendations/compute")
+    async def compute() -> dict[str, Any]:
+        return await state.compute()
+
     @r.post("/recommendations/{rec_id}/approve")
-    async def approve(rec_id: str) -> dict[str, Any]:
-        return await state.approve(rec_id)
+    async def approve(rec_id: str, body: ApproveBody | None = None) -> dict[str, Any]:
+        return await state.approve(rec_id, reviewed=bool(body and body.reviewed))
 
     return r
 
@@ -385,5 +359,10 @@ def lifespan_for(state: Slice) -> Callable[[FastAPI], AbstractAsyncContextManage
         finally:
             task.cancel()
             await state.client.aclose()
+            if state.intel is not None:
+                await state.intel.aclose()
 
     return _lifespan
+
+
+__all__ = ["FUELS", "Slice", "lifespan_for", "router"]

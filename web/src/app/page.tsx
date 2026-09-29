@@ -11,7 +11,13 @@ type Fuel = {
   hours_to_stockout: number | null;
   risk: "CRITICAL" | "HIGH" | "ELEVATED" | "NORMAL" | "OUTAGE";
 };
-type Station = { id: string; name: string; status: string; fuels: Fuel[] };
+type Station = {
+  id: string;
+  name: string;
+  status: string;
+  demand_multiplier: number;
+  fuels: Fuel[];
+};
 type Rec = {
   id: string;
   station: string;
@@ -22,6 +28,27 @@ type Rec = {
   hours_to_stockout: number | null;
   hours_cover_after: number;
   reason: string;
+};
+type Waiting = {
+  station_id: string;
+  station: string;
+  fuel: string;
+  hours_to_stockout: number;
+  reason: string;
+};
+type SimEvent = {
+  id: number;
+  type: string;
+  start_tick: number;
+  end_tick: number;
+  status: string;
+  parameters: Record<string, unknown>;
+};
+type Depot = {
+  id: string;
+  name: string;
+  dispatch_capacity_per_tick: number;
+  dispatch_left: number;
 };
 type Allocation = {
   id: number;
@@ -43,7 +70,10 @@ type World = {
   instance?: { tick: number; sim_time: string; status: string };
   metrics?: { service_level: number; unmet_demand_liters: number; served_demand_liters: number };
   stations?: Station[];
+  depots?: Depot[];
+  events?: SimEvent[];
   recommendations?: Rec[];
+  waiting?: Waiting[];
   allocations?: Allocation[];
 };
 
@@ -148,14 +178,37 @@ export default function Home() {
         <p className="text-zinc-400">Waiting for the first simulator snapshot…</p>
       ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-          <section className="flex gap-4 lg:col-span-2">
+          <section className="flex flex-wrap gap-4 lg:col-span-2">
             <Kpi
               label="Service level"
               value={`${((w.metrics?.service_level ?? 1) * 100).toFixed(1)}%`}
             />
             <Kpi label="Unmet demand" value={`${fmt(w.metrics?.unmet_demand_liters ?? 0)} L`} />
             <Kpi label="Served demand" value={`${fmt(w.metrics?.served_demand_liters ?? 0)} L`} />
+            {w.depots?.map((d) => (
+              <Kpi
+                key={d.id}
+                label={`${d.name} · dispatch left this tick`}
+                value={`${fmt(d.dispatch_left)} / ${fmt(d.dispatch_capacity_per_tick)} L`}
+              />
+            ))}
           </section>
+
+          {(w.events?.length ?? 0) > 0 && (
+            <section
+              className="rounded border border-amber-500/60 bg-amber-950/40 px-4 py-2 text-sm lg:col-span-2"
+              data-testid="events"
+            >
+              <span className="font-semibold text-amber-300">Crisis events: </span>
+              {w.events?.map((e) => (
+                <span key={e.id} className="mr-4">
+                  {e.type} <span className="font-semibold">{e.status}</span> (ticks {e.start_tick}–
+                  {e.end_tick}
+                  {typeof e.parameters.multiplier === "number" && `, ×${e.parameters.multiplier}`})
+                </span>
+              ))}
+            </section>
+          )}
 
           <section>
             <h2 className="mb-2 text-lg font-semibold">Stations · hours to stockout</h2>
@@ -174,6 +227,14 @@ export default function Home() {
                     <td className="pr-2">
                       {s.name}
                       {s.status !== "OPEN" && <span className="ml-1 text-red-400">{s.status}</span>}
+                      {s.demand_multiplier !== 1 && (
+                        <span
+                          className="ml-1 rounded bg-amber-500/20 px-1 text-xs text-amber-300"
+                          title="demand_multiplier set by an active demand_spike event"
+                        >
+                          demand ×{s.demand_multiplier}
+                        </span>
+                      )}
                     </td>
                     {s.fuels.map((f) => (
                       <td
@@ -239,6 +300,28 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+            {(w.waiting?.length ?? 0) > 0 && (
+              <>
+                <h3 className="mb-1 mt-4 text-sm font-semibold text-zinc-400">
+                  Waiting for next tick ({w.waiting?.length})
+                </h3>
+                <ul className="space-y-1 text-sm" data-testid="waiting">
+                  {w.waiting?.map((q) => (
+                    <li
+                      key={`${q.station_id}-${q.fuel}`}
+                      className="flex items-center gap-3 rounded border border-zinc-800 px-3 py-1.5 text-zinc-400"
+                    >
+                      <span>
+                        {q.station} {q.fuel} · runs out in ~{q.hours_to_stockout} h · {q.reason}
+                      </span>
+                      <span className="ml-auto rounded bg-zinc-800 px-2 py-0.5 text-xs">
+                        next tick
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </section>
         </div>
       )}

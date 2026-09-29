@@ -6,6 +6,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from core_api.config import CoreApiSettings
+from core_api.slice import Slice, lifespan_for
+from core_api.slice import router as slice_router
 from jalani_common.config import load_settings
 from jalani_common.service import create_app, http_check, postgres_check, redis_check
 from jalani_common.telemetry import configure_logging
@@ -14,9 +16,11 @@ from jalani_common.telemetry import configure_logging
 def create(settings: CoreApiSettings | None = None) -> FastAPI:
     settings = settings or load_settings(CoreApiSettings)
     configure_logging("core-api", settings.log_level)
+    world = Slice(settings.simulator_url)
     app = create_app(
         service="core-api",
         settings=settings,
+        lifespan=lifespan_for(world),
         checks=[
             postgres_check(settings.database_url),
             redis_check(settings.redis_url),
@@ -36,4 +40,5 @@ def create(settings: CoreApiSettings | None = None) -> FastAPI:
         allow_methods=["GET", "POST", "PATCH", "DELETE"],
         allow_headers=["Authorization", "Content-Type"],
     )
+    app.include_router(slice_router(world))
     return app
